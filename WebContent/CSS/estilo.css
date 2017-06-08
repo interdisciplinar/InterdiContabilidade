@@ -1,0 +1,104 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-color: rgba(224, 224, 224, 0.7);
+	width:90%;
+	margin:auto;
+	min-width:920px;
+	max-width:1500px;
+}
+
+h1 {
+	font-family: Arial;
+	font-size: 30pt;
+	color: rgba(0, 0, 0, 0.7);
+	text-shadow: 3px 3px 3px white;
+	position: absolute;
+	top: 0px;
+	left: 200px;
+	min-width:700px;
+	max-width:1500px;
+}
+
+h6 {
+	font-family: Arial;
+	font-size: 10pt;
+	color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	back: 0px;
+	left: 5%;
+}
+
+form#form {
+/*	
+	text-transform: uppercase;
+*/
+}
+
+table#tabprefinal {
+/*
+	border: 1px solid #606060;
+	border-spacing: 0px;
+*/
+}
+
+table#tabprefinal td {
+/*
+	border :1px solid #606060;
+	padding: 10px;
+*/
+}
+
+table#tabprod td.ce {
+	width: 350px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabprod td.cd {
+	width: 500px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabficha td.ce {
+	width: 600px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabficha td.cd {
+	width: 400px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabprefinal td.ce {
+	width: 400px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabprefinal td.cm {
+	width: 300px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabprefinal td.cd {
+	width: 300px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabuser td.ce {
+	width: 500px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabuser td.cd {
+	width: 500px;
+	font-weight: bold;
+	padding: 3px;
+}

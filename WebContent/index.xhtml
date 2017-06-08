@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pt-br" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Contabilidade</title>
+	<link rel="stylesheet" href="CSS/estilo.css" />
+</h:head>
+
+<h:body>
+	<div id="interface">
+		<header id="cabecalho">
+			<figure>
+				<img src="Imagens/contabilidade.png" />
+			</figure>
+		<h1>SISTEMA DE CÁLCULO DE PREÇO</h1>
+		</header>
+		<p:themeSwitcher value="#{temaBean.tema}" style="position: absolute; right: 10px; top:0px">
+			<f:selectItems value="#{temaBean.temas}"/>
+		</p:themeSwitcher>
+
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:tabView dynamic="true">
+			
+<!--			<p:messages id="me "/> -->
+
+				<!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
+
+				<p:tab title="Produto / Serviço">
+					<table id="tabprod">
+						<tr>
+							<td class="ce"> <h:outputLabel value="Código do Produto: " for="codigo" /> </td>
+							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:inputText id="codigo" value="#{produto.codProduto}" maxlength="10"/> </td>
+							<td class="cd"> <p:inputText id="nome" value="#{produto.nomeProduto}" style="width:500px" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>
+							<td class="cd"> <p:outputLabel value="Tipo: " for="tipo" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:inputNumber id="custo" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign" /> </td>
+							<td class="cd"> <p:selectOneMenu id="tipo" value="#{produto.tipoProduto}" style="width:125px" effect="fold">
+											<p:messages autoUpdate="true" />
+											<f:selectItem itemLabel="Produto" itemValue="Produto" />
+											<f:selectItem itemLabel="Serviço" itemValue="Servico" />
+											</p:selectOneMenu> </td>
+						</tr>
+					</table>
+					<br />
+					<br />
+					<br />
+					<center>
+						<p:commandButton value="Salvar" ajax="false" actionListener="#{produto.buttonAction}" />
+						&nbsp;&nbsp;
+						<p:commandButton value="Alterar" ajax="false" actionListener="#{produto.buttonActionTeste}" />
+						&nbsp;&nbsp;
+						<p:commandButton value="Excluir" action="#{livroBean.apagar}" />
+						<br />
+						<br />
+						<br />
+
+						<h4>Produtos e Serviços Cadastrados</h4>
+						<p:scrollPanel mode="native" style="width:100%; height:200px">
+							<p:dataTable var="cadProduto" value="#{produto.listProdutos}">
+								<p:column headerText="Código" style="width:20%">
+									<h:outputText value="#{cadProduto.codProduto}" />
+								</p:column>
+
+								<p:column headerText="Nome" style="width:50%">
+									<h:outputText value="#{cadProduto.nomeProduto}" />
+								</p:column>
+
+								<p:column headerText="Custo" style="width:15%">
+									<h:outputText value="#{cadProduto.custo}" />
+								</p:column>
+
+								<p:column headerText="Tipo">
+									<h:outputText value="#{cadProduto.servico}" />
+								</p:column>
+							</p:dataTable>
+						</p:scrollPanel>
+					</center>
+				</p:tab>
+
+				<!-- ************************************IMPOSTO************************************************** -->
+
+				<!--
+			<p:tab title="Imposto">
+				<h:panelGrid columns="2" cellpadding="10">
+					<h:outputText value="NÃO SERÁ USADA" />
+				</h:panelGrid>
+			</p:tab>
+-->
+
+				<!-- ************************************FICHA TÉCNICA************************************************** -->
+
+				<p:tab title="Ficha Técnica">
+					<table id="tabficha">
+						<tr>
+							<td class="ce"> <h:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
+							<td class="cd"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:inputText id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px" /> </td>
+							<td class="cd"> <p:inputText id="codProduto" value="BUSCAR NO BANCO" disabled="true" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:outputLabel value="Nome do Produto: " for="nomeProduto" /> </td>
+							<td class="cd"> <h:outputLabel value="Custo do Produto: " for="cusProduto" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:450px" effect="fold" editable="true">
+											<p:messages autoUpdate="true" />
+											<f:selectItem itemLabel="" />
+											<f:selectItems value="#{fichaTecnica.nomeProdutos}" />
+											</p:selectOneMenu> </td>
+							<td class="cd"> <p:inputNumber id="cusProduto" value="999999999.99" disabled="true" symbol="R$ " emptyValue="sign" /> </td>
+						</tr>
+					</table>
+					<br />
+					<br />
+					<center>
+						<p:commandButton value="Incluir" action="#{fichaTecnica.buttonAction}" />
+						&nbsp;&nbsp;
+						<p:commandButton value="Salvar" action="#{fichaTecnica.buttonAction}" />
+						&nbsp;&nbsp;
+						<p:commandButton value="Excluir" action="Alterar" />
+						<br />
+						<br />
+						<br />
+
+						<h4>Produtos Cadastrados na Ficha (DataTable)</h4>
+						<p:scrollPanel mode="native" style="width:100%; height:200px">
+							<p:dataTable var="car" value="#{produto.listProdutos}">
+
+								<p:column headerText="Nome Produto" style="width:50%">
+									<h:outputText value="TESTE" />
+								</p:column>
+
+								<p:column headerText="Código Produto" style="width:25%">
+									<h:outputText value="TESTE" />
+								</p:column>
+
+								<p:column headerText="Custo Produto">
+									<h:outputText value="TESTE" />
+								</p:column>
+							</p:dataTable>
+						</p:scrollPanel>
+					</center>
+				</p:tab>
+
+
+				<!-- ************************************PREÇO FINAL************************************************** -->
+
+				<p:tab title="Preço Final">
+					<table id="tabprefinal">
+						<tr>
+							<td class="ce"> <p:outputLabel value="Nome da Ficha Técnica: " for="fichaTecnica" /> </td>
+							<td class="cd" colspan="2" align="center"> <p:outputLabel value="Enquadramento Fiscal: " for="fiscal" /> </td>
+						</tr>
+						<tr>
+							<td class="ce">
+								<p:selectOneMenu id="fichaTecnica" value="#{fichaTecnica.nomeProduto}" style="width:370px"	effect="fold" editable="true">
+								<p:messages autoUpdate="true" />
+								<f:selectItem itemLabel="" />
+								<f:selectItems value="#{fichaTecnica.nomeProdutos}" />
+								</p:selectOneMenu>
+							</td>
+							<td class="cd" colspan="2" align="center"> 
+								<p:selectOneMenu id="fiscal" value="#{selectFiscal.console}" style="width:165px" effect="fold" editable="true" >
+								<p:messages autoUpdate="true" />
+								<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />
+								<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
+								</p:selectOneMenu>
+							</td>
+						
+						</tr>
+						<tr> <td> <br /> </td> </tr>
+						<tr>
+							<td class="ce"> <h:outputLabel value="Custo: " for="custoFinal" /> </td>
+							<td class="cm"> <h:outputLabel value="Lucro: " for="lucro" /> </td>
+							<td class="cd"> <h:outputLabel value="Preço do Produto: " for="preco" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:inputNumber id="custoFinal" value="999999999.99" symbol="R$ " emptyValue="sign"  disabled="true" /> </td>
+							<td class="cm"> <p:inputNumber id="lucro" value="#{inputNumberView.input7}"	symbol="%" emptyValue="sign" symbolPosition="s" /> </td>
+							<td class="cd"> <p:inputNumber id="preco" value="#{inputNumberView.input7}" symbol="R$ " emptyValue="sign" disabled="true" /></td>
+						</tr>
+					</table>
+					<br />
+					<br />
+					<center>
+						<p:commandButton value="Calcular" action="#{fichaTecnica.buttonAction}" />
+					</center>
+				</p:tab>
+
+				<!-- ************************************USUÁRIO************************************************** -->
+
+				<p:tab title="Usuário" disabled="true">
+					<table id="tabuser">
+						<tr>
+							<td class="ce"> <h:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
+							<td class="cd"> <h:outputLabel value="Login do Usuário: " for="login" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:inputText id="nomeUser" value="" style="width:300px" /> </td>
+							<td class="cd"> <p:inputText id="login" value="" style="width:300px" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <h:outputText value="Senha: " for="senha" /> </td>
+							<td class="cd"> <p:outputLabel value="Perfil do Usuário: " for="console" /> </td>
+						</tr>
+						<tr>
+							<td class="ce"> <p:password id="senha" feedback="true" style="width:300px" /> </td>
+							<td class="cd"> 
+								<p:selectOneMenu id="console" value="#{selectPerfil.console}" style="width:150px" effect="fold">
+								<p:messages autoUpdate="true" />
+								<f:selectItem itemLabel="Usuário" itemValue="Usuario" />
+								<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+								</p:selectOneMenu> </td>
+						</tr>
+					</table>
+					<br />
+					<br />
+					<center>
+						<p:commandButton value="Salvar" />
+						&nbsp;&nbsp;
+						<p:commandButton value="Excluir" />
+					</center>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+		<h6>
+			Criado por: Jean Pierre dos Santos /
+			José Renato de Souza /
+			Marcio Dantas Martinenghi /
+			Vinicius Antônio Cavaco
+			<br />
+			Curso: Sistemas de Informação
+			<br />
+			Fase: 5ª
+		</h6>
+	</div>
+</h:body>
+</html>
