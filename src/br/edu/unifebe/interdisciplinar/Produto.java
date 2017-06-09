@@ -14,6 +14,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.SelectEvent;
+
 import br.edu.unifebe.interdisciplinar.dao.ProdutosDao;
 import br.edu.unifebe.interdisciplinar.model.CadProdutos;
 
@@ -25,6 +27,7 @@ public class Produto{
 	private String tipoProduto;
 	private List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
 	private CadProdutos cadProdutos;
+	private CadProdutos selectedProduto;
 	private ProdutosDao produtosDao;
 
 	public Produto() {
@@ -95,9 +98,22 @@ public class Produto{
         getListaProdutos();
     }
 	
-	public void buttonActionTeste(ActionEvent actionEvent) throws SQLException {
-		
+	public void buttonActionTeste(CadProdutos cadProdutos) throws SQLException {
+		if(cadProdutos != null){
+			nomeProduto = cadProdutos.getNomeProduto();
+		}
+		else{
+			System.out.println("falhou");
+		}
     }
+
+	public CadProdutos getSelectedProduto() {
+		return selectedProduto;
+	}
+
+	public void setSelectedProduto(CadProdutos selectedProduto) {
+		this.selectedProduto = selectedProduto;
+	}
 
 	public void getListaProdutos(){
 		listProdutos.clear();
@@ -106,13 +122,16 @@ public class Produto{
 		
 			for(CadProdutos cp : produtosDao.getListar()){
 				listProdutos.add(cp);
-				System.out.println("teste");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println(e.getErrorCode());
 		}	
 	}
+	
+	public void onRowSelect(SelectEvent event) {
+		setCodProduto(((CadProdutos) event.getObject()).getNomeProduto());
+		System.out.println(nomeProduto);
+    }
 	
 }

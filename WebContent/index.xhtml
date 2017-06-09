@@ -69,6 +69,8 @@
 						<h4>Produtos e Serviços Cadastrados</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
 							<p:dataTable var="cadProduto" value="#{produto.listProdutos}">
+<!-- 							<p:ajax event="rowSelect" listener="#{produto.onRowSelect}" update=":form:msgs"/> -->
+<!-- selectionMode="single" selection="#{produto.selectedProduto}" rowKey="#{cadProduto.codProduto}" update=":form:msgs" -->
 								<p:column headerText="Código" style="width:20%">
 									<h:outputText value="#{cadProduto.codProduto}" />
 								</p:column>
@@ -84,6 +86,11 @@
 								<p:column headerText="Tipo">
 									<h:outputText value="#{cadProduto.servico}" />
 								</p:column>
+								<p:column style="width:32px;text-align: center">
+						             <p:commandButton icon="ui-icon-search" title="View" ajax="false" actionListener="#{produto.buttonActionTeste(cadProduto)}">
+<!-- 						                <f:setPropertyActionListener value="#{cadProduto}" target="#{produto.selectedProduto}" /> -->
+						            </p:commandButton>
+						        </p:column>
 							</p:dataTable>
 						</p:scrollPanel>
 					</center>
