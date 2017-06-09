@@ -27,8 +27,6 @@
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
-			
-<!--			<p:messages id="me "/> -->
 
 				<!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
 
@@ -39,15 +37,15 @@
 							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="codigo" value="#{produto.codProduto}" maxlength="10"/> </td>
-							<td class="cd"> <p:inputText id="nome" value="#{produto.nomeProduto}" style="width:500px" /> </td>
+							<td class="ce"> <p:inputText id="codigo" maxlength="10" value="#{produto.codProduto}" /> </td>
+							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>
 							<td class="cd"> <p:outputLabel value="Tipo: " for="tipo" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputNumber id="custo" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign" /> </td>
+							<td class="ce"> <p:inputNumber id="custo" maxValue="9999999.99" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign" /> </td>
 							<td class="cd"> <p:selectOneMenu id="tipo" value="#{produto.tipoProduto}" style="width:125px" effect="fold">
 											<p:messages autoUpdate="true" />
 											<f:selectItem itemLabel="Produto" itemValue="Produto" />
@@ -110,7 +108,7 @@
 							<td class="cd"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px" /> </td>
+							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px" /> </td>
 							<td class="cd"> <p:inputText id="codProduto" value="BUSCAR NO BANCO" disabled="true" /> </td>
 						</tr>
 						<tr>
@@ -176,7 +174,7 @@
 								</p:selectOneMenu>
 							</td>
 							<td class="cd" colspan="2" align="center"> 
-								<p:selectOneMenu id="fiscal" value="#{selectFiscal.console}" style="width:165px" effect="fold" editable="true" >
+								<p:selectOneMenu id="fiscal" style="width:165px" effect="fold" editable="true" >
 								<p:messages autoUpdate="true" />
 								<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />
 								<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
@@ -192,7 +190,7 @@
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputNumber id="custoFinal" value="999999999.99" symbol="R$ " emptyValue="sign"  disabled="true" /> </td>
-							<td class="cm"> <p:inputNumber id="lucro" value="#{inputNumberView.input7}"	symbol="%" emptyValue="sign" symbolPosition="s" /> </td>
+							<td class="cm"> <p:inputNumber maxValue="100.00" id="lucro" value="#{inputNumberView.input7}"	symbol="%" emptyValue="sign" symbolPosition="s" /> </td>
 							<td class="cd"> <p:inputNumber id="preco" value="#{inputNumberView.input7}" symbol="R$ " emptyValue="sign" disabled="true" /></td>
 						</tr>
 					</table>
@@ -205,22 +203,22 @@
 
 				<!-- ************************************USUÁRIO************************************************** -->
 
-				<p:tab title="Usuário" disabled="true">
+				<p:tab title="Usuário" disabled="false">
 					<table id="tabuser">
 						<tr>
 							<td class="ce"> <h:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
 							<td class="cd"> <h:outputLabel value="Login do Usuário: " for="login" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="nomeUser" value="" style="width:300px" /> </td>
-							<td class="cd"> <p:inputText id="login" value="" style="width:300px" /> </td>
+							<td class="ce"> <p:inputText id="nomeUser" maxlength="70" style="width:300px" /> </td>
+							<td class="cd"> <p:inputText id="login" maxlength="20" style="width:300px" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputText value="Senha: " for="senha" /> </td>
 							<td class="cd"> <p:outputLabel value="Perfil do Usuário: " for="console" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:password id="senha" feedback="true" style="width:300px" /> </td>
+							<td class="ce"> <p:password id="senha" maxlength="20" feedback="true" style="width:300px" /> </td>
 							<td class="cd"> 
 								<p:selectOneMenu id="console" value="#{selectPerfil.console}" style="width:150px" effect="fold">
 								<p:messages autoUpdate="true" />

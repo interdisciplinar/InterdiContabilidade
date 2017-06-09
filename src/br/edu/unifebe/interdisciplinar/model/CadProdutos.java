@@ -8,7 +8,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 public class CadProdutos{
-	private int codProduto;
+	private String codProduto;
 	private String nomeProduto;
 	private int servico;
 	private double custo;
@@ -31,10 +31,10 @@ public class CadProdutos{
 		return listProdutos;
 	}*/
 	
-	public int getCodProduto() {
+	public String getCodProduto() {
 		return codProduto;
 	}
-	public void setCodProduto(int codProduto) {
+	public void setCodProduto(String codProduto) {
 		this.codProduto = codProduto;
 	}
 	public String getNomeProduto() {

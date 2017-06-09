@@ -26,7 +26,6 @@ public class Produto{
 	private List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
 	private CadProdutos cadProdutos;
 	private ProdutosDao produtosDao;
-	private boolean teste = false;
 
 	public Produto() {
 //		CadProdutos cadProdutos = new CadProdutos();
@@ -41,16 +40,8 @@ public class Produto{
 	}
 	
 	@PostConstruct
-	public void init(){		
-		Random r = new Random();
-		for(int i=0;i<=5;i++){
-			cadProdutos = new CadProdutos();
-			cadProdutos.setCodProduto(r.nextInt(30));
-			cadProdutos.setCusto(2.0);
-			cadProdutos.setNomeProduto("teste" + r.nextInt(30) );
-			cadProdutos.setServico(r.nextInt(30));
-			listProdutos.add(cadProdutos);
-		}
+	public void init() {
+		getListaProdutos();
 	}
 	
 	public List<CadProdutos> getListProdutos() {
@@ -92,35 +83,36 @@ public class Produto{
 	public void setTipoProduto(String tipoProduto) {
 		this.tipoProduto = tipoProduto;
 	}
-	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ TESTE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	public boolean isTeste() {
-		return teste;
-	}
-
-	public void setTeste(boolean teste) {
-		this.teste = teste;
-	}
 
 	public void buttonAction(ActionEvent actionEvent) throws SQLException {
-		System.out.println("O teste funcionou");
-        produtosDao = new ProdutosDao();
+		System.out.println(custoProduto);
         cadProdutos = new CadProdutos();
-        cadProdutos.setCodProduto(Integer.parseInt(codProduto));
+        cadProdutos.setCodProduto(codProduto);
         cadProdutos.setNomeProduto(nomeProduto);
         cadProdutos.setCusto(custoProduto);
         cadProdutos.setServico(1);
         produtosDao.setIncluir(cadProdutos);
+        getListaProdutos();
     }
 	
 	public void buttonActionTeste(ActionEvent actionEvent) throws SQLException {
-		if(!teste){
-			teste = true;
-		}
-		else{
-			teste = false;
-		}
+		
     }
 
+	public void getListaProdutos(){
+		listProdutos.clear();
+		try {
+			produtosDao = new ProdutosDao();
+		
+			for(CadProdutos cp : produtosDao.getListar()){
+				listProdutos.add(cp);
+				System.out.println("teste");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.getErrorCode());
+		}	
+	}
 	
 }
