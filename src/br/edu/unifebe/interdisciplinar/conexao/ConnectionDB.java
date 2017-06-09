@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConnectionDB implements ConnectionDBInterface{
-	private String database = "Interdisciplinar"; //nome da base de dados
+	private String database = "intercontabilidade"; //nome da base de dados
 	private ResultSet rs;
 	private Statement s;
 	private Connection conn;
@@ -18,8 +18,7 @@ public class ConnectionDB implements ConnectionDBInterface{
 	
 	public ConnectionDB() {
 	        JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	        
-	        DB_URL = "jdbc:mysql://localhost/interdisciplinartestes?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	        DB_URL = "jdbc:mysql://localhost/intercontabilidade?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	        USER = "root";
 	        PASS = "";
 	        conn = null;
