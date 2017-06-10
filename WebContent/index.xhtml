@@ -23,29 +23,43 @@
 		<p:themeSwitcher value="#{temaBean.tema}" style="position: absolute; right: 10px; top:0px">
 			<f:selectItems value="#{temaBean.temas}"/>
 		</p:themeSwitcher>
-
+		<p:messages id="msg" autoUpdate="true"/>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
 				<!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
-
+				
 				<p:tab title="Produto / Serviço">
+					
 					<table id="tabprod">
 						<tr>
 							<td class="ce"> <h:outputLabel value="Código do Produto: " for="codigo" /> </td>
 							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="codigo" maxlength="10" value="#{produto.codProduto}" /> </td>
-							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" /> </td>
+							<td class="ce"> <p:inputText id="codigo" maxlength="10" value="#{produto.codProduto}" 
+											required="true" requiredMessage="Código Produto Obrigatorio">
+											<f:ajax event="blur"/>
+											</p:inputText>
+							 </td>
+							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" 
+											required="true" requiredMessage="Nome Produto Obrigatorio">
+											<f:ajax event="blur"/>
+											</p:inputText>
+							 </td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>
 							<td class="cd"> <p:outputLabel value="Tipo: " for="tipo" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputNumber id="custo" maxValue="9999999.99" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign" /> </td>
+							<td class="ce"> <p:inputNumber id="custo" maxValue="9999999.99" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign"
+											validatorMessage="Custo deve ser maior que zero(0)">
+												<f:validateDoubleRange minimum="0.01"/>
+												<f:ajax event="blur"/>
+											</p:inputNumber>
+							</td>
 							<td class="cd"> <p:selectOneMenu id="tipo" value="#{produto.tipoProduto}" style="width:125px" effect="fold">
 											<p:messages autoUpdate="true" />
 											<f:selectItem itemLabel="Produto" itemValue="Produto" />
@@ -115,7 +129,11 @@
 							<td class="cd"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px" /> </td>
+							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px"
+											required="true" requiredMessage="Nome da Ficha Obrigatorio">
+											<f:ajax event="blur"/>
+											</p:inputText>
+							 </td>
 							<td class="cd"> <p:inputText id="codProduto" value="BUSCAR NO BANCO" disabled="true" /> </td>
 						</tr>
 						<tr>
@@ -123,9 +141,9 @@
 							<td class="cd"> <h:outputLabel value="Custo do Produto: " for="cusProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:450px" effect="fold" editable="true">
+							<td class="ce"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:450px" effect="fold" editable="false">
 											<p:messages autoUpdate="true" />
-											<f:selectItem itemLabel="" />
+<!-- 											<f:selectItem itemLabel="" /> -->
 											<f:selectItems value="#{fichaTecnica.nomeProdutos}" />
 											</p:selectOneMenu> </td>
 							<td class="cd"> <p:inputNumber id="cusProduto" value="999999999.99" disabled="true" symbol="R$ " emptyValue="sign" /> </td>
@@ -174,14 +192,14 @@
 						</tr>
 						<tr>
 							<td class="ce">
-								<p:selectOneMenu id="fichaTecnica" value="#{fichaTecnica.nomeProduto}" style="width:370px"	effect="fold" editable="true">
+								<p:selectOneMenu id="fichaTecnica" value="#{fichaTecnica.nomeProduto}" style="width:370px"	effect="fold" editable="false">
 								<p:messages autoUpdate="true" />
-								<f:selectItem itemLabel="" />
+<!-- 								<f:selectItem itemLabel="" /> -->
 								<f:selectItems value="#{fichaTecnica.nomeProdutos}" />
 								</p:selectOneMenu>
 							</td>
 							<td class="cd" colspan="2" align="center"> 
-								<p:selectOneMenu id="fiscal" style="width:165px" effect="fold" editable="true" >
+								<p:selectOneMenu id="fiscal" style="width:165px" effect="fold" editable="false" >
 								<p:messages autoUpdate="true" />
 								<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />
 								<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
@@ -192,12 +210,18 @@
 						<tr> <td> <br /> </td> </tr>
 						<tr>
 							<td class="ce"> <h:outputLabel value="Custo: " for="custoFinal" /> </td>
-							<td class="cm"> <h:outputLabel value="Lucro: " for="lucro" /> </td>
+							<td class="cm"> <h:outputLabel value="Lucro (%): " for="lucro" /> </td>
 							<td class="cd"> <h:outputLabel value="Preço do Produto: " for="preco" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputNumber id="custoFinal" value="999999999.99" symbol="R$ " emptyValue="sign"  disabled="true" /> </td>
-							<td class="cm"> <p:inputNumber maxValue="100.00" id="lucro" value="#{inputNumberView.input7}"	symbol="%" emptyValue="sign" symbolPosition="s" /> </td>
+							<td class="cm"> <p:inputNumber maxValue="9999.99" value="#{precoFinal.percent}" id="lucro"  symbol="%" emptyValue="0.00" symbolPosition="s"
+											>
+<!-- 												validatorMessage="Custo deve ser maior que zero(0)" -->
+<!-- 												<f:validateDoubleRange minimum="0.01"/> -->
+<!-- 												<f:ajax event="blur"/> -->
+											</p:inputNumber>
+							</td>
 							<td class="cd"> <p:inputNumber id="preco" value="#{inputNumberView.input7}" symbol="R$ " emptyValue="sign" disabled="true" /></td>
 						</tr>
 					</table>
@@ -217,15 +241,27 @@
 							<td class="cd"> <h:outputLabel value="Login do Usuário: " for="login" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="nomeUser" maxlength="70" style="width:300px" /> </td>
-							<td class="cd"> <p:inputText id="login" maxlength="20" style="width:300px" /> </td>
+							<td class="ce"> <p:inputText id="nomeUser" maxlength="70" style="width:300px" 
+											required="true" requiredMessage="Nome Usuário Obrigatorio">
+											<f:ajax event="blur"/>
+											</p:inputText>
+							</td>
+							<td class="cd"> <p:inputText id="login" maxlength="20" style="width:300px" 
+											required="true" requiredMessage="Login do Usuário Obrigatorio">
+											<f:ajax event="blur"/>
+											</p:inputText>
+							</td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputText value="Senha: " for="senha" /> </td>
 							<td class="cd"> <p:outputLabel value="Perfil do Usuário: " for="console" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:password id="senha" maxlength="20" feedback="true" style="width:300px" /> </td>
+							<td class="ce"> <p:password id="senha" maxlength="20" feedback="true" style="width:300px" 
+											required="true" requiredMessage="Senha Obrigatorio">
+											<f:ajax event="blur"/>
+											</p:password>
+							</td>
 							<td class="cd"> 
 								<p:selectOneMenu id="console" value="#{selectPerfil.console}" style="width:150px" effect="fold">
 								<p:messages autoUpdate="true" />
