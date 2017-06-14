@@ -18,8 +18,8 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 	}
 	
 	@Override
-	public void setIncluir(CadFichaTec e) throws SQLException {
-		
+	public boolean setIncluir(CadFichaTec e) throws SQLException {
+		return false;
 	}
 
 	@Override

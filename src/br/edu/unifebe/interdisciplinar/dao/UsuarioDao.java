@@ -16,9 +16,8 @@ public class UsuarioDao implements IDao<CadUsuario>{
 	}
 
 	@Override
-	public void setIncluir(CadUsuario e) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public boolean setIncluir(CadUsuario e) throws SQLException {
+		return false;
 	}
 
 	@Override

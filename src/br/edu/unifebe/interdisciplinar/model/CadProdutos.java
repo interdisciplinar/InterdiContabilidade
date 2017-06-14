@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 public class CadProdutos{
 	private String codProduto;
 	private String nomeProduto;
-	private int servico;
+	private String servico;
 	private double custo;
 	/*private String dataCriacao;
 	private String dataAlteracao;
@@ -43,10 +43,10 @@ public class CadProdutos{
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = nomeProduto;
 	}
-	public int getServico() {
+	public String getServico() {
 		return servico;
 	}
-	public void setServico(int servico) {
+	public void setServico(String servico) {
 		this.servico = servico;
 	}
 	public double getCusto() {

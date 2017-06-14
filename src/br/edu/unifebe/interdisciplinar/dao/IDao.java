@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IDao<E> {
-	void setIncluir(E e) throws SQLException;
+	boolean setIncluir(E e) throws SQLException;
 	void setEditar(E e) throws SQLException;
 	List<E> getListar() throws SQLException;
 	void setExcluir(E e) throws SQLException;

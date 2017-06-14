@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.unifebe.interdisciplinar.Produto;
 import br.edu.unifebe.interdisciplinar.conexao.Conexao;
 import br.edu.unifebe.interdisciplinar.conexao.ConnectionDB;
 import br.edu.unifebe.interdisciplinar.model.CadProdutos;
@@ -22,7 +23,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 
 	@Override
-	public void setIncluir(CadProdutos e) throws SQLException {
+	public boolean setIncluir(CadProdutos e) {
 		String sql;
 			//se for primeira vez, ou seja, datacriação not null
 			sql = "INSERT INTO produtos(`prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`,"
@@ -31,15 +32,23 @@ public class ProdutosDao implements IDao<CadProdutos>{
 			
 //			sql = "INSERT INTO produtos(`prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`,"
 //					+ " `prod_usu_id_criacao`) VALUES (?,?,?,?,NOW(),?);";
-		PreparedStatement  prmt = conexao.prepareStatement(sql);
-		prmt.setString(1, e.getCodProduto());
-		prmt.setString(2, e.getNomeProduto());
-		prmt.setInt(3, e.getServico());
-		prmt.setDouble(4, e.getCusto());
-		prmt.setDate(5, null);
-		prmt.setInt(6, 1); //Verificar metodo para salvar usuario
-		prmt.setString(7, null);
-		prmt.executeUpdate();
+		PreparedStatement prmt;
+		try {
+			prmt = conexao.prepareStatement(sql);
+			prmt.setString(1, e.getCodProduto());
+			prmt.setString(2, e.getNomeProduto());
+			prmt.setInt(3, Produto.getIntProdutoTipo(e.getServico()));
+			prmt.setDouble(4, e.getCusto());
+			prmt.setDate(5, null);
+			prmt.setInt(6, 1); //Verificar metodo para salvar usuario
+			prmt.setString(7, null);
+			prmt.executeUpdate();
+			return true;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return false;
+		}
 		
 	}
 
@@ -65,7 +74,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 					p.setCodProduto(rs.getString("prod_cod"));
 					p.setNomeProduto(rs.getString("prod_nome"));
 					p.setCusto(rs.getDouble("prod_custo"));
-					p.setServico(rs.getInt("prod_servico"));
+					p.setServico(Produto.getStringProdutoTipo(rs.getInt("prod_servico")));
 					listProdutos.add(p);
 				}
 			

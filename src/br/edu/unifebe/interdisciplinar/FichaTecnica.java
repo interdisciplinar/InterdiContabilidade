@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import br.edu.unifebe.interdisciplinar.conexao.ConnectionDB;
@@ -84,5 +86,6 @@ public class FichaTecnica {
 
 	public void buttonAction(ActionEvent actionEvent) throws SQLException {
         System.out.println("teste");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Watch out for PrimeFaces."));
     }
 }

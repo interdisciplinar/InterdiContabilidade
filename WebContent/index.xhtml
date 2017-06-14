@@ -23,14 +23,14 @@
 		<p:themeSwitcher value="#{temaBean.tema}" style="position: absolute; right: 10px; top:0px">
 			<f:selectItems value="#{temaBean.temas}"/>
 		</p:themeSwitcher>
-		<p:messages id="msg" autoUpdate="true"/>
+		<p:messages id="msg" autoUpdate="true" closable="true"/>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
 				<!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
 				
-				<p:tab title="Produto / Serviço">
+				<p:tab title="Produto / Serviço" id="tableProduto">
 					
 					<table id="tabprod">
 						<tr>
@@ -38,32 +38,20 @@
 							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="codigo" maxlength="10" value="#{produto.codProduto}" 
-											required="true" requiredMessage="Código Produto Obrigatorio">
-											<f:ajax event="blur"/>
-											</p:inputText>
-							 </td>
-							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" 
-											required="true" requiredMessage="Nome Produto Obrigatorio">
-											<f:ajax event="blur"/>
-											</p:inputText>
-							 </td>
+							<td class="ce"> <p:inputText id="codigo" maxlength="10" value="#{produto.codProduto}" disabled="#{produto.teste}"/>	</td>
+							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" disabled="#{produto.teste}"/> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>
 							<td class="cd"> <p:outputLabel value="Tipo: " for="tipo" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputNumber id="custo" maxValue="9999999.99" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign"
-											validatorMessage="Custo deve ser maior que zero(0)">
-												<f:validateDoubleRange minimum="0.01"/>
-												<f:ajax event="blur"/>
-											</p:inputNumber>
-							</td>
+							<td class="ce"> <p:inputNumber id="custo" maxValue="9999999.99" value="#{produto.custoProduto}" symbol="R$ " emptyValue="sign"/></td>
 							<td class="cd"> <p:selectOneMenu id="tipo" value="#{produto.tipoProduto}" style="width:125px" effect="fold">
 											<p:messages autoUpdate="true" />
-											<f:selectItem itemLabel="Produto" itemValue="Produto" />
-											<f:selectItem itemLabel="Serviço" itemValue="Servico" />
+											<f:selectItems value="#{produto.tipoProdutos}" />
+											<!-- <f:selectItem itemLabel="Produto" itemValue="Produto" />
+											<f:selectItem itemLabel="Serviço" itemValue="Serviço" /> -->
 											</p:selectOneMenu> </td>
 						</tr>
 					</table>
@@ -71,7 +59,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Salvar" ajax="false" actionListener="#{produto.buttonAction}" />
+						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonAction}" />
 						&nbsp;&nbsp;
 						<p:commandButton value="Alterar" ajax="false" actionListener="#{produto.buttonActionTeste}" />
 						&nbsp;&nbsp;
@@ -97,13 +85,12 @@
 									<h:outputText value="#{cadProduto.custo}" />
 								</p:column>
 
-								<p:column headerText="Tipo">
+								<p:column style="width:65px" headerText="Tipo">
 									<h:outputText value="#{cadProduto.servico}" />
 								</p:column>
-								<p:column style="width:32px;text-align: center">
-						             <p:commandButton icon="ui-icon-search" title="View" ajax="false" actionListener="#{produto.buttonActionTeste(cadProduto)}">
-<!-- 						                <f:setPropertyActionListener value="#{cadProduto}" target="#{produto.selectedProduto}" /> -->
-						            </p:commandButton>
+								<p:column style="width:95px;text-align: center">
+						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{produto.buttonActionTeste(cadProduto)}"/>
+						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" actionListener="#{produto.buttonActionTeste(cadProduto)}"/>
 						        </p:column>
 							</p:dataTable>
 						</p:scrollPanel>
@@ -129,11 +116,7 @@
 							<td class="cd"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px"
-											required="true" requiredMessage="Nome da Ficha Obrigatorio">
-											<f:ajax event="blur"/>
-											</p:inputText>
-							 </td>
+							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px"/> </td>
 							<td class="cd"> <p:inputText id="codProduto" value="BUSCAR NO BANCO" disabled="true" /> </td>
 						</tr>
 						<tr>
@@ -241,16 +224,8 @@
 							<td class="cd"> <h:outputLabel value="Login do Usuário: " for="login" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="nomeUser" maxlength="70" style="width:300px" 
-											required="true" requiredMessage="Nome Usuário Obrigatorio">
-											<f:ajax event="blur"/>
-											</p:inputText>
-							</td>
-							<td class="cd"> <p:inputText id="login" maxlength="20" style="width:300px" 
-											required="true" requiredMessage="Login do Usuário Obrigatorio">
-											<f:ajax event="blur"/>
-											</p:inputText>
-							</td>
+							<td class="ce"> <p:inputText id="nomeUser" maxlength="70" style="width:300px"/>	</td>
+							<td class="cd"> <p:inputText id="login" maxlength="20" style="width:300px"/></td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputText value="Senha: " for="senha" /> </td>

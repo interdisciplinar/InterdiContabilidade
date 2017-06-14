@@ -16,9 +16,8 @@ public class ImpostosDao implements IDao<CadImposto>{
 	}
 
 	@Override
-	public void setIncluir(CadImposto e) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public boolean setIncluir(CadImposto e) throws SQLException {
+		return false;
 	}
 
 	@Override

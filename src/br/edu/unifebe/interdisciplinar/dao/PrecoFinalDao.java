@@ -16,9 +16,8 @@ public class PrecoFinalDao implements IDao<CalcPrecoFinal>{
 	}
 
 	@Override
-	public void setIncluir(CalcPrecoFinal e) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public boolean setIncluir(CalcPrecoFinal e) throws SQLException {
+		return false;
 	}
 
 	@Override
