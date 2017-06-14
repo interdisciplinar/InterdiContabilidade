@@ -35,8 +35,8 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 	}
 
 	@Override
-	public void setExcluir(CadFichaTec e) throws SQLException {
-		// TODO Auto-generated method stub
+	public boolean setExcluir(CadFichaTec e) throws SQLException {
+		return false;
 		
 	}
 

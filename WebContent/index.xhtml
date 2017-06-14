@@ -38,8 +38,8 @@
 							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="codigo" maxlength="10" value="#{produto.codProduto}" disabled="#{produto.teste}"/>	</td>
-							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" disabled="#{produto.teste}"/> </td>
+							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}"/>	</td>
+							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" readonly="#{produto.bloqueiaCampo}"/> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>
@@ -61,9 +61,7 @@
 					<center>
 						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonAction}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="Alterar" ajax="false" actionListener="#{produto.buttonActionTeste}" />
-						&nbsp;&nbsp;
-						<p:commandButton value="Excluir" action="#{livroBean.apagar}" />
+						<p:commandButton value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
 						<br />
 						<br />
 						<br />
@@ -89,8 +87,10 @@
 									<h:outputText value="#{cadProduto.servico}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
-						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{produto.buttonActionTeste(cadProduto)}"/>
-						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" actionListener="#{produto.buttonActionTeste(cadProduto)}"/>
+						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{produto.buttonActionAlterar(cadProduto)}"/>
+						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" actionListener="#{produto.buttonActionExcluir(cadProduto)}">
+						             	<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
+						             </p:commandButton>
 						        </p:column>
 							</p:dataTable>
 						</p:scrollPanel>
@@ -254,6 +254,10 @@
 					</center>
 				</p:tab>
 			</p:tabView>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		    </p:confirmDialog>
 		</h:form>
 		<h6>
 			Criado por: Jean Pierre dos Santos /

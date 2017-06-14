@@ -26,14 +26,15 @@ public class Produto{
 	private String codProduto;
 	private String nomeProduto;
 	private double custoProduto;
-	private String tipoProduto = "Serviço";
+	private String tipoProduto = "Produto";
 	private List<String> tipoProdutos;
 	private List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
 	private CadProdutos cadProdutos;
 	private CadProdutos selectedProduto;
 	private ProdutosDao produtosDao;
 	private String btnName = "Salvar";
-	private boolean teste = false;
+	private String btnName2 = "Limpar";
+	private boolean bloqueiaCampo = false;
 
 	public Produto() {
 //		CadProdutos cadProdutos = new CadProdutos();
@@ -103,46 +104,12 @@ public class Produto{
 		this.tipoProduto = tipoProduto;
 	}
 
-	public void buttonAction(ActionEvent actionEvent) throws SQLException {
-        cadProdutos = new CadProdutos();
-        cadProdutos.setCodProduto(codProduto);
-        cadProdutos.setNomeProduto(nomeProduto);
-        cadProdutos.setCusto(custoProduto);
-        cadProdutos.setServico(tipoProduto);
-        if(produtosDao.setIncluir(cadProdutos)){
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Adicionado!"));
-        	getListaProdutos();
-            codProduto = "";
-            nomeProduto = "";
-            custoProduto = 0;
-            tipoProduto = "Produto";
-        }
-        else{
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
-        }
-    }
-	
-	public void buttonActionTeste(CadProdutos cadProdutos) throws SQLException {
-		if(cadProdutos != null){
-			codProduto = cadProdutos.getCodProduto();
-			nomeProduto = cadProdutos.getNomeProduto();
-			custoProduto = cadProdutos.getCusto();
-			tipoProduto = cadProdutos.getServico();
-			teste = true;
-			
-			btnName = "Incluir";
-		}
-		else{
-			System.out.println("falhou");
-		}
-    }
-
-	public boolean isTeste() {
-		return teste;
+	public boolean isBloqueiaCampo() {
+		return bloqueiaCampo;
 	}
 
-	public void setTeste(boolean teste) {
-		this.teste = teste;
+	public void setBloqueiaCampo(boolean teste) {
+		this.bloqueiaCampo = teste;
 	}
 
 	public String getBtnName() {
@@ -160,6 +127,71 @@ public class Produto{
 	public void setSelectedProduto(CadProdutos selectedProduto) {
 		this.selectedProduto = selectedProduto;
 	}
+	
+	public String getBtnName2() {
+		return btnName2;
+	}
+
+	public void setBtnName2(String btnName2) {
+		this.btnName2 = btnName2;
+	}
+
+	public void buttonAction(ActionEvent actionEvent) throws SQLException {
+        cadProdutos = new CadProdutos();
+        cadProdutos.setCodProduto(codProduto);
+        System.out.println(codProduto);
+        cadProdutos.setNomeProduto(nomeProduto);
+        cadProdutos.setCusto(custoProduto);
+        cadProdutos.setServico(tipoProduto);
+        if(cadProdutos.getServico().equals("Produto")){
+        	System.out.println("certo " );
+        	produtosDao.setEditar(cadProdutos);
+        	getListaProdutos();
+        	refresh();
+        }
+        else{
+        	System.out.println("errado ");
+	        if(produtosDao.setIncluir(cadProdutos)){
+	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Adicionado!"));
+	        	
+	        	getListaProdutos();
+	        	refresh();
+	        }
+	        else{
+	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+	        }
+        }
+    }
+	
+	public void buttonActionAlterar(CadProdutos cadProdutos) throws SQLException {
+		if(cadProdutos != null){
+			System.out.println(cadProdutos.getCodProduto());
+			codProduto = cadProdutos.getCodProduto();
+			nomeProduto = cadProdutos.getNomeProduto();
+			custoProduto = cadProdutos.getCusto();
+			tipoProduto = cadProdutos.getServico();
+			bloqueiaCampo = true;
+			btnName = "Alterar";
+			btnName2 = "Cancelar";
+		}
+		else{
+			System.out.println("falhou");
+		}
+    }
+	
+	public void buttonActionCancelar() throws SQLException {
+		refresh();
+    }
+	
+	public void buttonActionExcluir(CadProdutos cadProdutos) throws SQLException {
+		if(cadProdutos != null){
+			produtosDao.setExcluir(cadProdutos);
+			getListaProdutos();
+		}
+		else{
+			System.out.println("falhou");
+		}
+    }
 
 	public void getListaProdutos(){
 		listProdutos.clear();
@@ -176,7 +208,6 @@ public class Produto{
 	}
 	
 	public static String getStringProdutoTipo(int tipo){
-		
 		if(tipo == 0){
 			return "Produto";
 		}
@@ -184,11 +215,19 @@ public class Produto{
 	}
 	
 	public static int getIntProdutoTipo(String tipo){
-		
 		if(tipo.equals("Produto")){
 			return 0;
 		}
 		return 1;
+	}
+	
+	public void refresh(){
+        codProduto = "";
+        nomeProduto = "";
+        custoProduto = 0;
+        tipoProduto = "Produto";
+    	btnName = "Salvar";
+    	bloqueiaCampo = false;
 	}
 	
 	/*public void onRowSelect(SelectEvent event) {

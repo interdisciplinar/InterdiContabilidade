@@ -33,9 +33,8 @@ public class ImpostosDao implements IDao<CadImposto>{
 	}
 
 	@Override
-	public void setExcluir(CadImposto e) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public boolean setExcluir(CadImposto e) throws SQLException {
+		return false;
 	}
 
 }

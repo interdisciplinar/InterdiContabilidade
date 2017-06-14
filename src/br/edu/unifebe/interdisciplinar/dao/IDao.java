@@ -7,5 +7,5 @@ public interface IDao<E> {
 	boolean setIncluir(E e) throws SQLException;
 	void setEditar(E e) throws SQLException;
 	List<E> getListar() throws SQLException;
-	void setExcluir(E e) throws SQLException;
+	boolean setExcluir(E e) throws SQLException;
 }

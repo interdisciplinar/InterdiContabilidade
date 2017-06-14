@@ -10,7 +10,6 @@ public class CadFichaTec {
 	private double totalCusto;
 	//private int idUsuCriacao;
 	//private int idUsuAlteracao;
-	
 	public int getIdFicha() {
 		return idFicha;
 	}
@@ -29,17 +28,17 @@ public class CadFichaTec {
 	public void setQtdProdutos(int qtdProdutos) {
 		this.qtdProdutos = qtdProdutos;
 	}
-	public String getDtCriação() {
+	public String getDtCriacao() {
 		return dtCriacao;
 	}
-	public void setDtCriação(String dtCriação) {
-		this.dtCriacao = dtCriação;
+	public void setDtCriacao(String dtCriacao) {
+		this.dtCriacao = dtCriacao;
 	}
-	public String getDtAlteração() {
+	public String getDtAlteracao() {
 		return dtAlteracao;
 	}
-	public void setDtAlteração(String dtAlteração) {
-		this.dtAlteracao = dtAlteração;
+	public void setDtAlteracao(String dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
 	}
 	public double getTotalCusto() {
 		return totalCusto;

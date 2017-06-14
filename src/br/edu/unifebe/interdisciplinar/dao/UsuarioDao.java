@@ -33,9 +33,8 @@ public class UsuarioDao implements IDao<CadUsuario>{
 	}
 
 	@Override
-	public void setExcluir(CadUsuario e) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public boolean setExcluir(CadUsuario e) throws SQLException {
+		return false;
 	}
 
 }

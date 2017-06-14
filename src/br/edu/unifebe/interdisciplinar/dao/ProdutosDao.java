@@ -53,8 +53,25 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 
 	@Override
-	public void setEditar(CadProdutos e) throws SQLException {
-		// TODO Auto-generated method stub
+	public void setEditar(CadProdutos e) {
+		String sql = "UPDATE produtos SET `prod_servico`=?,`prod_custo`=?,"
+				+ "`prod_dt_alteracao`=NOW(),`prod_usu_id_alteracao`=? WHERE prod_cod = '" + e.getCodProduto() +"'";
+		PreparedStatement prmt;
+		try {
+			prmt = conexao.prepareStatement(sql);
+			prmt.setInt(1, Produto.getIntProdutoTipo(e.getServico()));
+			prmt.setDouble(2, e.getCusto());
+			prmt.setInt(3, 1);
+			prmt.executeUpdate();
+			System.out.println(e.getCusto());
+			System.out.println(e.getCodProduto());
+			//return true;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println(" not beleza");
+			//return false;
+		}
 	}
 
 	@Override
@@ -82,8 +99,21 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 
 	@Override
-	public void setExcluir(CadProdutos e) throws SQLException {
-		// TODO Auto-generated method stub
+	public boolean setExcluir(CadProdutos e) throws SQLException {
+		String sql;
+		//se for primeira vez, ou seja, datacriação not null
+		sql = "DELETE FROM `produtos` WHERE prod_cod = '" + e.getCodProduto() +"'";
+		
+		PreparedStatement prmt;
+		try {
+			prmt = conexao.prepareStatement(sql);
+			prmt.executeUpdate();
+			return true;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return false;
+		}
 		
 	}
 	
