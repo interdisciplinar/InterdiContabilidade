@@ -1,25 +1,16 @@
 package br.edu.unifebe.interdisciplinar;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-import org.primefaces.event.SelectEvent;
-
 import br.edu.unifebe.interdisciplinar.dao.ProdutosDao;
 import br.edu.unifebe.interdisciplinar.model.CadProdutos;
+import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
 public class Produto{
@@ -32,9 +23,10 @@ public class Produto{
 	private CadProdutos cadProdutos;
 	private CadProdutos selectedProduto;
 	private ProdutosDao produtosDao;
-	private String btnName = "Salvar";
-	private String btnName2 = "Limpar";
+	private String btnName = "Limpar";
 	private boolean bloqueiaCampo = false;
+	private boolean bloqueiaAlterar = true;
+	private ValidaErros validaErros;
 
 	public Produto() {
 //		CadProdutos cadProdutos = new CadProdutos();
@@ -54,6 +46,8 @@ public class Produto{
 		tipoProdutos = new ArrayList<String>();
 		tipoProdutos.add("Produto");
 		tipoProdutos.add("Serviço");
+		cadProdutos = new CadProdutos();
+		System.out.println(cadProdutos.toString() + " olhaaaa");
 	}
 	
 	public List<String> getTipoProdutos() {
@@ -112,14 +106,6 @@ public class Produto{
 		this.bloqueiaCampo = teste;
 	}
 
-	public String getBtnName() {
-		return btnName;
-	}
-
-	public void setBtnName(String btnName) {
-		this.btnName = btnName;
-	}
-
 	public CadProdutos getSelectedProduto() {
 		return selectedProduto;
 	}
@@ -128,32 +114,31 @@ public class Produto{
 		this.selectedProduto = selectedProduto;
 	}
 	
-	public String getBtnName2() {
-		return btnName2;
+	public String getbtnName() {
+		return btnName;
 	}
 
-	public void setBtnName2(String btnName2) {
-		this.btnName2 = btnName2;
+	public void setbtnName(String btnName) {
+		this.btnName = btnName;
 	}
 
-	public void buttonAction(ActionEvent actionEvent) throws SQLException {
-        cadProdutos = new CadProdutos();
+	public boolean isBloqueiaAlterar() {
+		return bloqueiaAlterar;
+	}
+
+	public void setBloqueiaAlterar(boolean bloqueiaAlterar) {
+		this.bloqueiaAlterar = bloqueiaAlterar;
+	}
+
+	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
         cadProdutos.setCodProduto(codProduto);
-        System.out.println(codProduto);
         cadProdutos.setNomeProduto(nomeProduto);
         cadProdutos.setCusto(custoProduto);
         cadProdutos.setServico(tipoProduto);
-        if(cadProdutos.getServico().equals("Produto")){
-        	System.out.println("certo " );
-        	produtosDao.setEditar(cadProdutos);
-        	getListaProdutos();
-        	refresh();
-        }
-        else{
-        	System.out.println("errado ");
+        validaErros = new ValidaErros(codProduto, nomeProduto, custoProduto);
+        if(validaErros.validaProduto()){
 	        if(produtosDao.setIncluir(cadProdutos)){
 	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Adicionado!"));
-	        	
 	        	getListaProdutos();
 	        	refresh();
 	        }
@@ -161,21 +146,40 @@ public class Produto{
 	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
 	        }
         }
+        else{
+        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
+        }
     }
+	
+	public void buttonSalvarAlteracao(ActionEvent actionEvent) throws SQLException {
+        cadProdutos.setCodProduto(codProduto);
+        cadProdutos.setNomeProduto(nomeProduto);
+        cadProdutos.setCusto(custoProduto);
+        cadProdutos.setServico(tipoProduto);
+        validaErros = new ValidaErros(codProduto, nomeProduto, custoProduto);
+        if(validaErros.validaProduto()){
+	    	produtosDao.setEditar(cadProdutos);
+	    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Alterado!"));
+	    	getListaProdutos();
+	    	refresh();
+        }
+        else{
+        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
+        }
+	}
 	
 	public void buttonActionAlterar(CadProdutos cadProdutos) throws SQLException {
 		if(cadProdutos != null){
-			System.out.println(cadProdutos.getCodProduto());
 			codProduto = cadProdutos.getCodProduto();
 			nomeProduto = cadProdutos.getNomeProduto();
 			custoProduto = cadProdutos.getCusto();
 			tipoProduto = cadProdutos.getServico();
 			bloqueiaCampo = true;
-			btnName = "Alterar";
-			btnName2 = "Cancelar";
+	    	bloqueiaAlterar = false;
+			btnName = "Cancelar";
 		}
 		else{
-			System.out.println("falhou");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
 		}
     }
 	
@@ -226,8 +230,8 @@ public class Produto{
         nomeProduto = "";
         custoProduto = 0;
         tipoProduto = "Produto";
-    	btnName = "Salvar";
     	bloqueiaCampo = false;
+    	bloqueiaAlterar = true;
 	}
 	
 	/*public void onRowSelect(SelectEvent event) {

@@ -55,6 +55,4 @@ public class CadProdutos{
 	public void setCusto(double custo) {
 		this.custo = custo;
 	}
-	
-	
 }

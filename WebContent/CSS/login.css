@@ -1,0 +1,71 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	width: 90%;
+	min-width: 200px;
+	max-width: 5000px;
+	position: absolute;
+	background-color: rgba(224, 224, 224, 0.7);
+/*	background-image: url("./../Imagens/logo_unifebe_cinza.png");
+	background-attachment: fixed;
+	background-size: 30%;
+	background-repeat: no-repeat;
+	background-clip: border-box;
+	background-position: 50% 50%;*/
+}
+
+div#logo {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left:-125px;
+}
+
+img#unifebe {
+	width: 100%;
+	height: 100%;
+}
+
+div#telalogin{
+	position: absolute;
+	top: 250px;
+	left: 50%;
+	margin-left:-125px
+}
+
+fieldset.field {
+	width:270px;
+	height:200px;
+	padding: 10px;
+/*	style: width: 50%;*/
+/*	margin: 0px auto;*/
+	border-radius: 20px;
+	box-shadow: black 10px 10px 10px;
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
+table#tablogin td.col {
+	width: 270px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+form#formlogin {
+/*	
+	text-transform: uppercase;
+*/
+}
+
+table#tablogin {
+/*
+	border: 1px solid #606060;
+	border-spacing: 0px;
+*/
+}
+
+table#tablogin td {
+/*
+	border :1px solid #606060;
+	padding: 10px;
+*/
+}

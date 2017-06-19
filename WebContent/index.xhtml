@@ -9,7 +9,7 @@
 
 <h:head>
 	<title>Contabilidade</title>
-	<link rel="stylesheet" href="CSS/estilo.css" />
+	<link rel="stylesheet" href="CSS/index.css" />
 </h:head>
 
 <h:body>
@@ -59,9 +59,11 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonAction}" />
+						<p:commandButton disabled="#{produto.bloqueiaCampo}" value="Salvar" update="@form" actionListener="#{produto.buttonSalvar}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
+						<p:commandButton  value="Alterar" update="@form" actionListener="#{produto.buttonSalvarAlteracao}" />
+						&nbsp;&nbsp;
+						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
 						<br />
 						<br />
 						<br />
@@ -159,6 +161,12 @@
 								<p:column headerText="Custo Produto">
 									<h:outputText value="TESTE" />
 								</p:column>
+								<p:column style="width:95px;text-align: center">
+						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" />
+						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" >
+						             	<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
+						             </p:commandButton>
+						        </p:column>
 							</p:dataTable>
 						</p:scrollPanel>
 					</center>
