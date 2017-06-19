@@ -63,8 +63,6 @@ public class ProdutosDao implements IDao<CadProdutos>{
 			prmt.setDouble(2, e.getCusto());
 			prmt.setInt(3, 1);
 			prmt.executeUpdate();
-			System.out.println(e.getCusto());
-			System.out.println(e.getCodProduto());
 			//return true;
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -78,22 +76,21 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	public List<CadProdutos> getListar() throws SQLException {
 		CadProdutos p;
 		List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
-		String sql = "SELECT * FROM produtos;";
-		System.out.println("siefjseo");
+		String sql = "SELECT * FROM produtos ORDER BY prod_nome;";
 		
-			PreparedStatement  prmt = conexao.prepareStatement(sql);
-			ResultSet rs;
-			
-				rs = prmt.executeQuery();
-					
-				while(rs.next()){
-					p = new CadProdutos();
-					p.setCodProduto(rs.getString("prod_cod"));
-					p.setNomeProduto(rs.getString("prod_nome"));
-					p.setCusto(rs.getDouble("prod_custo"));
-					p.setServico(Produto.getStringProdutoTipo(rs.getInt("prod_servico")));
-					listProdutos.add(p);
-				}
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs;
+		
+			rs = prmt.executeQuery();
+				
+			while(rs.next()){
+				p = new CadProdutos();
+				p.setCodProduto(rs.getString("prod_cod"));
+				p.setNomeProduto(rs.getString("prod_nome"));
+				p.setCusto(rs.getDouble("prod_custo"));
+				p.setServico(Produto.getStringProdutoTipo(rs.getInt("prod_servico")));
+				listProdutos.add(p);
+			}
 			
 		return listProdutos;
 	}
@@ -117,18 +114,38 @@ public class ProdutosDao implements IDao<CadProdutos>{
 		
 	}
 	
-	public boolean getProdutoRegister() throws SQLException{
-		CadProdutos P = new CadProdutos();
-		List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
-		String sql = "SELECT * from produtos LIMIT 1;";
+	public List<String> getNomeProduto() throws SQLException{
+		List<String> listProdutos = new ArrayList<String>();
+		String sql = "SELECT prod_nome from produtos ORDER BY prod_nome;";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs = prmt.executeQuery();
 				
+		while(rs.next()){
+			listProdutos.add(rs.getString("prod_nome"));
+		}
+		return listProdutos;
+	}
+	
+	public String getPrimeiroNomeProduto() throws SQLException{
+		String sql = "SELECT prod_nome from produtos ORDER BY prod_nome LIMIT 1;";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs = prmt.executeQuery();
 		if(rs.next()){
-			return true;
+			String s = rs.getString("prod_nome");
+			return s;
 		}
-		else{
-			return false;
+		return "";
+	}
+	
+	public CadProdutos getProdutoInfo(String nomeProduto) throws SQLException{
+		CadProdutos cp = new CadProdutos();
+		String sql = "SELECT prod_cod, prod_custo from produtos WHERE prod_nome = '"+ nomeProduto + "';";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs = prmt.executeQuery();
+		if(rs.next()){
+			cp.setCodProduto(rs.getString("prod_cod"));	
+			cp.setCusto(rs.getDouble("prod_custo"));
 		}
+		return cp;
 	}
 }

@@ -1,81 +1,87 @@
 package br.edu.unifebe.interdisciplinar;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-import br.edu.unifebe.interdisciplinar.conexao.ConnectionDB;
 import br.edu.unifebe.interdisciplinar.dao.ProdutosDao;
 import br.edu.unifebe.interdisciplinar.model.CadProdutos;
 
 @ManagedBean
 public class FichaTecnica {
-	private Connection conn;
-	private ConnectionDB connDB;
-	private String nomeFichaTecnica;
-	private String idProduto;
+	private String nomeFicha;
+	private String codProdutoFicha;
 	private String nomeProduto;
-	private List<String> idProdutos;
-	private List<String> nomeProdutos;
+	private List<String> nomeProdutoFicha;
+	private double custoProdutoFicha;
+	private int qtdProdutoFicha;
+	private ProdutosDao produtosDao;
+	private CadProdutos cadProdutos;
+	
 	
 	public FichaTecnica() throws SQLException {
-		System.out.println("mas que merda é essa");
-		connDB = new ConnectionDB();
-		conn = connDB.getConn();
-		String sql = "SELECT * FROM produtos";
-		PreparedStatement prmt = conn.prepareStatement(sql);
-		ResultSet rs = prmt.executeQuery();
-		idProdutos = new ArrayList<String>();
-		nomeProdutos = new ArrayList<String>();
-		while(rs.next()){
-			idProdutos.add(String.valueOf(rs.getInt("prod_id")));
-			nomeProdutos.add(rs.getString("prod_nome"));
-		}
-		rs.close();
+		
 	}
-	
+
 	@PostConstruct
-	public List<String> getIdProdutos() {
-		return idProdutos;
-	}
-
-	
-	public void setIdProdutos(List<String> idProdutos) {
-		this.idProdutos = idProdutos;
-	}
-
-	public List<String> getNomeProdutos() {
-		return nomeProdutos;
-	}
-
-	public void setNomeProdutos(List<String> nomeProdutos) {
-		this.nomeProdutos = nomeProdutos;
-	}
-
-	public String getNomeFichaTecnica() {
-		return nomeFichaTecnica;
-	}
-
-	public void setNomeFichaTecnica(String nomeFichaTecnica) {
-		this.nomeFichaTecnica = nomeFichaTecnica;
+	public void init() {
+		getListNomeProdutos();
+		try {
+			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public String getIdProduto() {
-		return idProduto;
+	public String getNomeFicha() {
+		return nomeFicha;
 	}
 
-	public void setIdProduto(String idProduto) {
-		this.idProduto = idProduto;
+
+	public void setNomeFicha(String nomeFicha) {
+		this.nomeFicha = nomeFicha;
 	}
 
+
+	public String getCodProdutoFicha() {
+		return codProdutoFicha;
+	}
+
+
+	public void setCodProdutoFicha(String codProdutoFicha) {
+		this.codProdutoFicha = codProdutoFicha;
+	}
+
+
+	public List<String> getNomeProdutoFicha() {
+		return nomeProdutoFicha;
+	}
+
+
+	public void setNomeProdutoFicha(List<String> nomeProdutoFicha) {
+		this.nomeProdutoFicha = nomeProdutoFicha;
+	}
+
+
+	public double getCustoProdutoFicha() {
+		return custoProdutoFicha;
+	}
+
+
+	public void setCustoProdutoFicha(double custoProdutoFicha) {
+		this.custoProdutoFicha = custoProdutoFicha;
+	}
+
+
+	public int getQtdProdutoFicha() {
+		return qtdProdutoFicha;
+	}
+
+
+	public void setQtdProdutoFicha(int qtdProdutoFicha) {
+		this.qtdProdutoFicha = qtdProdutoFicha;
+	}
+	
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
@@ -83,9 +89,28 @@ public class FichaTecnica {
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = nomeProduto;
 	}
-
-	public void buttonAction(ActionEvent actionEvent) throws SQLException {
-        System.out.println("teste");
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Watch out for PrimeFaces."));
-    }
+	
+	public void produtoInfo(){
+		getProdutoInfo(nomeProduto);
+	}
+	
+	public void getListNomeProdutos(){
+		try {
+			produtosDao = new ProdutosDao();
+			nomeProdutoFicha = produtosDao.getNomeProduto();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void getProdutoInfo(String nomeProduto){
+		try {
+			cadProdutos = new CadProdutos();
+			cadProdutos = produtosDao.getProdutoInfo(nomeProduto);
+			codProdutoFicha = cadProdutos.getCodProduto();
+			custoProdutoFicha = cadProdutos.getCusto();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

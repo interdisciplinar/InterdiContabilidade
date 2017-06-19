@@ -38,7 +38,10 @@
 							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}"/>	</td>
+							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}">
+												<p:ajax listener="#{produto.validaCampo}" update="@form"/>
+											</p:inputText>	
+							</td>
 							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" readonly="#{produto.bloqueiaCampo}"/> </td>
 						</tr>
 						<tr>
@@ -118,8 +121,8 @@
 							<td class="cd"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFichaTecnica}" style="width:475px"/> </td>
-							<td class="cd"> <p:inputText id="codProduto" value="BUSCAR NO BANCO" disabled="true" /> </td>
+							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" style="width:475px"/> </td>
+							<td class="cd"> <p:inputText id="codProduto" value="#{fichaTecnica.codProdutoFicha}" readonly="true" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <p:outputLabel value="Nome do Produto: " for="nomeProduto" /> </td>
@@ -128,10 +131,11 @@
 						<tr>
 							<td class="ce"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:450px" effect="fold" editable="false">
 											<p:messages autoUpdate="true" />
+											<p:ajax listener="#{fichaTecnica.produtoInfo}" update="@form"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
-											<f:selectItems value="#{fichaTecnica.nomeProdutos}" />
+											<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
 											</p:selectOneMenu> </td>
-							<td class="cd"> <p:inputNumber id="cusProduto" value="999999999.99" disabled="true" symbol="R$ " emptyValue="sign" /> </td>
+							<td class="cd"> <p:inputNumber id="cusProduto" value="#{fichaTecnica.custoProdutoFicha}" readonly="true" symbol="R$ " emptyValue="sign" /> </td>
 						</tr>
 					</table>
 					<br />
@@ -186,7 +190,7 @@
 								<p:selectOneMenu id="fichaTecnica" value="#{fichaTecnica.nomeProduto}" style="width:370px"	effect="fold" editable="false">
 								<p:messages autoUpdate="true" />
 <!-- 								<f:selectItem itemLabel="" /> -->
-								<f:selectItems value="#{fichaTecnica.nomeProdutos}" />
+<!-- 								<f:selectItems value="#{fichaTecnica.nomeProdutos}" /> -->
 								</p:selectOneMenu>
 							</td>
 							<td class="cd" colspan="2" align="center"> 

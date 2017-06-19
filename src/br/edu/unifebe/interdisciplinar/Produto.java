@@ -47,7 +47,6 @@ public class Produto{
 		tipoProdutos.add("Produto");
 		tipoProdutos.add("Serviço");
 		cadProdutos = new CadProdutos();
-		System.out.println(cadProdutos.toString() + " olhaaaa");
 	}
 	
 	public List<String> getTipoProdutos() {
@@ -234,10 +233,11 @@ public class Produto{
     	bloqueiaAlterar = true;
 	}
 	
-	/*public void onRowSelect(SelectEvent event) {
-		codProduto = ((CadProdutos) event.getObject()).getCodProduto();
-		nomeProduto = ((CadProdutos) event.getObject()).getNomeProduto();
-		custoProduto = ((CadProdutos) event.getObject()).getCusto();
-    }*/
+	public void validaCampo() {
+		if(codProduto.equals("sssss")){
+			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+			nomeProduto = "teste1111";
+		}
+    }
 	
 }
