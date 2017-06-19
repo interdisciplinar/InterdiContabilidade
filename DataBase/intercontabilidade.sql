@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Jun-2017 às 16:21
+-- Generation Time: 19-Jun-2017 às 23:48
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `fichatecnica` (
   `ft_usu_id_criacao` int(4) NOT NULL,
   `ft_usu_id_alteracao` int(4) DEFAULT NULL,
   PRIMARY KEY (`ft_id`),
-  UNIQUE KEY `ft_id` (`ft_id`)
+  UNIQUE KEY `ft_id` (`ft_id`),
+  UNIQUE KEY `ft_nome` (`ft_nome`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -61,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   UNIQUE KEY `prod_id` (`prod_id`),
   UNIQUE KEY `prod_cod` (`prod_cod`),
   UNIQUE KEY `prod_nome` (`prod_nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Extraindo dados da tabela `produtos`
@@ -88,7 +89,8 @@ INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `pro
 (39, 'teste685', 'teste685', 1, '685.00', '2017-06-12', NULL, 1, NULL),
 (40, 'teste699', 'teste699', 0, '699.00', '2017-06-13', NULL, 1, NULL),
 (41, 'teste5555', 'super produto', 0, '2222.00', '2017-06-17', NULL, 1, NULL),
-(43, 'teste9898', 'teste9898', 0, '9898.00', '2017-06-19', NULL, 1, NULL);
+(43, 'teste9898', 'teste9898', 0, '9898.00', '2017-06-19', NULL, 1, NULL),
+(44, 'testebtn', 'testebtn', 0, '212.00', '2017-06-19', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,17 +104,21 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `usu_login` varchar(20) NOT NULL,
   `usu_senha` varchar(20) NOT NULL,
   `usu_perfil_id` int(2) NOT NULL,
+  `usu_status` int(2) NOT NULL,
   PRIMARY KEY (`usu_id`),
   UNIQUE KEY `usu_id` (`usu_id`),
   UNIQUE KEY `usu_login` (`usu_login`(4))
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`usu_id`, `usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`) VALUES
-(1, 'Jean', 'jean', '1234', 1);
+INSERT INTO `usuario` (`usu_id`, `usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`, `usu_status`) VALUES
+(1, 'Jean', 'jean', '1234', 1, 1),
+(2, 'Vinicius', 'vini', 'vinicius123', 1, 0),
+(3, 'Marcio', 'marcio', '1234', 0, 0),
+(4, 'Jose Renato', 'jose', '1234', 1, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

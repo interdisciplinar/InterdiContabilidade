@@ -5,7 +5,8 @@ public class CadUsuario {
 	private String NomeUser;
 	private String login;
 	private String senha;
-	private boolean permissao;
+	private String permissao;
+	private String status;
 	
 	public int getIdUser() {
 		return idUser;
@@ -31,10 +32,16 @@ public class CadUsuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public boolean isPermissao() {
+	public String getPermissao() {
 		return permissao;
 	}
-	public void setPermissao(boolean permissao) {
+	public void setPermissao(String permissao) {
 		this.permissao = permissao;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

@@ -236,8 +236,8 @@
 							<td class="cd"> <h:outputLabel value="Login do Usuário: " for="login" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText id="nomeUser" maxlength="70" style="width:300px"/>	</td>
-							<td class="cd"> <p:inputText id="login" maxlength="20" style="width:300px"/></td>
+							<td class="ce"> <p:inputText id="nomeUser" value="#{usuario.nomeUsuario}" maxlength="70" style="width:300px"/>	</td>
+							<td class="cd"> <p:inputText id="login" value="#{usuario.loginUsuario}" maxlength="20" style="width:300px"/></td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputText value="Senha: " for="senha" /> </td>
@@ -245,12 +245,12 @@
 						</tr>
 						<tr>
 							<td class="ce"> <p:password id="senha" maxlength="20" feedback="true" style="width:300px" 
-											required="true" requiredMessage="Senha Obrigatorio">
+											value="#{usuario.senhaUsuario}" redisplay="true">
 											<f:ajax event="blur"/>
 											</p:password>
 							</td>
 							<td class="cd"> 
-								<p:selectOneMenu id="console" value="#{selectPerfil.console}" style="width:150px" effect="fold">
+								<p:selectOneMenu id="console" value="#{usuario.tipoUsuario}" style="width:150px" effect="fold">
 								<p:messages autoUpdate="true" />
 								<f:selectItem itemLabel="Usuário" itemValue="Usuario" />
 								<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
@@ -260,15 +260,48 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Salvar" />
+						<p:commandButton value="Salvar" update="@form" actionListener="#{usuario.buttonSalvar}" />
 						&nbsp;&nbsp;
 						<p:commandButton value="Excluir" />
+						<br />
+						<br />
+						<br />
+
+						<h4>Usuario Cadastrados</h4>
+						<p:scrollPanel mode="native" style="width:100%; height:200px">
+							<p:dataTable var="cadUsuario" value="#{usuario.listUsuarios}">
+								<p:column headerText="Nome" style="width:50%">
+									<h:outputText value="#{cadUsuario.nomeUser}" />
+								</p:column>
+
+								<p:column headerText="Login" style="width:30%">
+									<h:outputText value="#{cadUsuario.login}" />
+								</p:column>
+
+								<p:column headerText="Senha" style="width:30%">
+									<h:outputText value="#{cadUsuario.senha}" />
+								</p:column>
+
+								<p:column style="width:30%" headerText="Tipo">
+									<h:outputText value="#{cadUsuario.permissao}" />
+								</p:column>
+								<p:column style="width:30%" headerText="Status">
+									<h:outputText value="#{cadUsuario.status}" />
+								</p:column>
+								<p:column style="width:95px;text-align: center">
+						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{usuario.buttonAlterar(cadUsuario)}"/>
+						             <p:commandButton icon="#{((cadUsuario.status.equals('Desativado')) ? 'ui-icon-plusthick': 'ui-icon-minusthick')}" title="Ação" update="@form" actionListener="#{usuario.buttonDesativar(cadUsuario)}">
+						             	<p:confirm header="Desativar Usuário" message="Você tem certeza que deseja desativar este usuário?" icon="ui-icon-alert" />
+						             </p:commandButton>
+						        </p:column>
+							</p:dataTable>
+						</p:scrollPanel>
 					</center>
 				</p:tab>
 			</p:tabView>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-		        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 		    </p:confirmDialog>
 		</h:form>
 		<h6>
