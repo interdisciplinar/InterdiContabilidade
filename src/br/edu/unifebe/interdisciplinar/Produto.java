@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -15,9 +14,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
 import org.primefaces.event.SelectEvent;
-
 import br.edu.unifebe.interdisciplinar.dao.ProdutosDao;
 import br.edu.unifebe.interdisciplinar.model.CadProdutos;
 
