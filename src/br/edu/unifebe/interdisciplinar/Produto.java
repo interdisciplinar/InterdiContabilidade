@@ -26,6 +26,7 @@ public class Produto{
 	private String btnName = "Limpar";
 	private String btnName2 = "Salvar";
 	private boolean bloqueiaCampo = false;
+	private boolean blockBtn = false;
 	private ValidaErros validaErros;
 
 	public Produto() {
@@ -212,6 +213,7 @@ public class Produto{
         custoProduto = 0;
         tipoProduto = "Produto";
     	bloqueiaCampo = false;
+    	blockBtn = false;
     	btnName2="Salvar";
 	}
 	
@@ -220,9 +222,11 @@ public class Produto{
 			produtosDao = new ProdutosDao();
 			if(produtosDao.validaCodProduto(codProduto)){
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Codigo do Produto já está cadastrado!", null));
+				blockBtn = true;
 				return false;
 			}
 			else{
+				blockBtn = false;
 				return true;
 			}
 		} catch (SQLException e) {
@@ -237,9 +241,11 @@ public class Produto{
 			produtosDao = new ProdutosDao();
 			if(produtosDao.validaNomeProduto(nomeProduto)){
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome do Produto já está cadastrado!", null));
+				blockBtn = true;
 				return false;
 			}
 			else{
+				blockBtn = false;
 				return true;
 			}
 		} catch (SQLException e) {
@@ -248,4 +254,12 @@ public class Produto{
 			return false;
 		}
     }
+
+	public boolean isBlockBtn() {
+		return blockBtn;
+	}
+
+	public void setBlockBtn(boolean blockBtn) {
+		this.blockBtn = blockBtn;
+	}
 }

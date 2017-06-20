@@ -23,7 +23,9 @@
 		<p:themeSwitcher value="#{temaBean.tema}" style="position: absolute; right: 10px; top:0px">
 			<f:selectItems value="#{temaBean.temas}"/>
 		</p:themeSwitcher>
-		<p:messages id="msg" autoUpdate="true" closable="true"/>
+		<p:messages id="msg" autoUpdate="true" closable="true">
+			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 5000)" />
+		</p:messages>
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
@@ -48,11 +50,11 @@
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}">
-												<p:ajax listener="#{produto.validaCampoCodProdutos}" update="@this"/>
+												<p:ajax listener="#{produto.validaCampoCodProdutos}" update="@this btnSalvar"/>
 											</p:inputText>	
 							</td>
 							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" readonly="#{produto.bloqueiaCampo}">
-												<p:ajax listener="#{produto.validaCampoNomeProdutos}" update="@this"/>
+												<p:ajax listener="#{produto.validaCampoNomeProdutos}" update="@this btnSalvar"/>
 											</p:inputText>
 							</td>
 						</tr>
@@ -74,7 +76,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonSalvar}" />
+						<p:commandButton id="btnSalvar" disabled="#{produto.blockBtn}" value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonSalvar}" />
 						&nbsp;&nbsp;
 						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
 						<br />
@@ -124,7 +126,7 @@
 
 				<!-- ************************************FICHA TÉCNICA************************************************** -->
 
-				<p:tab title="Ficha Técnica">
+				<p:tab title="Ficha Técnica" id="ficha">
 					<table id="tabficha">
 						<tr>
 							<td class="ce1"> <h:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
@@ -135,7 +137,7 @@
 							<td class="ce1"> <p:inputText maxlength="70" id="nomeFicha" style="width:380px"/> </td>
 							<td class="cd1" colspan="2"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false">
 											<p:messages autoUpdate="true" />
-											<p:ajax listener="#{fichaTecnica.produtoInfo}" update="@form"/>
+											<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
 											<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
 											</p:selectOneMenu> </td>

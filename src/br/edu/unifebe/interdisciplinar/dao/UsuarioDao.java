@@ -71,25 +71,30 @@ public class UsuarioDao implements IDao<CadUsuario>{
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs;
 		
-			rs = prmt.executeQuery();
-				
-			while(rs.next()){
-				cadUsuario = new CadUsuario();
-				cadUsuario.setLogin(rs.getString("usu_login"));
-				cadUsuario.setNomeUser(rs.getString("usu_nome"));
-				cadUsuario.setSenha(rs.getString("usu_senha"));
-				cadUsuario.setPermissao(Usuario.getStringUsuarioTipo(rs.getInt("usu_perfil_id")));
-				cadUsuario.setStatus(Usuario.getStringUsuarioStatus(rs.getInt("usu_status")));
-				listProdutos.add(cadUsuario);
-			}
+		rs = prmt.executeQuery();
+			
+		while(rs.next()){
+			cadUsuario = new CadUsuario();
+			cadUsuario.setLogin(rs.getString("usu_login"));
+			cadUsuario.setNomeUser(rs.getString("usu_nome"));
+			cadUsuario.setSenha(rs.getString("usu_senha"));
+			cadUsuario.setPermissao(Usuario.getStringUsuarioTipo(rs.getInt("usu_perfil_id")));
+			cadUsuario.setStatus(Usuario.getStringUsuarioStatus(rs.getInt("usu_status")));
+			listProdutos.add(cadUsuario);
+		}
 			
 		return listProdutos;
 	}
 
 	@Override
 	public boolean setExcluir(CadUsuario e) throws SQLException {
-		System.out.println(e.getLogin());
-		String sql = "UPDATE `usuario` SET `usu_status`= 0 WHERE usu_login = '"+ e.getLogin() +"'";
+		String sql;
+		if(verificarStatus(e.getLogin())){
+			sql = "UPDATE `usuario` SET `usu_status`= 0 WHERE usu_login = '"+ e.getLogin() +"'";
+		}
+		else{
+			sql = "UPDATE `usuario` SET `usu_status`= 1 WHERE usu_login = '"+ e.getLogin() +"'";
+		}
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
@@ -101,5 +106,21 @@ public class UsuarioDao implements IDao<CadUsuario>{
 			return false;
 		}
 	}
-
+	
+	public boolean verificarStatus(String login) throws SQLException{
+		String sql = "SELECT `usu_status` FROM `usuario` WHERE usu_login = '" + login + "'";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs;
+		
+		rs = prmt.executeQuery();
+		if(rs.next()){
+			if(rs.getInt("usu_status") == 0){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		return false;
+	}
 }

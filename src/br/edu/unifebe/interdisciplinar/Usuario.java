@@ -25,6 +25,7 @@ public class Usuario {
 	private CadUsuario cadUsuario;
 	private ValidaErros validaErros;
 	private String btnIcon;
+	private String msg;
 	
 	@PostConstruct
 	public void init(){
@@ -78,6 +79,14 @@ public class Usuario {
 
 	public void setBtnIcon(String btnIcon) {
 		this.btnIcon = btnIcon;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 	public static String getStringUsuarioTipo(int tipoUsuario){
