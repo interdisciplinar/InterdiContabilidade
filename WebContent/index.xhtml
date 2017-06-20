@@ -48,10 +48,13 @@
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}">
-												<p:ajax listener="#{produto.validaCampo}" update="@form"/>
+												<p:ajax listener="#{produto.validaCampoCodProdutos}" update="@this"/>
 											</p:inputText>	
 							</td>
-							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" readonly="#{produto.bloqueiaCampo}"/> </td>
+							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" readonly="#{produto.bloqueiaCampo}">
+												<p:ajax listener="#{produto.validaCampoNomeProdutos}" update="@this"/>
+											</p:inputText>
+							</td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>

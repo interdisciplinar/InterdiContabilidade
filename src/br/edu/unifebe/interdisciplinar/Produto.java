@@ -14,7 +14,7 @@ import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
 public class Produto{
-	private String codProduto;
+	private String codProduto = "";
 	private String nomeProduto;
 	private double custoProduto;
 	private String tipoProduto = "Produto";
@@ -29,15 +29,7 @@ public class Produto{
 	private ValidaErros validaErros;
 
 	public Produto() {
-//		CadProdutos cadProdutos = new CadProdutos();
-//		listProdutos = new ArrayList<CadProdutos>();
-//		for(int i=0;i<=5;i++){
-//			cadProdutos.setCodProduto(i);
-//			cadProdutos.setCusto(2.0);
-//			cadProdutos.setNomeProduto("teste");
-//			cadProdutos.setServico(i);
-//			listProdutos.add(cadProdutos);
-//		}
+
 	}
 	
 	@PostConstruct
@@ -158,23 +150,6 @@ public class Produto{
         }
     }
 	
-	public void buttonSalvarAlteracao(ActionEvent actionEvent) throws SQLException {
-        cadProdutos.setCodProduto(codProduto);
-        cadProdutos.setNomeProduto(nomeProduto);
-        cadProdutos.setCusto(custoProduto);
-        cadProdutos.setServico(tipoProduto);
-        validaErros = new ValidaErros(codProduto, nomeProduto, custoProduto);
-        if(validaErros.validaProduto()){
-	    	produtosDao.setEditar(cadProdutos);
-	    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Alterado!"));
-	    	getListaProdutos();
-	    	refresh();
-        }
-        else{
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
-        }
-	}
-	
 	public void buttonActionAlterar(CadProdutos cadProdutos) throws SQLException {
 		if(cadProdutos != null){
 			codProduto = cadProdutos.getCodProduto();
@@ -208,7 +183,6 @@ public class Produto{
 		listProdutos.clear();
 		try {
 			produtosDao = new ProdutosDao();
-		
 			for(CadProdutos cp : produtosDao.getListar()){
 				listProdutos.add(cp);
 			}
@@ -241,10 +215,37 @@ public class Produto{
     	btnName2="Salvar";
 	}
 	
-	public void validaCampo() {
-		if(codProduto.equals("sssss")){
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+	public boolean validaCampoCodProdutos() {
+		try {
+			produtosDao = new ProdutosDao();
+			if(produtosDao.validaCodProduto(codProduto)){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Codigo do Produto já está cadastrado!", null));
+				return false;
+			}
+			else{
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
     }
 	
+	public boolean validaCampoNomeProdutos() {
+		try {
+			produtosDao = new ProdutosDao();
+			if(produtosDao.validaNomeProduto(nomeProduto)){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome do Produto já está cadastrado!", null));
+				return false;
+			}
+			else{
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+    }
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Jun-2017 às 23:48
+-- Generation Time: 20-Jun-2017 às 21:32
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -30,8 +30,6 @@ CREATE DATABASE intercontabilidade
 CREATE TABLE IF NOT EXISTS `fichatecnica` (
   `ft_id` int(6) NOT NULL AUTO_INCREMENT,
   `ft_nome` varchar(70) NOT NULL,
-  `ft_prod_id` int(6) NOT NULL,
-  `ft_qtd_prod` decimal(4,0) NOT NULL,
   `ft_dt_criacao` date NOT NULL,
   `ft_dt_alteracao` date DEFAULT NULL,
   `ft_total_custo` decimal(7,2) NOT NULL,
@@ -62,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   UNIQUE KEY `prod_id` (`prod_id`),
   UNIQUE KEY `prod_cod` (`prod_cod`),
   UNIQUE KEY `prod_nome` (`prod_nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Extraindo dados da tabela `produtos`
@@ -70,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
 
 INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`, `prod_dt_alteracao`, `prod_usu_id_criacao`, `prod_usu_id_alteracao`) VALUES
 (17, 'sssss', 'tevvvvvv', 1, '0.01', '2017-06-12', '2017-06-18', 1, 1),
-(21, 'teste667', 'teste667', 1, '666.00', '2017-06-12', NULL, 1, NULL),
+(21, 'teste667', 'teste667', 0, '666.66', '2017-06-12', '2017-06-20', 1, 1),
 (22, 'teste668', 'teste668', 1, '668.00', '2017-06-12', NULL, 1, NULL),
 (23, 'teste669', 'teste669', 1, '669.00', '2017-06-12', NULL, 1, NULL),
 (24, 'teste670', 'teste670', 1, '670.00', '2017-06-12', NULL, 1, NULL),
@@ -81,16 +79,31 @@ INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `pro
 (30, 'teste675', 'teste675', 1, '675.00', '2017-06-12', NULL, 1, NULL),
 (31, 'teste676', 'teste676', 1, '676.00', '2017-06-12', NULL, 1, NULL),
 (32, 'teste677', 'teste677', 1, '677.00', '2017-06-12', NULL, 1, NULL),
-(33, '123', 'marcio', 1, '0.11', '2017-06-12', '2017-06-19', 1, 1),
+(33, '123', 'marcio', 1, '0.32', '2017-06-12', '2017-06-20', 1, 1),
 (35, 'teste678', 'teste678', 1, '678.00', '2017-06-12', NULL, 1, NULL),
 (36, 'teste6789', 'teste6789', 1, '678.00', '2017-06-12', NULL, 1, NULL),
 (37, 'teste680', 'teste680', 1, '680.00', '2017-06-12', NULL, 1, NULL),
 (38, 'teste681', 'teste681', 1, '681.00', '2017-06-12', NULL, 1, NULL),
 (39, 'teste685', 'teste685', 1, '685.00', '2017-06-12', NULL, 1, NULL),
 (40, 'teste699', 'teste699', 0, '699.00', '2017-06-13', NULL, 1, NULL),
-(41, 'teste5555', 'super produto', 0, '2222.00', '2017-06-17', NULL, 1, NULL),
+(41, 'teste5555', 'super produto', 1, '2222.00', '2017-06-17', '2017-06-19', 1, 1),
 (43, 'teste9898', 'teste9898', 0, '9898.00', '2017-06-19', NULL, 1, NULL),
 (44, 'testebtn', 'testebtn', 0, '212.00', '2017-06-19', NULL, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produtosficha`
+--
+
+CREATE TABLE IF NOT EXISTS `produtosficha` (
+  `ft_nome` varchar(70) NOT NULL,
+  `ft_prod_nome` varchar(70) NOT NULL,
+  `ft_prod_cod` varchar(10) NOT NULL,
+  `ft_prod_custo` decimal(7,2) NOT NULL,
+  `ft_prod_qtd` int(4) NOT NULL,
+  UNIQUE KEY `ft_nome` (`ft_nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -108,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`usu_id`),
   UNIQUE KEY `usu_id` (`usu_id`),
   UNIQUE KEY `usu_login` (`usu_login`(4))
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `usuario`

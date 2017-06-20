@@ -107,8 +107,10 @@ public class FichaTecnica {
 		try {
 			cadProdutos = new CadProdutos();
 			cadProdutos = produtosDao.getProdutoInfo(nomeProduto);
-			codProdutoFicha = cadProdutos.getCodProduto();
-			custoProdutoFicha = cadProdutos.getCusto();
+			if(cadProdutos != null){
+				codProdutoFicha = cadProdutos.getCodProduto();
+				custoProdutoFicha = cadProdutos.getCusto();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

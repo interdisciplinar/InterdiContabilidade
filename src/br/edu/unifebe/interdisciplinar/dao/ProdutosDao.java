@@ -148,14 +148,49 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 	
 	public CadProdutos getProdutoInfo(String nomeProduto) throws SQLException{
-		CadProdutos cp = new CadProdutos();
-		String sql = "SELECT prod_cod, prod_custo from produtos WHERE prod_nome = '"+ nomeProduto + "';";
-		PreparedStatement  prmt = conexao.prepareStatement(sql);
-		ResultSet rs = prmt.executeQuery();
-		if(rs.next()){
-			cp.setCodProduto(rs.getString("prod_cod"));	
-			cp.setCusto(rs.getDouble("prod_custo"));
+		if(nomeProduto != null){
+			if(!nomeProduto.equals("")){
+				CadProdutos cp = new CadProdutos();
+				String sql = "SELECT prod_cod, prod_custo from produtos WHERE prod_nome = '"+ nomeProduto + "';";
+				PreparedStatement  prmt = conexao.prepareStatement(sql);
+				ResultSet rs = prmt.executeQuery();
+				if(rs.next()){
+					cp.setCodProduto(rs.getString("prod_cod"));	
+					cp.setCusto(rs.getDouble("prod_custo"));
+				}
+				return cp;
+			}
 		}
-		return cp;
+		return null;
+	}
+	
+	public boolean validaCodProduto(String codProduto) throws SQLException{
+		if(codProduto != null){
+			if(!codProduto.equals("")){
+				String sql = "SELECT * from produtos WHERE prod_cod = '"+ codProduto + "';";
+				PreparedStatement  prmt = conexao.prepareStatement(sql);
+				ResultSet rs = prmt.executeQuery();
+				if(rs.next()){
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	public boolean validaNomeProduto(String nomeProduto) throws SQLException{
+		if(nomeProduto != null){
+			if(!nomeProduto.equals("")){
+				String sql = "SELECT * from produtos WHERE prod_nome = '"+ nomeProduto + "';";
+				PreparedStatement  prmt = conexao.prepareStatement(sql);
+				ResultSet rs = prmt.executeQuery();
+				if(rs.next()){
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
 	}
 }
