@@ -62,9 +62,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton disabled="#{produto.bloqueiaCampo}" value="Salvar" update="@form" actionListener="#{produto.buttonSalvar}" />
-						&nbsp;&nbsp;
-						<p:commandButton  value="Alterar" update="@form" actionListener="#{produto.buttonSalvarAlteracao}" />
+						<p:commandButton value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonSalvar}" />
 						&nbsp;&nbsp;
 						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
 						<br />

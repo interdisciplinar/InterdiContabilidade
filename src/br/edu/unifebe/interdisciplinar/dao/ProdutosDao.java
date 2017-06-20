@@ -114,6 +114,16 @@ public class ProdutosDao implements IDao<CadProdutos>{
 		
 	}
 	
+	public boolean verificaProduto(String codProduto) throws SQLException{
+		String sql = "SELECT * from produtos where prod_cod ='" + codProduto +"'";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs = prmt.executeQuery();
+		while(rs.next()){
+			return true;
+		}
+		return false;
+	}
+	
 	public List<String> getNomeProduto() throws SQLException{
 		List<String> listProdutos = new ArrayList<String>();
 		String sql = "SELECT prod_nome from produtos ORDER BY prod_nome;";

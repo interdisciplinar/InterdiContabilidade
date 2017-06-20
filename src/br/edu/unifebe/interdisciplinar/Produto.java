@@ -24,8 +24,8 @@ public class Produto{
 	private CadProdutos selectedProduto;
 	private ProdutosDao produtosDao;
 	private String btnName = "Limpar";
+	private String btnName2 = "Salvar";
 	private boolean bloqueiaCampo = false;
-	private boolean bloqueiaAlterar = true;
 	private ValidaErros validaErros;
 
 	public Produto() {
@@ -121,12 +121,12 @@ public class Produto{
 		this.btnName = btnName;
 	}
 
-	public boolean isBloqueiaAlterar() {
-		return bloqueiaAlterar;
+	public String getBtnName2() {
+		return btnName2;
 	}
 
-	public void setBloqueiaAlterar(boolean bloqueiaAlterar) {
-		this.bloqueiaAlterar = bloqueiaAlterar;
+	public void setBtnName2(String btnName2) {
+		this.btnName2 = btnName2;
 	}
 
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
@@ -136,14 +136,22 @@ public class Produto{
         cadProdutos.setServico(tipoProduto);
         validaErros = new ValidaErros(codProduto, nomeProduto, custoProduto);
         if(validaErros.validaProduto()){
-	        if(produtosDao.setIncluir(cadProdutos)){
-	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Adicionado!"));
-	        	getListaProdutos();
+        	if(produtosDao.verificaProduto(codProduto)){
+        		produtosDao.setEditar(cadProdutos);
+        		getListaProdutos();
 	        	refresh();
-	        }
-	        else{
-	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
-	        }
+        	}
+        	else{
+		        if(produtosDao.setIncluir(cadProdutos)){
+		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Adicionado!"));
+		        	getListaProdutos();
+		        	refresh();
+		        }
+		        else{
+		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+		        }
+        	}
+        	
         }
         else{
         	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
@@ -174,8 +182,8 @@ public class Produto{
 			custoProduto = cadProdutos.getCusto();
 			tipoProduto = cadProdutos.getServico();
 			bloqueiaCampo = true;
-	    	bloqueiaAlterar = false;
 			btnName = "Cancelar";
+			btnName2 = "Alterar";
 		}
 		else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
@@ -230,13 +238,12 @@ public class Produto{
         custoProduto = 0;
         tipoProduto = "Produto";
     	bloqueiaCampo = false;
-    	bloqueiaAlterar = true;
+    	btnName2="Salvar";
 	}
 	
 	public void validaCampo() {
 		if(codProduto.equals("sssss")){
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
-			nomeProduto = "teste1111";
 		}
     }
 	
