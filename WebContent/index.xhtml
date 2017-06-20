@@ -28,6 +28,15 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
+<!-- ************************************INICIAL*********************************************** -->
+				
+				<p:tab title="Inicial" id="tableInicial">
+					
+					Fazer um descritivo do funcionamento de cada aba
+
+
+				</p:tab>
+
 				<!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
 				
 				<p:tab title="Produto / Serviço" id="tableProduto">
@@ -117,25 +126,28 @@
 				<p:tab title="Ficha Técnica">
 					<table id="tabficha">
 						<tr>
-							<td class="ce"> <h:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
-							<td class="cd"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
+							<td class="ce1"> <h:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
+							<td class="cd1" colspan="2"> <p:outputLabel value="Nome do Produto: " for="nomeProduto" /> </td>
+							
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputText maxlength="70" id="nomeFicha" style="width:475px"/> </td>
-							<td class="cd"> <p:inputText id="codProduto" value="#{fichaTecnica.codProdutoFicha}" readonly="true" /> </td>
-						</tr>
-						<tr>
-							<td class="ce"> <p:outputLabel value="Nome do Produto: " for="nomeProduto" /> </td>
-							<td class="cd"> <h:outputLabel value="Custo do Produto: " for="cusProduto" /> </td>
-						</tr>
-						<tr>
-							<td class="ce"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:450px" effect="fold" editable="false">
+							<td class="ce1"> <p:inputText maxlength="70" id="nomeFicha" style="width:380px"/> </td>
+							<td class="cd1" colspan="2"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false">
 											<p:messages autoUpdate="true" />
 											<p:ajax listener="#{fichaTecnica.produtoInfo}" update="@form"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
 											<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
 											</p:selectOneMenu> </td>
-							<td class="cd"> <p:inputNumber id="cusProduto" value="#{fichaTecnica.custoProdutoFicha}" readonly="true" symbol="R$ " emptyValue="sign" /> </td>
+						</tr>
+						<tr>
+ 							<td class="ce2"> <p:outputLabel value="Quantidade: " for="qtdProduto" /> </td>
+ 							<td class="cm2"> <h:outputLabel value="Custo do Produto: " for="cusProduto" /> </td>
+ 							<td class="cd2"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
+						</tr>
+						<tr>
+							<td class="ce2"> <p:inputNumber id="qtdProduto" maxValue="9999" /> </td>
+							<td class="cm2"> <p:inputNumber id="cusProduto" value="#{fichaTecnica.custoProdutoFicha}" readonly="true" symbol="R$ " emptyValue="sign" /> </td>
+							<td class="cd2"> <p:inputText id="codProduto" value="#{fichaTecnica.codProdutoFicha}" readonly="true" /> </td>
 						</tr>
 					</table>
 					<br />

@@ -61,14 +61,32 @@ table#tabprod td.cd {
 	padding: 3px;
 }
 
-table#tabficha td.ce {
-	width: 600px;
+table#tabficha td.ce1 {
+	width: 450px;
 	font-weight: bold;
 	padding: 3px;
 }
 
-table#tabficha td.cd {
-	width: 400px;
+table#tabficha td.cd1 {
+	width: 450px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabficha td.ce2 {
+	width: 300px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabficha td.cm2 {
+	width: 300px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+table#tabficha td.cd2 {
+	width: 300px;
 	font-weight: bold;
 	padding: 3px;
 }
