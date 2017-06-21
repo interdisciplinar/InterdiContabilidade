@@ -24,8 +24,9 @@ public class Usuario {
 	private UsuarioDao usuarioDao;
 	private CadUsuario cadUsuario;
 	private ValidaErros validaErros;
-	private String btnIcon;
-	private String msg;
+	private boolean bloqueiacampo = false;
+	private String btnName = "Salvar";
+	private String btnName2 = "Limpar";
 	
 	@PostConstruct
 	public void init(){
@@ -73,20 +74,28 @@ public class Usuario {
 		this.listUsuarios = listUsuarios;
 	}
 
-	public String getBtnIcon() {
-		return btnIcon;
+	public boolean isBloqueiacampo() {
+		return bloqueiacampo;
 	}
 
-	public void setBtnIcon(String btnIcon) {
-		this.btnIcon = btnIcon;
+	public void setBloqueiacampo(boolean bloqueiacampo) {
+		this.bloqueiacampo = bloqueiacampo;
 	}
 
-	public String getMsg() {
-		return msg;
+	public String getBtnName() {
+		return btnName;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setBtnName(String btnName) {
+		this.btnName = btnName;
+	}
+
+	public String getBtnName2() {
+		return btnName2;
+	}
+
+	public void setBtnName2(String btnName2) {
+		this.btnName2 = btnName2;
 	}
 
 	public static String getStringUsuarioTipo(int tipoUsuario){
@@ -109,12 +118,12 @@ public class Usuario {
 		return "Ativado";
 	}
 	
-//	public static int getIntUsuarioStatus(String tipoUsuario){
-//		if(tipoUsuario.equals("Desativado")){
-//			return 0;
-//		}
-//		return 1;
-//	}
+	public static int getIntUsuarioStatus(String tipoUsuario){
+		if(tipoUsuario.equals("Desativado")){
+			return 0;
+		}
+		return 1;
+	}
 	
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
 		cadUsuario.setNomeUser(nomeUsuario);
@@ -123,22 +132,36 @@ public class Usuario {
 		cadUsuario.setPermissao(tipoUsuario);
         validaErros = new ValidaErros(nomeUsuario, loginUsuario, senhaUsuario);
         if(validaErros.validaUsuario()){
-	        if(usuarioDao.setIncluir(cadUsuario)){
-	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Adicionado!"));
-	        	getUsuarios();
-	        	refresh();
-	        }
-	        else{
-	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
-	        }
+        	if(usuarioDao.verificaUsuario(loginUsuario)){
+        		usuarioDao.setEditar(cadUsuario);
+        		getUsuarios();
+        		refresh();
+        	}
+        	else{
+		        if(usuarioDao.setIncluir(cadUsuario)){
+		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Adicionado!"));
+		        	getUsuarios();
+		        	refresh();
+		        }
+		        else{
+		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+		        }
+        	}
         }
         else{
         	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
         }
     }
 	
+	public void buttonZerar(ActionEvent actionEvent) throws SQLException {
+		refresh();
+    }
+	
 	public void buttonAlterar(CadUsuario cadUsuario){
 		if(cadUsuario != null){
+			btnName = "Alterar";
+			bloqueiacampo = true;
+			btnName2 = "Cancelar";
 			nomeUsuario = cadUsuario.getNomeUser();
 			loginUsuario = cadUsuario.getLogin();
 			System.out.println(cadUsuario.getSenha());
@@ -168,16 +191,7 @@ public class Usuario {
 	public void getUsuarios(){
 		try {
 			usuarioDao = new UsuarioDao();
-			listUsuarios = new ArrayList<CadUsuario>();
-			for(CadUsuario c : usuarioDao.getListar()){
-				listUsuarios.add(c);
-				if(c.getStatus().equals("Desativado")){
-					btnIcon = "ui-icon-minusthick";
-				}
-				else{
-					btnIcon = "ui-icon-plusthick";
-				}
-			}
+			listUsuarios = usuarioDao.getListar();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,5 +203,8 @@ public class Usuario {
 		loginUsuario = "";
 		senhaUsuario = "";
 		tipoUsuario = "Usuario";
+		btnName = "Salvar";
+		btnName2 = "Limpar";
+		bloqueiacampo = false;
 	}
 }

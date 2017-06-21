@@ -252,7 +252,7 @@
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputText id="nomeUser" value="#{usuario.nomeUsuario}" maxlength="70" style="width:300px"/>	</td>
-							<td class="cd"> <p:inputText id="login" value="#{usuario.loginUsuario}" maxlength="20" style="width:300px"/></td>
+							<td class="cd"> <p:inputText readonly="#{usuario.bloqueiacampo}" id="login" value="#{usuario.loginUsuario}" maxlength="20" style="width:300px"/></td>
 						</tr>
 						<tr>
 							<td class="ce"> <h:outputText value="Senha: " for="senha" /> </td>
@@ -275,9 +275,9 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Salvar" update="@form" actionListener="#{usuario.buttonSalvar}" />
+						<p:commandButton value="#{usuario.btnName}" update="@form" actionListener="#{usuario.buttonSalvar}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="Excluir" />
+						<p:commandButton value="#{usuario.btnName2}" update="@form" actionListener="#{usuario.buttonZerar}"/>
 						<br />
 						<br />
 						<br />

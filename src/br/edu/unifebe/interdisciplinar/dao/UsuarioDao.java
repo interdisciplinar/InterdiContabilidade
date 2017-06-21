@@ -24,8 +24,8 @@ public class UsuarioDao implements IDao<CadUsuario>{
 
 	@Override
 	public boolean setIncluir(CadUsuario e) throws SQLException {
-		String sql = "INSERT INTO `usuario`(`usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`) "
-				+ "VALUES (?,?,?,?)";
+		String sql = "INSERT INTO `usuario`(`usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`,`usu_status`) "
+				+ "VALUES (?,?,?,?,1)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
@@ -44,14 +44,14 @@ public class UsuarioDao implements IDao<CadUsuario>{
 
 	@Override
 	public void setEditar(CadUsuario e) throws SQLException {
-		String sql = "UPDATE `usuario` SET `usu_nome`=?,`usu_login`=?,`usu_senha`=?,`usu_perfil_id`=?";
+		String sql = "UPDATE usuario SET `usu_nome`=?,`usu_senha`=?,`usu_perfil_id`=?"
+				+ " WHERE usu_login = '"+e.getLogin()+"';";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
 			prmt.setString(1, e.getNomeUser());
-			prmt.setString(2, e.getLogin());
-			prmt.setString(3, e.getSenha());
-			prmt.setInt(4, Produto.getIntProdutoTipo(e.getPermissao()));
+			prmt.setString(2, e.getSenha());
+			prmt.setInt(3, Usuario.getIntUsuarioTipo(e.getPermissao()));
 			prmt.executeUpdate();
 			//return true;
 		} catch (SQLException e1) {
@@ -75,6 +75,7 @@ public class UsuarioDao implements IDao<CadUsuario>{
 			
 		while(rs.next()){
 			cadUsuario = new CadUsuario();
+			cadUsuario.setIdUser(rs.getInt("usu_id"));
 			cadUsuario.setLogin(rs.getString("usu_login"));
 			cadUsuario.setNomeUser(rs.getString("usu_nome"));
 			cadUsuario.setSenha(rs.getString("usu_senha"));
@@ -105,6 +106,18 @@ public class UsuarioDao implements IDao<CadUsuario>{
 			e1.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean verificaUsuario(String login) throws SQLException{
+		String sql = "SELECT * FROM `usuario` WHERE usu_login = '" + login + "'";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs;
+		
+		rs = prmt.executeQuery();
+		if(rs.next()){
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean verificarStatus(String login) throws SQLException{
