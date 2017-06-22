@@ -8,6 +8,22 @@ body {
 	max-width:1500px;
 }
 
+div#usernome {
+	color: red;
+	position: absolute;
+	top: 2px;
+	left: 10px;
+	font-size: 8pt;
+	font-style: italic;
+	font
+}
+
+div#usercod {
+	position: absolute;
+	top: -50px; /* posicionado fora da página */
+	left: -50px; /* posicionado fora da página */
+}
+
 h1 {
 	font-family: Arial;
 	font-size: 30pt;
