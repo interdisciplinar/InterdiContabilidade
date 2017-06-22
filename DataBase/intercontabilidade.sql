@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Jun-2017 às 21:32
+-- Generation Time: 23-Jun-2017 às 01:43
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -18,8 +18,66 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `intercontabilidade`
--- Esse comando aqui não vem junto quando exporta o banco, mas é esse o nome da tabela que é pra criar(Vinicius)
-CREATE DATABASE intercontabilidade
+--
+CREATE DATABASE IF NOT EXISTS `intercontabilidade` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `intercontabilidade`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `AlteraProdutos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AlteraProdutos`(`v_prod_cod` VARCHAR(10), `v_prod_servico` INT(1), `v_prod_custo` DOUBLE(7,2), `v_prod_usu_id_alteracao` INT(4))
+BEGIN
+UPDATE produtos SET `prod_servico`= v_prod_servico, `prod_custo` = v_prod_custo, `prod_dt_alteracao`=CURDATE(), `prod_usu_id_alteracao`= v_prod_usu_id_alteracao
+WHERE prod_cod = v_prod_cod;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `BuscaPrimProdutoNome`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaPrimProdutoNome`()
+BEGIN
+SELECT prod_nome from produtos ORDER BY prod_nome LIMIT 1;
+END$$
+
+DROP PROCEDURE IF EXISTS `BuscaProdutoCod`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutoCod`(`v_prod_cod` VARCHAR(10))
+BEGIN
+SELECT * from produtos where prod_cod = v_prod_cod;
+END$$
+
+DROP PROCEDURE IF EXISTS `BuscaProdutoNome`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutoNome`()
+BEGIN
+SELECT prod_nome from produtos ORDER BY prod_nome;
+END$$
+
+DROP PROCEDURE IF EXISTS `BuscaProdutos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutos`()
+BEGIN
+SELECT * FROM produtos ORDER BY prod_nome;
+END$$
+
+DROP PROCEDURE IF EXISTS `DeletaProduto`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DeletaProduto`(`v_prod_cod` VARCHAR(10))
+BEGIN
+DELETE FROM `produtos` WHERE `prod_cod` = v_prod_cod;
+END$$
+
+DROP PROCEDURE IF EXISTS `InserirProdutos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirProdutos`(`v_prod_cod` VARCHAR(10), `v_prod_nome` VARCHAR(70), `v_prod_servico` INT(1), `v_prod_custo` DOUBLE(7,2), `v_prod_usu_id_criacao` INT(4))
+BEGIN
+INSERT INTO `produtos`(`prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`,`prod_usu_id_criacao`) VALUES (v_prod_cod, v_prod_nome, v_prod_servico, v_prod_custo, CURDATE(), v_prod_usu_id_criacao);
+
+END$$
+
+DROP PROCEDURE IF EXISTS `ProdutoInfo`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ProdutoInfo`(`v_prod_nome` VARCHAR(70))
+BEGIN
+SELECT prod_cod, prod_custo from produtos WHERE prod_nome = v_prod_nome;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -27,6 +85,7 @@ CREATE DATABASE intercontabilidade
 -- Estrutura da tabela `fichatecnica`
 --
 
+DROP TABLE IF EXISTS `fichatecnica`;
 CREATE TABLE IF NOT EXISTS `fichatecnica` (
   `ft_id` int(6) NOT NULL AUTO_INCREMENT,
   `ft_nome` varchar(70) NOT NULL,
@@ -46,12 +105,13 @@ CREATE TABLE IF NOT EXISTS `fichatecnica` (
 -- Estrutura da tabela `produtos`
 --
 
+DROP TABLE IF EXISTS `produtos`;
 CREATE TABLE IF NOT EXISTS `produtos` (
   `prod_id` int(6) NOT NULL AUTO_INCREMENT,
   `prod_cod` varchar(10) NOT NULL,
   `prod_nome` varchar(70) NOT NULL,
   `prod_servico` int(1) NOT NULL,
-  `prod_custo` decimal(7,2) NOT NULL,
+  `prod_custo` decimal(10,2) NOT NULL,
   `prod_dt_criacao` date NOT NULL,
   `prod_dt_alteracao` date DEFAULT NULL,
   `prod_usu_id_criacao` int(4) NOT NULL,
@@ -60,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   UNIQUE KEY `prod_id` (`prod_id`),
   UNIQUE KEY `prod_cod` (`prod_cod`),
   UNIQUE KEY `prod_nome` (`prod_nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
 
 --
 -- Extraindo dados da tabela `produtos`
@@ -79,7 +139,7 @@ INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `pro
 (30, 'teste675', 'teste675', 1, '675.00', '2017-06-12', NULL, 1, NULL),
 (31, 'teste676', 'teste676', 1, '676.00', '2017-06-12', NULL, 1, NULL),
 (32, 'teste677', 'teste677', 1, '677.00', '2017-06-12', NULL, 1, NULL),
-(33, '123', 'marcio', 1, '0.32', '2017-06-12', '2017-06-20', 1, 1),
+(33, '123', 'marcio', 1, '0.33', '2017-06-12', '2017-06-20', 1, 1),
 (35, 'teste678', 'teste678', 1, '678.00', '2017-06-12', NULL, 1, NULL),
 (36, 'teste6789', 'teste6789', 1, '678.00', '2017-06-12', NULL, 1, NULL),
 (37, 'teste680', 'teste680', 1, '680.00', '2017-06-12', NULL, 1, NULL),
@@ -88,7 +148,8 @@ INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `pro
 (40, 'teste699', 'teste699', 0, '699.00', '2017-06-13', NULL, 1, NULL),
 (41, 'teste5555', 'super produto', 1, '2222.00', '2017-06-17', '2017-06-19', 1, 1),
 (43, 'teste9898', 'teste9898', 0, '9898.00', '2017-06-19', NULL, 1, NULL),
-(44, 'testebtn', 'testebtn', 0, '212.00', '2017-06-19', NULL, 1, NULL);
+(44, 'testebtn', 'testebtn', 0, '212.00', '2017-06-19', NULL, 1, NULL),
+(46, '1234', 'marcios', 0, '32.00', '2017-06-20', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -96,11 +157,12 @@ INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `pro
 -- Estrutura da tabela `produtosficha`
 --
 
+DROP TABLE IF EXISTS `produtosficha`;
 CREATE TABLE IF NOT EXISTS `produtosficha` (
   `ft_nome` varchar(70) NOT NULL,
   `ft_prod_nome` varchar(70) NOT NULL,
   `ft_prod_cod` varchar(10) NOT NULL,
-  `ft_prod_custo` decimal(7,2) NOT NULL,
+  `ft_prod_custo` decimal(10,2) NOT NULL,
   `ft_prod_qtd` int(4) NOT NULL,
   UNIQUE KEY `ft_nome` (`ft_nome`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -111,6 +173,7 @@ CREATE TABLE IF NOT EXISTS `produtosficha` (
 -- Estrutura da tabela `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `usu_id` int(4) NOT NULL AUTO_INCREMENT,
   `usu_nome` varchar(70) NOT NULL,
@@ -129,8 +192,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`usu_id`, `usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`, `usu_status`) VALUES
 (1, 'Jean', 'jean', '1234', 1, 1),
-(2, 'Vinicius', 'vini', 'vinicius123', 1, 0),
-(3, 'Marcio', 'marcio', '1234', 0, 0),
+(2, 'vinicius1234', 'vinicius1234', 'vinicius1234', 1, 1),
+(3, 'Marcio', 'marcio', '1234', 1, 1),
 (4, 'Jose Renato', 'jose', '1234', 1, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
