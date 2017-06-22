@@ -13,6 +13,15 @@
 </h:head>
 
 <h:body>
+
+	<div id="usernome">
+		<p:outputLabel value="nome usuario" />
+	</div>
+	
+	<div id="usercod">
+		<p:outputLabel value="codigo do usuario" />
+	</div>
+	
 	<div id="interface">
 		<header id="cabecalho">
 			<figure>
@@ -45,8 +54,8 @@
 					
 					<table id="tabprod">
 						<tr>
-							<td class="ce"> <h:outputLabel value="Código do Produto: " for="codigo" /> </td>
-							<td class="cd"> <h:outputLabel value="Nome do Produto: " for="nome" /> </td>
+							<td class="ce"> <p:outputLabel value="Código do Produto: " for="codigo" /> </td>
+							<td class="cd"> <p:outputLabel value="Nome do Produto: " for="nome" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}">
@@ -59,7 +68,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="ce"> <h:outputLabel value="Custo: " for="custo" /> </td>
+							<td class="ce"> <p:outputLabel value="Custo: " for="custo" /> </td>
 							<td class="cd"> <p:outputLabel value="Tipo: " for="tipo" /> </td>
 						</tr>
 						<tr>
@@ -129,7 +138,7 @@
 				<p:tab title="Ficha Técnica" id="ficha">
 					<table id="tabficha">
 						<tr>
-							<td class="ce1"> <h:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
+							<td class="ce1"> <p:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
 							<td class="cd1" colspan="2"> <p:outputLabel value="Nome do Produto: " for="nomeProduto" /> </td>
 							
 						</tr>
@@ -144,8 +153,8 @@
 						</tr>
 						<tr>
  							<td class="ce2"> <p:outputLabel value="Quantidade: " for="qtdProduto" /> </td>
- 							<td class="cm2"> <h:outputLabel value="Custo do Produto: " for="cusProduto" /> </td>
- 							<td class="cd2"> <h:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
+ 							<td class="cm2"> <p:outputLabel value="Custo do Produto: " for="cusProduto" /> </td>
+ 							<td class="cd2"> <p:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
 							<td class="ce2"> <p:inputNumber id="qtdProduto" maxValue="9999" /> </td>
@@ -220,9 +229,9 @@
 						</tr>
 						<tr> <td> <br /> </td> </tr>
 						<tr>
-							<td class="ce"> <h:outputLabel value="Custo: " for="custoFinal" /> </td>
-							<td class="cm"> <h:outputLabel value="Lucro (%): " for="lucro" /> </td>
-							<td class="cd"> <h:outputLabel value="Preço do Produto: " for="preco" /> </td>
+							<td class="ce"> <p:outputLabel value="Custo: " for="custoFinal" /> </td>
+							<td class="cm"> <p:outputLabel value="Lucro (%): " for="lucro" /> </td>
+							<td class="cd"> <p:outputLabel value="Preço do Produto: " for="preco" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputNumber id="custoFinal" value="999999999.99" symbol="R$ " emptyValue="sign"  disabled="true" /> </td>
@@ -248,8 +257,8 @@
 				<p:tab title="Usuário" disabled="false">
 					<table id="tabuser">
 						<tr>
-							<td class="ce"> <h:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
-							<td class="cd"> <h:outputLabel value="Login do Usuário: " for="login" /> </td>
+							<td class="ce"> <p:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
+							<td class="cd"> <p:outputLabel value="Login do Usuário: " for="login" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputText id="nomeUser" value="#{usuario.nomeUsuario}" maxlength="70" style="width:300px"/>	</td>
