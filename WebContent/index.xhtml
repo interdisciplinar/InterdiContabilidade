@@ -159,21 +159,22 @@
 						<p:commandButton value="Incluir" action="#{fichaTecnica.buttonAction}" />
 						&nbsp;&nbsp;
 						<p:commandButton value="Salvar" action="#{fichaTecnica.buttonAction}" />
-						&nbsp;&nbsp;
-						<p:commandButton value="Excluir" action="Alterar" />
 						<br />
 						<br />
 						<br />
 
 						<h4>Produtos Cadastrados na Ficha (DataTable)</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
-							<p:dataTable var="car" value="#{produto.listProdutos}">
+							<p:dataTable var="fichaProd" value="#{produto.listProdutos}">
 
 								<p:column headerText="Nome Produto" style="width:50%">
 									<h:outputText value="TESTE" />
 								</p:column>
 
 								<p:column headerText="Código Produto" style="width:25%">
+									<h:outputText value="TESTE" />
+								</p:column>
+								<p:column headerText="Qtd" >
 									<h:outputText value="TESTE" />
 								</p:column>
 
@@ -306,7 +307,7 @@
 								<p:column style="width:95px;text-align: center">
 						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{usuario.buttonAlterar(cadUsuario)}"/>
 						             <p:commandButton icon="#{((cadUsuario.status.equals('Desativado')) ? 'ui-icon-plusthick': 'ui-icon-minusthick')}" title="Ação" update="@form" actionListener="#{usuario.buttonDesativar(cadUsuario)}">
-						             	<p:confirm header="Desativar Usuário" message="Você tem certeza que deseja desativar este usuário?" icon="ui-icon-alert" />
+						             	<p:confirm header="Desativar Usuário" message="Você tem certeza que deseja alterar o status do usuário?" icon="ui-icon-alert" />
 						             </p:commandButton>
 						        </p:column>
 							</p:dataTable>
