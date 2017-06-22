@@ -25,13 +25,8 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	@Override
 	public boolean setIncluir(CadProdutos e) {
 		String sql;
-			//se for primeira vez, ou seja, datacriação not null
-			sql = "INSERT INTO produtos(`prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`,"
-					+ " `prod_dt_alteracao`, `prod_usu_id_criacao`, `prod_usu_id_alteracao`) "
-					+ "VALUES (?,?,?,?,CURDATE(),?,?,?)";
-			
-//			sql = "INSERT INTO produtos(`prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`,"
-//					+ " `prod_usu_id_criacao`) VALUES (?,?,?,?,NOW(),?);";
+			//se for primeira vez, ou seja, datacriaÃ§Ã£o not null
+			sql = "CALL InserirProdutos (?,?,?,?,?)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
@@ -39,9 +34,9 @@ public class ProdutosDao implements IDao<CadProdutos>{
 			prmt.setString(2, e.getNomeProduto());
 			prmt.setInt(3, Produto.getIntProdutoTipo(e.getServico()));
 			prmt.setDouble(4, e.getCusto());
-			prmt.setDate(5, null);
-			prmt.setInt(6, 1); //Verificar metodo para salvar usuario
-			prmt.setString(7, null);
+			prmt.setInt(5, 1); 					//Verificar metodo para salvar usuario
+			//prmt.setDate(5, null);
+			//prmt.setString(7, null);
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {
@@ -54,14 +49,16 @@ public class ProdutosDao implements IDao<CadProdutos>{
 
 	@Override
 	public void setEditar(CadProdutos e) {
-		String sql = "UPDATE produtos SET `prod_servico`=?,`prod_custo`=?,"
-				+ "`prod_dt_alteracao`=NOW(),`prod_usu_id_alteracao`=? WHERE prod_cod = '" + e.getCodProduto() +"'";
+
+		String sql = "CALL AlteraProdutos (?, ?, ?, ?)";
+
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
-			prmt.setInt(1, Produto.getIntProdutoTipo(e.getServico()));
-			prmt.setDouble(2, e.getCusto());
-			prmt.setInt(3, 1);
+			prmt.setString(1, e.getCodProduto());
+			prmt.setInt(2, Produto.getIntProdutoTipo(e.getServico()));
+			prmt.setDouble(3, e.getCusto());
+			prmt.setInt(4, 1); 					//Verificar metodo para salvar usuario
 			prmt.executeUpdate();
 			//return true;
 		} catch (SQLException e1) {
@@ -76,7 +73,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	public List<CadProdutos> getListar() throws SQLException {
 		CadProdutos p;
 		List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
-		String sql = "SELECT * FROM produtos ORDER BY prod_nome;";
+		String sql = "CALL BuscaProdutos ();";
 		
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs;
@@ -98,12 +95,13 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	@Override
 	public boolean setExcluir(CadProdutos e) throws SQLException {
 		String sql;
-		//se for primeira vez, ou seja, datacriação not null
-		sql = "DELETE FROM `produtos` WHERE prod_cod = '" + e.getCodProduto() +"'";
+		//se for primeira vez, ou seja, datacriaÃ§Ã£o not null
+		sql = "CALL DeletaProduto (?) ";
 		
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
+			prmt.setString(1, e.getCodProduto());
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {
@@ -115,8 +113,9 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 	
 	public boolean verificaProduto(String codProduto) throws SQLException{
-		String sql = "SELECT * from produtos where prod_cod ='" + codProduto +"'";
+		String sql = "CALL BuscaProdutoCod (?)";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		prmt.setString(1, codProduto);
 		ResultSet rs = prmt.executeQuery();
 		while(rs.next()){
 			return true;
@@ -126,7 +125,8 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	
 	public List<String> getNomeProduto() throws SQLException{
 		List<String> listProdutos = new ArrayList<String>();
-		String sql = "SELECT prod_nome from produtos ORDER BY prod_nome;";
+		
+		String sql = "CALL BuscaProdutoNome ()";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs = prmt.executeQuery();
 				
@@ -137,7 +137,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 	
 	public String getPrimeiroNomeProduto() throws SQLException{
-		String sql = "SELECT prod_nome from produtos ORDER BY prod_nome LIMIT 1;";
+		String sql = "CALL BuscaPrimProdutoNome ()";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs = prmt.executeQuery();
 		if(rs.next()){
@@ -151,8 +151,9 @@ public class ProdutosDao implements IDao<CadProdutos>{
 		if(nomeProduto != null){
 			if(!nomeProduto.equals("")){
 				CadProdutos cp = new CadProdutos();
-				String sql = "SELECT prod_cod, prod_custo from produtos WHERE prod_nome = '"+ nomeProduto + "';";
+				String sql = "CALL ProdutoInfo (?)";
 				PreparedStatement  prmt = conexao.prepareStatement(sql);
+				prmt.setString(1, nomeProduto);
 				ResultSet rs = prmt.executeQuery();
 				if(rs.next()){
 					cp.setCodProduto(rs.getString("prod_cod"));	
@@ -167,8 +168,9 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	public boolean validaCodProduto(String codProduto) throws SQLException{
 		if(codProduto != null){
 			if(!codProduto.equals("")){
-				String sql = "SELECT * from produtos WHERE prod_cod = '"+ codProduto + "';";
+				String sql = "CALL ValidaCodProduto (?)";
 				PreparedStatement  prmt = conexao.prepareStatement(sql);
+				prmt.setString(1, codProduto);
 				ResultSet rs = prmt.executeQuery();
 				if(rs.next()){
 					return true;
@@ -182,8 +184,9 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	public boolean validaNomeProduto(String nomeProduto) throws SQLException{
 		if(nomeProduto != null){
 			if(!nomeProduto.equals("")){
-				String sql = "SELECT * from produtos WHERE prod_nome = '"+ nomeProduto + "';";
+				String sql = "CALL ValidaNomeProduto (?)";
 				PreparedStatement  prmt = conexao.prepareStatement(sql);
+				prmt.setString(1, nomeProduto);
 				ResultSet rs = prmt.executeQuery();
 				if(rs.next()){
 					return true;
