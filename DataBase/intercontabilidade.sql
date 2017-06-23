@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 23-Jun-2017 às 01:43
--- Versão do servidor: 5.6.17
--- PHP Version: 5.5.12
+-- Host: localhost
+-- Generation Time: 23-Jun-2017 às 02:44
+-- Versão do servidor: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `intercontabilidade`
@@ -27,54 +27,88 @@ DELIMITER $$
 -- Procedures
 --
 DROP PROCEDURE IF EXISTS `AlteraProdutos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AlteraProdutos`(`v_prod_cod` VARCHAR(10), `v_prod_servico` INT(1), `v_prod_custo` DOUBLE(7,2), `v_prod_usu_id_alteracao` INT(4))
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AlteraProdutos` (`v_prod_cod` VARCHAR(10), `v_prod_servico` INT(1), `v_prod_custo` DOUBLE(7,2), `v_prod_usu_id_alteracao` INT(4))  BEGIN
 UPDATE produtos SET `prod_servico`= v_prod_servico, `prod_custo` = v_prod_custo, `prod_dt_alteracao`=CURDATE(), `prod_usu_id_alteracao`= v_prod_usu_id_alteracao
 WHERE prod_cod = v_prod_cod;
 
 END$$
 
+DROP PROCEDURE IF EXISTS `AlteraStatusUsuario`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AlteraStatusUsuario` (`v_usu_login` VARCHAR(20), `v_usu_status` INT(2))  BEGIN
+UPDATE `usuario` SET `usu_status`= v_usu_status WHERE usu_login = v_usu_login;
+END$$
+
 DROP PROCEDURE IF EXISTS `BuscaPrimProdutoNome`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaPrimProdutoNome`()
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaPrimProdutoNome` ()  BEGIN
 SELECT prod_nome from produtos ORDER BY prod_nome LIMIT 1;
 END$$
 
 DROP PROCEDURE IF EXISTS `BuscaProdutoCod`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutoCod`(`v_prod_cod` VARCHAR(10))
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutoCod` (`v_prod_cod` VARCHAR(10))  BEGIN
 SELECT * from produtos where prod_cod = v_prod_cod;
 END$$
 
 DROP PROCEDURE IF EXISTS `BuscaProdutoNome`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutoNome`()
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutoNome` ()  BEGIN
 SELECT prod_nome from produtos ORDER BY prod_nome;
 END$$
 
 DROP PROCEDURE IF EXISTS `BuscaProdutos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutos`()
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscaProdutos` ()  BEGIN
 SELECT * FROM produtos ORDER BY prod_nome;
 END$$
 
 DROP PROCEDURE IF EXISTS `DeletaProduto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DeletaProduto`(`v_prod_cod` VARCHAR(10))
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DeletaProduto` (`v_prod_cod` VARCHAR(10))  BEGIN
 DELETE FROM `produtos` WHERE `prod_cod` = v_prod_cod;
 END$$
 
+DROP PROCEDURE IF EXISTS `EditaUsuario`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EditaUsuario` (`v_usu_nome` VARCHAR(70), `v_usu_login` VARCHAR(20), `v_usu_senha` VARCHAR(20), `v_usu_perfil_id` INT(2))  BEGIN
+UPDATE usuario SET `usu_nome`= v_usu_nome,`usu_senha`= v_usu_senha,`usu_perfil_id`= v_usu_perfil_id
+WHERE `usu_login` = v_usu_login;
+END$$
+
 DROP PROCEDURE IF EXISTS `InserirProdutos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirProdutos`(`v_prod_cod` VARCHAR(10), `v_prod_nome` VARCHAR(70), `v_prod_servico` INT(1), `v_prod_custo` DOUBLE(7,2), `v_prod_usu_id_criacao` INT(4))
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirProdutos` (`v_prod_cod` VARCHAR(10), `v_prod_nome` VARCHAR(70), `v_prod_servico` INT(1), `v_prod_custo` DOUBLE(7,2), `v_prod_usu_id_criacao` INT(4))  BEGIN
 INSERT INTO `produtos`(`prod_cod`, `prod_nome`, `prod_servico`, `prod_custo`, `prod_dt_criacao`,`prod_usu_id_criacao`) VALUES (v_prod_cod, v_prod_nome, v_prod_servico, v_prod_custo, CURDATE(), v_prod_usu_id_criacao);
 
 END$$
 
+DROP PROCEDURE IF EXISTS `InserirUsuario`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirUsuario` (`v_usu_nome` VARCHAR(70), `v_usu_login` VARCHAR(20), `v_usu_senha` VARCHAR(20), `v_usu_perfil_id` INT(2))  BEGIN
+INSERT INTO `usuario`(`usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`,`usu_status`)
+VALUES (v_usu_nome, v_usu_login, v_usu_senha, v_usu_perfil_id,1);
+END$$
+
+DROP PROCEDURE IF EXISTS `ListaUsuarios`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ListaUsuarios` ()  BEGIN
+SELECT * FROM usuario ORDER BY usu_status DESC;
+END$$
+
 DROP PROCEDURE IF EXISTS `ProdutoInfo`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ProdutoInfo`(`v_prod_nome` VARCHAR(70))
-BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ProdutoInfo` (`v_prod_nome` VARCHAR(70))  BEGIN
 SELECT prod_cod, prod_custo from produtos WHERE prod_nome = v_prod_nome;
+END$$
+
+DROP PROCEDURE IF EXISTS `ValidaCodProduto`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidaCodProduto` (`v_prod_cod` VARCHAR(10))  BEGIN
+SELECT * from produtos WHERE prod_cod = v_prod_cod;
+END$$
+
+DROP PROCEDURE IF EXISTS `ValidaNomeProduto`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidaNomeProduto` (`v_prod_nome` VARCHAR(70))  BEGIN
+SELECT * from produtos WHERE prod_nome = v_prod_nome;
+END$$
+
+DROP PROCEDURE IF EXISTS `VerificaStatus`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VerificaStatus` (`v_usu_login` VARCHAR(20))  BEGIN
+SELECT `usu_status` FROM `usuario` WHERE usu_login = v_usu_login;
+END$$
+
+DROP PROCEDURE IF EXISTS `VerificaUsuario`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VerificaUsuario` (`v_usu_login` VARCHAR(20))  BEGIN
+SELECT * FROM `usuario` WHERE usu_login = v_usu_login;
 END$$
 
 DELIMITER ;
@@ -97,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `fichatecnica` (
   PRIMARY KEY (`ft_id`),
   UNIQUE KEY `ft_id` (`ft_id`),
   UNIQUE KEY `ft_nome` (`ft_nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -120,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   UNIQUE KEY `prod_id` (`prod_id`),
   UNIQUE KEY `prod_cod` (`prod_cod`),
   UNIQUE KEY `prod_nome` (`prod_nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtos`
@@ -184,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`usu_id`),
   UNIQUE KEY `usu_id` (`usu_id`),
   UNIQUE KEY `usu_login` (`usu_login`(4))
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -192,8 +226,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`usu_id`, `usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`, `usu_status`) VALUES
 (1, 'Jean', 'jean', '1234', 1, 1),
-(2, 'vinicius1234', 'vinicius1234', 'vinicius1234', 1, 1),
-(3, 'Marcio', 'marcio', '1234', 1, 1),
+(2, 'vinicius', 'vinicius1234', 'vinicius1234', 1, 1),
+(3, 'Marcio', 'marcio', '1234', 1, 0),
 (4, 'Jose Renato', 'jose', '1234', 1, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

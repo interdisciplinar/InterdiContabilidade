@@ -24,8 +24,7 @@ public class UsuarioDao implements IDao<CadUsuario>{
 
 	@Override
 	public boolean setIncluir(CadUsuario e) throws SQLException {
-		String sql = "INSERT INTO `usuario`(`usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`,`usu_status`) "
-				+ "VALUES (?,?,?,?,1)";
+		String sql = "CALL InserirUsuario (?,?,?,?)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
@@ -44,14 +43,14 @@ public class UsuarioDao implements IDao<CadUsuario>{
 
 	@Override
 	public void setEditar(CadUsuario e) throws SQLException {
-		String sql = "UPDATE usuario SET `usu_nome`=?,`usu_senha`=?,`usu_perfil_id`=?"
-				+ " WHERE usu_login = '"+e.getLogin()+"';";
+		String sql = "CALL EditaUsuario (?,?,?,?)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
 			prmt.setString(1, e.getNomeUser());
-			prmt.setString(2, e.getSenha());
-			prmt.setInt(3, Usuario.getIntUsuarioTipo(e.getPermissao()));
+			prmt.setString(2, e.getLogin());
+			prmt.setString(3, e.getSenha());
+			prmt.setInt(4, Usuario.getIntUsuarioTipo(e.getPermissao()));
 			prmt.executeUpdate();
 			//return true;
 		} catch (SQLException e1) {
@@ -67,7 +66,7 @@ public class UsuarioDao implements IDao<CadUsuario>{
 	public List<CadUsuario> getListar() throws SQLException {
 		CadUsuario cadUsuario;
 		List<CadUsuario> listProdutos = new ArrayList<CadUsuario>();
-		String sql = "SELECT * FROM usuario ORDER BY usu_status DESC;";
+		String sql = "CALL ListaUsuarios ()";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs;
 		
@@ -89,16 +88,19 @@ public class UsuarioDao implements IDao<CadUsuario>{
 
 	@Override
 	public boolean setExcluir(CadUsuario e) throws SQLException {
-		String sql;
+		String sql, usu_login;
+		PreparedStatement prmt;
 		if(verificarStatus(e.getLogin())){
-			sql = "UPDATE `usuario` SET `usu_status`= 0 WHERE usu_login = '"+ e.getLogin() +"'";
+			sql = "CALL AlteraStatusUsuario (?,0)";
+			usu_login = e.getLogin();
 		}
 		else{
-			sql = "UPDATE `usuario` SET `usu_status`= 1 WHERE usu_login = '"+ e.getLogin() +"'";
+			sql = "CALL AlteraStatusUsuario (?,1)";
+			usu_login = e.getLogin();
 		}
-		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
+			prmt.setString(1, usu_login);
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {
@@ -109,7 +111,7 @@ public class UsuarioDao implements IDao<CadUsuario>{
 	}
 	
 	public boolean verificaUsuario(String login) throws SQLException{
-		String sql = "SELECT * FROM `usuario` WHERE usu_login = '" + login + "'";
+		String sql = "CALL VerificaUsuario ('" + login + "')";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs;
 		
@@ -121,7 +123,7 @@ public class UsuarioDao implements IDao<CadUsuario>{
 	}
 	
 	public boolean verificarStatus(String login) throws SQLException{
-		String sql = "SELECT `usu_status` FROM `usuario` WHERE usu_login = '" + login + "'";
+		String sql = "CALL VerificaStatus ('" + login + "')";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs;
 		
