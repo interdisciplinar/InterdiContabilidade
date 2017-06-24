@@ -3,7 +3,7 @@ package br.edu.unifebe.interdisciplinar.model;
 public class CadProdutoFicha {
 	public String nomeFicha;
 	public String nomeProdFicha;
-	public String nomeCodProdFicha;
+	public String codProdFicha;
 	public double custoProdFicha;
 	public int qtdProdFicha;
 	public String getNomeFicha() {
@@ -18,11 +18,11 @@ public class CadProdutoFicha {
 	public void setNomeProdFicha(String nomeProdFicha) {
 		this.nomeProdFicha = nomeProdFicha;
 	}
-	public String getNomeCodProdFicha() {
-		return nomeCodProdFicha;
+	public String getCodProdFicha() {
+		return codProdFicha;
 	}
-	public void setNomeCodProdFicha(String nomeCodProdFicha) {
-		this.nomeCodProdFicha = nomeCodProdFicha;
+	public void setCodProdFicha(String nomeCodProdFicha) {
+		this.codProdFicha = nomeCodProdFicha;
 	}
 	public double getCustoProdFicha() {
 		return custoProdFicha;

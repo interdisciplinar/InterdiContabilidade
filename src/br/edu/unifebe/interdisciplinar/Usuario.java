@@ -191,7 +191,7 @@ public class Usuario {
 	public void getUsuarios(){
 		try {
 			usuarioDao = new UsuarioDao();
-			listUsuarios = usuarioDao.getListar();
+			listUsuarios = usuarioDao.getListar("");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

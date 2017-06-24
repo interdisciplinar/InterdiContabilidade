@@ -63,7 +63,7 @@ public class UsuarioDao implements IDao<CadUsuario>{
 	}
 
 	@Override
-	public List<CadUsuario> getListar() throws SQLException {
+	public List<CadUsuario> getListar(String e) throws SQLException {
 		CadUsuario cadUsuario;
 		List<CadUsuario> listProdutos = new ArrayList<CadUsuario>();
 		String sql = "CALL ListaUsuarios ()";

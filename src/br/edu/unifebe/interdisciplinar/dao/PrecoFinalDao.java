@@ -27,7 +27,7 @@ public class PrecoFinalDao implements IDao<CalcPrecoFinal>{
 	}
 
 	@Override
-	public List<CalcPrecoFinal> getListar() throws SQLException {
+	public List<CalcPrecoFinal> getListar(String e) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -27,7 +27,7 @@ public class ImpostosDao implements IDao<CadImposto>{
 	}
 
 	@Override
-	public List<CadImposto> getListar() throws SQLException {
+	public List<CadImposto> getListar(String e) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

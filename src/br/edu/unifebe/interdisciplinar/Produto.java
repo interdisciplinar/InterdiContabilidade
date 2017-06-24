@@ -184,9 +184,7 @@ public class Produto{
 		listProdutos.clear();
 		try {
 			produtosDao = new ProdutosDao();
-			for(CadProdutos cp : produtosDao.getListar()){
-				listProdutos.add(cp);
-			}
+			listProdutos = produtosDao.getListar("");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -10,6 +10,7 @@ import java.util.List;
 import br.edu.unifebe.interdisciplinar.Produto;
 import br.edu.unifebe.interdisciplinar.conexao.Conexao;
 import br.edu.unifebe.interdisciplinar.conexao.ConnectionDB;
+import br.edu.unifebe.interdisciplinar.model.CadFichaTec;
 import br.edu.unifebe.interdisciplinar.model.CadProdutos;
 
 public class ProdutosDao implements IDao<CadProdutos>{
@@ -70,7 +71,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 	}
 
 	@Override
-	public List<CadProdutos> getListar() throws SQLException {
+	public List<CadProdutos> getListar(String e) throws SQLException {
 		CadProdutos p;
 		List<CadProdutos> listProdutos = new ArrayList<CadProdutos>();
 		String sql = "CALL BuscaProdutos ();";
