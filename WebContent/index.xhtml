@@ -144,7 +144,12 @@
 						</tr>
 						<tr>
 							<td class="ce1"> 
-							<p:inputText maxlength="70" id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px"/>
+								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
+								<p:messages autoUpdate="true" />
+								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="cusProduto codProduto"/>
+<!-- 											<f:selectItem itemLabel="" /> -->
+								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
+								</p:selectOneMenu> 
 
 							</td>
 							<td class="cd1" colspan="2"> 
