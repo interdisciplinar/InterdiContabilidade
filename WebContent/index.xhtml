@@ -15,11 +15,11 @@
 <h:body>
 
 	<div id="usernome">
-		<p:outputLabel value="nome usuario" />
+		<p:outputLabel value="#{login.userLogin}" />
 	</div>
 	
 	<div id="usercod">
-		<p:outputLabel value="codigo do usuario" />
+		<p:outputLabel value="#{login.userId}" />
 	</div>
 	
 	<div id="interface">
@@ -143,13 +143,23 @@
 							
 						</tr>
 						<tr>
-							<td class="ce1"> <p:inputText maxlength="70" id="nomeFicha" style="width:380px"/> </td>
-							<td class="cd1" colspan="2"> <p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false">
-											<p:messages autoUpdate="true" />
-											<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
+							<td class="ce1"> 
+								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
+								<p:messages autoUpdate="true" />
+								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
-											<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
-											</p:selectOneMenu> </td>
+								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
+								</p:selectOneMenu> 
+
+							</td>
+							<td class="cd1" colspan="2"> 
+								<p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false">
+								<p:messages autoUpdate="true" />
+								<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
+<!-- 											<f:selectItem itemLabel="" /> -->
+								<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
+								</p:selectOneMenu> 
+							</td>
 						</tr>
 						<tr>
  							<td class="ce2"> <p:outputLabel value="Quantidade: " for="qtdProduto" /> </td>
@@ -157,7 +167,7 @@
  							<td class="cd2"> <p:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce2"> <p:inputNumber id="qtdProduto" maxValue="9999" /> </td>
+							<td class="ce2"> <p:inputNumber id="qtdProduto" value="#{fichaTecnica.qtdProdutoFicha}" maxValue="9999" emptyValue="0" /> </td>
 							<td class="cm2"> <p:inputNumber id="cusProduto" value="#{fichaTecnica.custoProdutoFicha}" readonly="true" symbol="R$ " emptyValue="sign" /> </td>
 							<td class="cd2"> <p:inputText id="codProduto" value="#{fichaTecnica.codProdutoFicha}" readonly="true" /> </td>
 						</tr>
@@ -165,30 +175,32 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Incluir" action="#{fichaTecnica.buttonAction}" />
+						<p:commandButton id="btnSalvarFicha" value="#{fichaTecnica.btnName}" update="fichaTable btnSalvarFicha qtdProduto nomeFicha" actionListener="#{fichaTecnica.buttonSalvar}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="Salvar" action="#{fichaTecnica.buttonAction}" />
+						<p:commandButton id="btnIncluir"  
+										 value="Incluir" actionListener="#{fichaTecnica.buttonIncluir}"
+										 process="@this" update="fichaTable " />
 						<br />
 						<br />
 						<br />
 
 						<h4>Produtos Cadastrados na Ficha (DataTable)</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
-							<p:dataTable var="fichaProd" value="#{produto.listProdutos}">
+							<p:dataTable id="fichaTable" var="cadProdutoFicha" value="#{fichaTecnica.listProdutos}">
 
 								<p:column headerText="Nome Produto" style="width:50%">
-									<h:outputText value="TESTE" />
+									<h:outputText value="#{cadProdutoFicha.nomeProdFicha}" />
 								</p:column>
 
 								<p:column headerText="Código Produto" style="width:25%">
-									<h:outputText value="TESTE" />
+									<h:outputText value="#{cadProdutoFicha.codProdFicha}" />
 								</p:column>
 								<p:column headerText="Qtd" >
-									<h:outputText value="TESTE" />
+									<h:outputText value="#{cadProdutoFicha.qtdProdFicha}" />
 								</p:column>
 
 								<p:column headerText="Custo Produto">
-									<h:outputText value="TESTE" />
+									<h:outputText value="#{cadProdutoFicha.custoProdFicha}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
 						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" />

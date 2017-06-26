@@ -18,24 +18,28 @@
 	
 	<div id="telalogin">
 		<h:form id="formlogin">
+			
 			<p:fieldset class="field">
 				<table id="tablogin">
 					<tr>
 						<td class="col"> <h:outputLabel value="Usuário: " for="usuario" /> </td>
 					</tr>
 					<tr>
-						<td class="col"> <p:inputText id="usuario" maxlength="20" value="" style="width:250px" /> </td>
+						<td class="col"> <p:inputText id="usuario" maxlength="20" value="#{login.userLogin}" style="width:250px" /> </td>
 					</tr>
 					<tr>
 						<td class="col"> <h:outputLabel value="Senha: " for="senha" /> </td>
 					</tr>
 					<tr>
-						<td class="col"> <p:password id="senha" maxlength="20" value="" style="width:250px" /> </td>
+						<td class="col"> <p:password id="senha" maxlength="20" value="#{login.userSenha}" style="width:250px" /> </td>
 					</tr>
 				</table>
 				<br />
 				<center>
-					<p:commandButton value="LOGIN" update="@form" actionListener="#{produto.buttonAction}" />
+					<p:commandButton value="LOGIN" action="#{login.buttonLogar}" />
+					<p:messages id="msg" autoUpdate="true" closable="true">
+						<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
+					</p:messages>
 				</center>
 			</p:fieldset>
 		</h:form>

@@ -2,8 +2,10 @@ package br.edu.unifebe.interdisciplinar;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
+@SessionScoped
 public class PrecoFinal {
 	private double percent;
 	

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -15,6 +16,7 @@ import br.edu.unifebe.interdisciplinar.model.CadUsuario;
 import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
+@SessionScoped
 public class Usuario {
 	private String nomeUsuario;
 	private String loginUsuario;
@@ -191,7 +193,7 @@ public class Usuario {
 	public void getUsuarios(){
 		try {
 			usuarioDao = new UsuarioDao();
-			listUsuarios = usuarioDao.getListar();
+			listUsuarios = usuarioDao.getListar("");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

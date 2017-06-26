@@ -20,8 +20,9 @@ div#usernome {
 
 div#usercod {
 	position: absolute;
-	top: -50px; /* posicionado fora da página */
-	left: -50px; /* posicionado fora da página */
+	top: 0px; /* posicionado fora da página */
+	left: 0px; /* posicionado fora da página */
+	color: rgba(224, 224, 224, 0.0);
 }
 
 h1 {
