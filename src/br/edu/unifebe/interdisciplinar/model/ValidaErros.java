@@ -8,6 +8,7 @@ public class ValidaErros {
 	
 	/*------------Ficha Tecnica--------------*/
 	private String nomeFichaTecnica;
+	private int qtdProduto;
 	
 	/*------------Preço Final--------------*/
 	private double porcentagem;
@@ -59,8 +60,9 @@ public class ValidaErros {
 	}
 	
 	/*----------------------------------Ficha Tecnica-------------------------------------------------*/
-	public ValidaErros(String nomeFichaTecnica) {
+	public ValidaErros(String nomeFichaTecnica, int qtdProduto) {
 		this.nomeFichaTecnica = nomeFichaTecnica;
+		this.qtdProduto = qtdProduto;
 	}
 	
 	public String getNomeFichaTecnica() {
@@ -71,9 +73,17 @@ public class ValidaErros {
 		this.nomeFichaTecnica = nomeFichaTecnica;
 	}
 	
+	public int getQtdProduto() {
+		return qtdProduto;
+	}
+
+	public void setQtdProduto(int qtdProduto) {
+		this.qtdProduto = qtdProduto;
+	}
+
 	public boolean validaFicha(){
 		if(nomeFichaTecnica != null){
-			if(nomeFichaTecnica.equals("")){
+			if(nomeFichaTecnica.equals("") || qtdProduto <= 0){
 				return false;
 			}
 		}

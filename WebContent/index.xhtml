@@ -36,6 +36,7 @@
 			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 5000)" />
 		</p:messages>
 		<h:form id="form">
+			<p:commandButton id="btnLogout" value="Sair" ajax="false" action="#{login.logout()}"/>
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
@@ -167,7 +168,9 @@
  							<td class="cd2"> <p:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce2"> <p:inputNumber id="qtdProduto" value="#{fichaTecnica.qtdProdutoFicha}" maxValue="9999" emptyValue="0" /> </td>
+							<td class="ce2"> 
+								<p:inputNumber id="qtdProduto" value="#{fichaTecnica.qtdProdutoFicha}" maxValue="9999"/>
+							</td>
 							<td class="cm2"> <p:inputNumber id="cusProduto" value="#{fichaTecnica.custoProdutoFicha}" readonly="true" symbol="R$ " emptyValue="sign" /> </td>
 							<td class="cd2"> <p:inputText id="codProduto" value="#{fichaTecnica.codProdutoFicha}" readonly="true" /> </td>
 						</tr>
@@ -179,7 +182,7 @@
 						&nbsp;&nbsp;
 						<p:commandButton id="btnIncluir"  
 										 value="Incluir" actionListener="#{fichaTecnica.buttonIncluir}"
-										 process="@this" update="fichaTable " />
+										 process="@this" update="fichaTable qtdProduto" />
 						<br />
 						<br />
 						<br />
@@ -203,8 +206,8 @@
 									<h:outputText value="#{cadProdutoFicha.custoProdFicha}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
-						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" />
-						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" >
+<!-- 						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" /> -->
+						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="fichaTable" actionListener="#{fichaTecnica.buttonExcluir(cadProdutoFicha)}">
 						             	<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
 						             </p:commandButton>
 						        </p:column>

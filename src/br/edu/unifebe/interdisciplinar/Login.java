@@ -91,6 +91,15 @@ public class Login implements Serializable{
 		}
 	}
 	
+	public String logout() {
+		HttpSession session = SessionUtils.getSession();
+		session.invalidate();
+		userId = 0;
+		userLogin = "";
+		userSenha = "";
+		return "login";
+	}
+	
 	public int validaUsuarioStatus(int userId){
 		String sql = "SELECT usu_status FROM `usuario` WHERE usu_id = '" +  userId + "'";
 		try {

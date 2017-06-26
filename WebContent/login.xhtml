@@ -36,7 +36,7 @@
 				</table>
 				<br />
 				<center>
-					<p:commandButton value="LOGIN" action="#{login.buttonLogar}" />
+					<p:commandButton value="LOGIN" ajax="false" action="#{login.buttonLogar}" />
 					<p:messages id="msg" autoUpdate="true" closable="true">
 						<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 					</p:messages>

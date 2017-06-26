@@ -135,9 +135,14 @@ public class Usuario {
         validaErros = new ValidaErros(nomeUsuario, loginUsuario, senhaUsuario);
         if(validaErros.validaUsuario()){
         	if(usuarioDao.verificaUsuario(loginUsuario)){
-        		usuarioDao.setEditar(cadUsuario);
-        		getUsuarios();
-        		refresh();
+        		if(bloqueiacampo){
+	        		usuarioDao.setEditar(cadUsuario);
+	        		getUsuarios();
+	        		refresh();
+        		}
+        		else{
+        			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario já foi cadastrado", "Usuario já foi cadastrado"));
+        		}
         	}
         	else{
 		        if(usuarioDao.setIncluir(cadUsuario)){

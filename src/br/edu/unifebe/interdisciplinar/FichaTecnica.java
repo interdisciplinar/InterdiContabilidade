@@ -161,34 +161,48 @@ public class FichaTecnica {
         	btnName = "Salvar";
         }
         else{
-        	cadProdutoFicha = new CadProdutoFicha();
-        	prodFichaDao = new ProdFichaDao();
-        	cadProdutoFicha.setNomeFicha(nomeFicha);
-        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
-        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
-        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
-        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
-        	fichaTecDao.setIncluir(cadFichaTec);
-        	prodFichaDao.setIncluir(cadProdutoFicha);
-        	listProdutosFicha();
-        	btnName = "Concluir";
-        	qtdProdutoFicha = 0;
+        	ValidaErros validaErros = new ValidaErros(nomeFicha, qtdProdutoFicha);
+        	if(validaErros.validaFicha()){
+	        	cadProdutoFicha = new CadProdutoFicha();
+	        	prodFichaDao = new ProdFichaDao();
+	        	cadProdutoFicha.setNomeFicha(nomeFicha);
+	        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
+	        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
+	        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
+	        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+	        	fichaTecDao.setIncluir(cadFichaTec);
+	        	prodFichaDao.setIncluir(cadProdutoFicha);
+	        	listProdutosFicha();
+	        	btnName = "Concluir";
+	        	qtdProdutoFicha = 0;
+        	}
         }
     }
 	
 	public void buttonIncluir(ActionEvent actionEvent) throws SQLException {
-		System.out.println(qtdProdutoFicha);
-		cadProdutoFicha = new CadProdutoFicha();
-    	prodFichaDao = new ProdFichaDao();
-    	cadProdutoFicha.setNomeFicha(nomeFicha);
-    	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
-    	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
-    	cadProdutoFicha.setNomeProdFicha(nomeProduto);
-    	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
-    	System.out.println(qtdProdutoFicha);
-    	prodFichaDao.setIncluir(cadProdutoFicha);
+		fichaTecDao = new FichaTecDao();
+		prodFichaDao = new ProdFichaDao();
+		if(fichaTecDao.verificaNomeFicha(nomeFicha)){
+			cadProdutoFicha = new CadProdutoFicha();
+			cadProdutoFicha.setNomeFicha(nomeFicha);
+			cadProdutoFicha.setCodProdFicha(codProdutoFicha);
+			cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
+			cadProdutoFicha.setNomeProdFicha(nomeProduto);
+			cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+			System.out.println(qtdProdutoFicha);
+			prodFichaDao.setIncluir(cadProdutoFicha);
+			listProdutosFicha();
+			qtdProdutoFicha = 0;
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário salvar a ficha antes de incluir produtos nela", "É necessário salvar a ficha antes de incluir produtos nela"));
+		}
+    }
+	
+	public void buttonExcluir(CadProdutoFicha cadProdutoFicha) throws SQLException {
+		prodFichaDao = new ProdFichaDao();
+		prodFichaDao.setExcluir(cadProdutoFicha);
     	listProdutosFicha();
-    	qtdProdutoFicha = 0;
     }
 
 	public void produtoInfo(){
@@ -260,6 +274,10 @@ public class FichaTecnica {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void removeDecimal(){
+		qtdProdutoFicha = (int) Math.floor(qtdProdutoFicha);
 	}
 	
 	public void finish(){
