@@ -15,11 +15,11 @@
 <h:body>
 
 	<div id="usernome">
-		<p:outputLabel value="nome usuario" />
+		<p:outputLabel value="#{login.userLogin}" />
 	</div>
 	
 	<div id="usercod">
-		<p:outputLabel value="codigo do usuario" />
+		<p:outputLabel value="#{login.userId}" />
 	</div>
 	
 	<div id="interface">
@@ -146,7 +146,7 @@
 							<td class="ce1"> 
 								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
 								<p:messages autoUpdate="true" />
-								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="cusProduto codProduto"/>
+								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu> 
@@ -167,7 +167,7 @@
  							<td class="cd2"> <p:outputLabel value=" Código do Produto: " for="codProduto" /> </td>
 						</tr>
 						<tr>
-							<td class="ce2"> <p:inputNumber id="qtdProduto" maxValue="9999" emptyValue="0" /> </td>
+							<td class="ce2"> <p:inputNumber id="qtdProduto" value="#{fichaTecnica.qtdProdutoFicha}" maxValue="9999" emptyValue="0" /> </td>
 							<td class="cm2"> <p:inputNumber id="cusProduto" value="#{fichaTecnica.custoProdutoFicha}" readonly="true" symbol="R$ " emptyValue="sign" /> </td>
 							<td class="cd2"> <p:inputText id="codProduto" value="#{fichaTecnica.codProdutoFicha}" readonly="true" /> </td>
 						</tr>
@@ -175,11 +175,11 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton id="btnSalvarTeste"  
-										 value="Incluir" actionListener="#{fichaTecnica.buttonIncluir}"
-										 process="@this" update="fichaTable qtdProduto" />
+						<p:commandButton id="btnSalvarFicha" value="#{fichaTecnica.btnName}" update="fichaTable btnSalvarFicha qtdProduto nomeFicha" actionListener="#{fichaTecnica.buttonSalvar}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="#{fichaTecnica.btnName}" update="fichaTable btnSalvarTeste qtdProduto" actionListener="#{fichaTecnica.buttonSalvar}" />
+						<p:commandButton id="btnIncluir"  
+										 value="Incluir" actionListener="#{fichaTecnica.buttonIncluir}"
+										 process="@this" update="fichaTable " />
 						<br />
 						<br />
 						<br />

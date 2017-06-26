@@ -30,7 +30,6 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 		
 		PreparedStatement prmt;
 		try {
-			System.out.println("coco222222222222222222222222222222222222");
 			prmt = conexao.prepareStatement(sql);
 			prmt.setString(1, e.getNomeFicha());
 			prmt.setString(2, e.getNomeProdFicha());

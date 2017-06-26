@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.unifebe.interdisciplinar.Login;
 import br.edu.unifebe.interdisciplinar.Produto;
 import br.edu.unifebe.interdisciplinar.conexao.Conexao;
 import br.edu.unifebe.interdisciplinar.conexao.ConnectionDB;
@@ -35,7 +36,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 			prmt.setString(2, e.getNomeProduto());
 			prmt.setInt(3, Produto.getIntProdutoTipo(e.getServico()));
 			prmt.setDouble(4, e.getCusto());
-			prmt.setInt(5, 1); 					//Verificar metodo para salvar usuario
+			prmt.setInt(5, Login.userId); //Verificar metodo para salvar usuario
 			//prmt.setDate(5, null);
 			//prmt.setString(7, null);
 			prmt.executeUpdate();

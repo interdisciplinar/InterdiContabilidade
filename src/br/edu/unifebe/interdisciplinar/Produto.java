@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import br.edu.unifebe.interdisciplinar.dao.ProdutosDao;
@@ -13,6 +14,7 @@ import br.edu.unifebe.interdisciplinar.model.CadProdutos;
 import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
+@SessionScoped
 public class Produto{
 	private String codProduto = "";
 	private String nomeProduto;

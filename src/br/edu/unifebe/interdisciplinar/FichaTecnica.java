@@ -177,7 +177,7 @@ public class FichaTecnica {
     }
 	
 	public void buttonIncluir(ActionEvent actionEvent) throws SQLException {
-		System.out.println(nomeFicha);
+		System.out.println(qtdProdutoFicha);
 		cadProdutoFicha = new CadProdutoFicha();
     	prodFichaDao = new ProdFichaDao();
     	cadProdutoFicha.setNomeFicha(nomeFicha);
@@ -185,6 +185,7 @@ public class FichaTecnica {
     	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
     	cadProdutoFicha.setNomeProdFicha(nomeProduto);
     	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+    	System.out.println(qtdProdutoFicha);
     	prodFichaDao.setIncluir(cadProdutoFicha);
     	listProdutosFicha();
     	qtdProdutoFicha = 0;

@@ -18,6 +18,7 @@
 	
 	<div id="telalogin">
 		<h:form id="formlogin">
+			
 			<p:fieldset class="field">
 				<table id="tablogin">
 					<tr>
@@ -35,7 +36,10 @@
 				</table>
 				<br />
 				<center>
-					<p:commandButton value="LOGIN" update="@form" actionListener="#{login.buttonLogar}" />
+					<p:commandButton value="LOGIN" action="#{login.buttonLogar}" />
+					<p:messages id="msg" autoUpdate="true" closable="true">
+						<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
+					</p:messages>
 				</center>
 			</p:fieldset>
 		</h:form>

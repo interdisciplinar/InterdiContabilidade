@@ -1,5 +1,6 @@
 package br.edu.unifebe.interdisciplinar;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,9 +22,14 @@ import br.edu.unifebe.interdisciplinar.model.SessionUtils;
 
 @ManagedBean
 @SessionScoped
-public class Login {
+public class Login implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String userLogin;
 	public String userSenha;
+	public static int userId;
 	private Connection conexao = null;
 	private ConnectionDB conexaoDB;
 	
@@ -49,19 +55,56 @@ public class Login {
 		this.userSenha = userSenha;
 	}
 	
-	public String buttonLogar(ActionEvent actionEvent) throws SQLException {
-		int userId = validaUsuario();
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String buttonLogar() {
+		userId = validaUsuario();
 		if (userId > 0) {
-			HttpSession session = SessionUtils.getSession();
-			session.setAttribute("userid", userId);
-			return "index.xhtml";
+			if(validaUsuarioStatus(userId) > 0){
+				HttpSession session = SessionUtils.getSession();
+				session.setAttribute("userid", userId);
+				session.setAttribute("userLogin", userLogin);
+				return "index";
+			}
+			else{
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_WARN,
+								"Seu usuário está desativado, verifique com o administrador do sistema",
+								null));
+				return "login";
+			}
+			
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Incorrect Username and Passowrd",
-							"Please enter correct username and Password"));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Usuário ou senha incorreta",
+							null));
 			return "login";
+		}
+	}
+	
+	public int validaUsuarioStatus(int userId){
+		String sql = "SELECT usu_status FROM `usuario` WHERE usu_id = '" +  userId + "'";
+		try {
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs;
+		rs = prmt.executeQuery();
+		while(rs.next()){
+			return rs.getInt("usu_status");
+		}
+		return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -73,7 +116,7 @@ public class Login {
 		rs = prmt.executeQuery();
 			
 		while(rs.next()){
-			return rs.getInt("usu_id");
+			return rs.getInt("usu_id");			
 		}
 		
 		return 0;
