@@ -66,9 +66,7 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 
 	@Override
 	public List<CadProdutoFicha> getListar(String ft_nome) throws SQLException {
-		System.out.println(ft_nome);
 		String sql = "CALL ListaProdutosFicha (?)";
-		
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		prmt.setString(1, ft_nome);
 		ResultSet rs;
