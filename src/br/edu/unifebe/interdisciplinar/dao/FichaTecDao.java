@@ -24,20 +24,18 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 	
 	@Override
 	public boolean setIncluir(CadFichaTec e) throws SQLException {
-		String sql = "INSERT INTO `fichatecnica`(`ft_nome`, `ft_dt_criacao`, `ft_total_custo`, `ft_usu_id_criacao`) "
-				+ "VALUES (?,CURDATE(),?,?)";
+		String sql = "CALL IncluirFicha (?,?,?)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
 			prmt.setString(1, e.getNomeFicha());
 			prmt.setDouble(2, e.getTotalCusto());
-			prmt.setInt(3, 1);
+			prmt.setInt(3, 1); 						//Id Usuario falta alterar
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			System.out.println("not beleza");
-			
+						
 			e1.printStackTrace();
 			System.out.println(e1.getErrorCode());
 			System.out.println(e1.getMessage());
@@ -53,7 +51,7 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 
 	@Override
 	public List<CadFichaTec> getListar(String e) throws SQLException {
-		String sql = "SELECT * FROM `fichatecnica`";
+		String sql = "CALL ListaFichaTecnica ()";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
 		ResultSet rs;
 		CadFichaTec ft;
@@ -76,8 +74,9 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 	}
 	
 	public boolean verificaNomeFicha(String nomeFicha) throws SQLException{
-		String sql = "SELECT * FROM `fichatecnica` WHERE ft_nome = '"+ nomeFicha +"'";
+		String sql = "CALL VerificaFichaTecnica (?)";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		prmt.setString(1, nomeFicha);
 		ResultSet rs;
 		rs = prmt.executeQuery();
 		while(rs.next()){

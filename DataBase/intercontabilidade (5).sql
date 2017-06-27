@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 28-Jun-2017 às 01:08
+-- Generation Time: 28-Jun-2017 às 01:54
 -- Versão do servidor: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -74,6 +74,11 @@ UPDATE usuario SET `usu_nome`= v_usu_nome,`usu_senha`= v_usu_senha,`usu_perfil_i
 WHERE `usu_login` = v_usu_login;
 END$$
 
+DROP PROCEDURE IF EXISTS `IncluirFicha`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `IncluirFicha` (`v_ft_nome` VARCHAR(70), `v_ft_dt_criacao` DATE, `v_ft_total_custo` DECIMAL(10,2), `v_ft_usu_id_criacao` INT(4))  BEGIN
+INSERT INTO `fichatecnica`(`ft_nome`, `ft_dt_criacao`, `ft_total_custo`, `ft_usu_id_criacao`)VALUES (v_ft_nome,CURDATE(), v_ft_total_custo, v_ft_usu_id_criacao);
+END$$
+
 DROP PROCEDURE IF EXISTS `InserirProdutoFicha`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirProdutoFicha` (`v_ft_nome` VARCHAR(70), `v_ft_prod_nome` VARCHAR(70), `v_ft_prod_cod` VARCHAR(10), `v_ft_prod_custo` DECIMAL(10,2), `v_ft_prod_qtd` INT(4))  BEGIN
 INSERT INTO `produtosficha`(`ft_nome`, `ft_prod_nome`, `ft_prod_cod`, `ft_prod_custo`, `ft_prod_qtd`) VALUES (v_ft_nome, v_ft_prod_nome, v_ft_prod_cod, v_ft_prod_custo, v_ft_prod_qtd);
@@ -89,6 +94,11 @@ DROP PROCEDURE IF EXISTS `InserirUsuario`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirUsuario` (`v_usu_nome` VARCHAR(70), `v_usu_login` VARCHAR(20), `v_usu_senha` VARCHAR(20), `v_usu_perfil_id` INT(2))  BEGIN
 INSERT INTO `usuario`(`usu_nome`, `usu_login`, `usu_senha`, `usu_perfil_id`,`usu_status`)
 VALUES (v_usu_nome, v_usu_login, v_usu_senha, v_usu_perfil_id,1);
+END$$
+
+DROP PROCEDURE IF EXISTS `ListaFichaTecnica`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ListaFichaTecnica` ()  BEGIN
+SELECT * FROM `fichatecnica`;
 END$$
 
 DROP PROCEDURE IF EXISTS `ListaProdutosFicha`$$
@@ -116,6 +126,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidaNomeProduto` (`v_prod_nome` V
 SELECT * from produtos WHERE prod_nome = v_prod_nome;
 END$$
 
+DROP PROCEDURE IF EXISTS `VerificaFichaTecnica`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VerificaFichaTecnica` (`v_ft_nome` VARCHAR(70))  BEGIN
+SELECT * FROM `fichatecnica` WHERE ft_nome = v_ft_nome;
+END$$
+
 DROP PROCEDURE IF EXISTS `VerificaStatus`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `VerificaStatus` (`v_usu_login` VARCHAR(20))  BEGIN
 SELECT `usu_status` FROM `usuario` WHERE usu_login = v_usu_login;
@@ -140,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `fichatecnica` (
   `ft_nome` varchar(70) NOT NULL,
   `ft_dt_criacao` date NOT NULL,
   `ft_dt_alteracao` date DEFAULT NULL,
-  `ft_total_custo` decimal(7,2) NOT NULL,
+  `ft_total_custo` decimal(10,2) NOT NULL,
   `ft_usu_id_criacao` int(4) NOT NULL,
   `ft_usu_id_alteracao` int(4) DEFAULT NULL,
   PRIMARY KEY (`ft_id`),
@@ -177,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   UNIQUE KEY `prod_id` (`prod_id`),
   UNIQUE KEY `prod_cod` (`prod_cod`),
   UNIQUE KEY `prod_nome` (`prod_nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtos`
@@ -206,7 +221,8 @@ INSERT INTO `produtos` (`prod_id`, `prod_cod`, `prod_nome`, `prod_servico`, `pro
 (41, 'teste5555', 'super produto', 1, '2222.00', '2017-06-17', '2017-06-19', 1, 1),
 (43, 'teste9898', 'teste9898', 0, '9898.00', '2017-06-19', NULL, 1, NULL),
 (44, 'testebtn', 'testebtn', 0, '212.00', '2017-06-19', NULL, 1, NULL),
-(46, '1234', 'marcios', 0, '32.00', '2017-06-20', NULL, 1, NULL);
+(46, '1234', 'marcios', 0, '32.00', '2017-06-20', NULL, 1, NULL),
+(47, 'produto', 'produto', 0, '123.00', '2017-06-27', NULL, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -223,14 +239,18 @@ CREATE TABLE IF NOT EXISTS `produtosficha` (
   `ft_prod_custo` decimal(10,2) NOT NULL,
   `ft_prod_qtd` int(4) NOT NULL,
   PRIMARY KEY (`id_prod_ficha`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtosficha`
 --
 
 INSERT INTO `produtosficha` (`id_prod_ficha`, `ft_nome`, `ft_prod_nome`, `ft_prod_cod`, `ft_prod_custo`, `ft_prod_qtd`) VALUES
-(26, 'teste2', 'marcio', '123', '0.33', 1);
+(26, 'teste2', 'marcio', '123', '0.33', 1),
+(29, 'teste', 'marcio', '123', '0.33', 0),
+(30, 'teste', 'marcio', '123', '0.33', 0),
+(31, 'teste', 'produto', 'produto', '123.00', 0),
+(32, 'ficha1', 'teste669', 'teste669', '669.00', 2);
 
 -- --------------------------------------------------------
 
