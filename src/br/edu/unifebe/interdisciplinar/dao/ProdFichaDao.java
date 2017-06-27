@@ -25,8 +25,7 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 	@Override
 	public boolean setIncluir(CadProdutoFicha e) throws SQLException {
 		String sql;
-		sql = "INSERT INTO `produtosficha`(`ft_nome`, `ft_prod_nome`, `ft_prod_cod`, `ft_prod_custo`, `ft_prod_qtd`)"
-				+ " VALUES (?,?,?,?,?)";
+		sql = "CALL InserirProdutoFicha (?,?,?,?,?)";
 		
 		PreparedStatement prmt;
 		try {
@@ -48,7 +47,7 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 	@Override
 	public void setEditar(CadProdutoFicha e) throws SQLException {
 		String sql="UPDATE `produtosficha` SET `ft_prod_qtd`=? WHERE ft_nome = '"+e.getNomeFicha()+"' "
-				+ " AND ft_prod_cod = '"+ e.getCodProdFicha() +"'";
+				+ " AND ft_prod_cod = '"+ e.getCodProdFicha() +"'"; //vai ser removido
 
 		PreparedStatement prmt;
 		try {
@@ -66,9 +65,12 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 	}
 
 	@Override
-	public List<CadProdutoFicha> getListar(String e) throws SQLException {
-		String sql = "SELECT * FROM `produtosficha` WHERE ft_nome = '"+ e +"' ";
+	public List<CadProdutoFicha> getListar(String ft_nome) throws SQLException {
+		System.out.println(ft_nome);
+		String sql = "CALL ListaProdutosFicha (?)";
+		
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		prmt.setString(1, ft_nome);
 		ResultSet rs;
 		CadProdutoFicha pf;
 		List<CadProdutoFicha> listProdutosFicha = new ArrayList<CadProdutoFicha>();
@@ -89,11 +91,12 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 
 	@Override
 	public boolean setExcluir(CadProdutoFicha e) throws SQLException {
-		String sql = "DELETE FROM `produtosficha` WHERE ft_nome = '"+e.getNomeFicha()+"' "
-				+ " AND ft_prod_cod = '"+ e.getCodProdFicha() +"'";
+		String sql = "CALL DeletaProdutoFicha (?,?)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
+			prmt.setString(1, e.getNomeFicha());
+			prmt.setString(2, e.getCodProdFicha());
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {
