@@ -173,6 +173,7 @@ public class FichaTecnica {
 	        	fichaTecDao.setIncluir(cadFichaTec);
 	        	prodFichaDao.setIncluir(cadProdutoFicha);
 	        	listProdutosFicha();
+	        	listNomeFichas();
 	        	btnName = "Concluir";
 	        	qtdProdutoFicha = 0;
         	}
@@ -191,6 +192,7 @@ public class FichaTecnica {
         	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
         	prodFichaDao.setIncluir(cadProdutoFicha);
 			listProdutosFicha();
+			
 			qtdProdutoFicha = 0;
 		}
 		else{
