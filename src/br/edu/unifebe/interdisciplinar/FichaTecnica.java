@@ -181,16 +181,15 @@ public class FichaTecnica {
 	
 	public void buttonIncluir(ActionEvent actionEvent) throws SQLException {
 		fichaTecDao = new FichaTecDao();
-		prodFichaDao = new ProdFichaDao();
 		if(fichaTecDao.verificaNomeFicha(nomeFicha)){
-			cadProdutoFicha = new CadProdutoFicha();
-			cadProdutoFicha.setNomeFicha(nomeFicha);
-			cadProdutoFicha.setCodProdFicha(codProdutoFicha);
-			cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
-			cadProdutoFicha.setNomeProdFicha(nomeProduto);
-			cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
-			System.out.println(qtdProdutoFicha);
-			prodFichaDao.setIncluir(cadProdutoFicha);
+			System.out.println(getQtdProdutoFicha());
+			prodFichaDao = new ProdFichaDao();
+        	cadProdutoFicha.setNomeFicha(nomeFicha);
+        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
+        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
+        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
+        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+        	prodFichaDao.setIncluir(cadProdutoFicha);
 			listProdutosFicha();
 			qtdProdutoFicha = 0;
 		}
