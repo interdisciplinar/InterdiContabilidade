@@ -40,7 +40,7 @@ public class Produto{
 		getListaProdutos();
 		tipoProdutos = new ArrayList<String>();
 		tipoProdutos.add("Produto");
-		tipoProdutos.add("ServiÁo");
+		tipoProdutos.add("Servi√ßo");
 		cadProdutos = new CadProdutos();
 	}
 	
@@ -197,7 +197,7 @@ public class Produto{
 		if(tipo == 0){
 			return "Produto";
 		}
-		return "ServiÁo";
+		return "Servi√ßo";
 	}
 	
 	public static int getIntProdutoTipo(String tipo){
@@ -221,7 +221,7 @@ public class Produto{
 		try {
 			produtosDao = new ProdutosDao();
 			if(produtosDao.validaCodProduto(codProduto)){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Codigo do Produto j· est· cadastrado!", null));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Codigo do Produto j√° est√° cadastrado!", null));
 				blockBtn = true;
 				return false;
 			}
@@ -240,7 +240,7 @@ public class Produto{
 		try {
 			produtosDao = new ProdutosDao();
 			if(produtosDao.validaNomeProduto(nomeProduto)){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome do Produto j· est· cadastrado!", null));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome do Produto j√° est√° cadastrado!", null));
 				blockBtn = true;
 				return false;
 			}

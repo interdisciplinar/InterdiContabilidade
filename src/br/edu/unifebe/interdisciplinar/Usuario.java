@@ -141,7 +141,7 @@ public class Usuario {
 	        		refresh();
         		}
         		else{
-        			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario j· foi cadastrado", "Usuario j· foi cadastrado"));
+        			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario j√° foi cadastrado", "Usuario j√° foi cadastrado"));
         		}
         	}
         	else{

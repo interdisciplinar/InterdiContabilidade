@@ -194,7 +194,7 @@ public class FichaTecnica {
 			qtdProdutoFicha = 0;
 		}
 		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "… necess·rio salvar a ficha antes de incluir produtos nela", "… necess·rio salvar a ficha antes de incluir produtos nela"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "√â necess√°rio salvar a ficha antes de incluir produtos nela", "√â necess√°rio salvar a ficha antes de incluir produtos nela"));
 		}
     }
 	
