@@ -5,7 +5,15 @@ public class CadProdutoFicha {
 	public String nomeProdFicha;
 	public String codProdFicha;
 	public double custoProdFicha;
-	public int qtdProdFicha;
+	public double custoTotalFT;
+	public int qtdProdFicha; 
+	
+	public double getCustoTotalFT() {
+		return custoTotalFT;
+	}
+	public void setCustoTotalFT(double custoTotalFT) {
+		this.custoTotalFT = custoTotalFT;
+	}
 	public String getNomeFicha() {
 		return nomeFicha;
 	}
@@ -36,6 +44,7 @@ public class CadProdutoFicha {
 	public void setQtdProdFicha(int qtdProdFicha) {
 		this.qtdProdFicha = qtdProdFicha;
 	}
+	
 	
 	
 }
