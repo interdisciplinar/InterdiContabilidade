@@ -175,7 +175,7 @@ public class FichaTecnica {
 	        	listProdutosFicha();
 	        	listNomeFichas();
 	        	btnName = "Concluir";
-	        	qtdProdutoFicha = 0;
+	        	qtdProdutoFicha = 1;
         	}
         }
     }
@@ -193,7 +193,7 @@ public class FichaTecnica {
         	prodFichaDao.setIncluir(cadProdutoFicha);
 			listProdutosFicha();
 			
-			qtdProdutoFicha = 0;
+			qtdProdutoFicha = 1;
 		}
 		else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário salvar a ficha antes de incluir produtos nela", "É necessário salvar a ficha antes de incluir produtos nela"));
@@ -285,6 +285,6 @@ public class FichaTecnica {
 		btnName = "Salvar";
 		listProdutos.clear();
 		nomeFicha = "";
-		qtdProdutoFicha = 0;
+		qtdProdutoFicha = 1;
 	}
 }
