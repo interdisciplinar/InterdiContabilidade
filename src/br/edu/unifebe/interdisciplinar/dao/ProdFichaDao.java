@@ -104,4 +104,14 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 		}
 	}
 	
+	public boolean verificaProdutoFicha(String nomeFicha, String nomeProdutoFicha) throws SQLException{
+		String sql = "SELECT * FROM `produtosficha` WHERE `ft_nome` = '"+ nomeFicha +"'" + " AND `ft_prod_nome` = '"+ nomeProdutoFicha + "'";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs = prmt.executeQuery();
+		if(rs.next()){
+			return true;
+		}
+		return false;
+	}
+	
 }
