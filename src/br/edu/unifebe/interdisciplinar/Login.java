@@ -27,7 +27,7 @@ public class Login implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public String userLogin;
+	public static String userLogin;
 	public String userSenha;
 	public static int userId;
 	private Connection conexao = null;

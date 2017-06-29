@@ -138,4 +138,21 @@ public class UsuarioDao implements IDao<CadUsuario>{
 		}
 		return false;
 	}
+	
+	public boolean verificarPermissao(String login) throws SQLException{
+		String sql = "SELECT `usu_perfil_id` FROM `usuario` WHERE `usu_login` = '"+login+"'";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs;
+		
+		rs = prmt.executeQuery();
+		if(rs.next()){
+			if(rs.getInt("usu_perfil_id") == 0){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -275,7 +275,7 @@
 
 				<!-- ************************************USUÁRIO************************************************** -->
 
-				<p:tab title="Usuário" disabled="false">
+				<p:tab title="Usuário" disabled="#{inicial.permissao ? false : true}">
 					<table id="tabuser">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
