@@ -183,17 +183,30 @@ public class FichaTecnica {
 	public void buttonIncluir(ActionEvent actionEvent) throws SQLException {
 		fichaTecDao = new FichaTecDao();
 		if(fichaTecDao.verificaNomeFicha(nomeFicha)){
-			System.out.println(getQtdProdutoFicha());
 			prodFichaDao = new ProdFichaDao();
-        	cadProdutoFicha.setNomeFicha(nomeFicha);
-        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
-        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
-        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
-        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
-        	prodFichaDao.setIncluir(cadProdutoFicha);
-			listProdutosFicha();
-			
-			qtdProdutoFicha = 1;
+			if(!prodFichaDao.verificaProdutoFicha(nomeFicha, nomeProduto)){
+				if(qtdProdutoFicha > 0){
+					cadProdutoFicha = new CadProdutoFicha();
+		        	cadProdutoFicha.setNomeFicha(nomeFicha);
+		        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
+		        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
+		        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
+		        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+		        	prodFichaDao.setIncluir(cadProdutoFicha);
+					listProdutosFicha();
+					qtdProdutoFicha = 1;
+				}
+				else{
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+							"Quantidade inválida! Quantidade deve ser maior que zero",
+							"Quantidade inválida! Quantidade deve ser maior que zero"));
+				}
+			}
+			else{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						"Produto já cadastrado nesta ficha tecnica",
+						"Produto já cadastrado nesta ficha tecnica"));
+			}
 		}
 		else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário salvar a ficha antes de incluir produtos nela", "É necessário salvar a ficha antes de incluir produtos nela"));
@@ -265,7 +278,6 @@ public class FichaTecnica {
 	
 	public void getProdutoInfo(String nomeProduto){
 		try {
-			System.out.println(nomeProduto);
 			cadProdutos = new CadProdutos();
 			cadProdutos = produtosDao.getProdutoInfo(nomeProduto);
 			if(cadProdutos != null){

@@ -60,7 +60,7 @@ public class ProdutosDao implements IDao<CadProdutos>{
 			prmt.setString(1, e.getCodProduto());
 			prmt.setInt(2, Produto.getIntProdutoTipo(e.getServico()));
 			prmt.setDouble(3, e.getCusto());
-			prmt.setInt(4, 1); 					//Verificar metodo para salvar usuario
+			prmt.setInt(4, Login.userId); 					//Verificar metodo para salvar usuario
 			prmt.executeUpdate();
 			//return true;
 		} catch (SQLException e1) {

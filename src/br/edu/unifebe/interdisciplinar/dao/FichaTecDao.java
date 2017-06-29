@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.unifebe.interdisciplinar.Login;
 import br.edu.unifebe.interdisciplinar.Produto;
 import br.edu.unifebe.interdisciplinar.conexao.ConnectionDB;
 import br.edu.unifebe.interdisciplinar.model.CadFichaTec;
@@ -24,13 +25,12 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 	
 	@Override
 	public boolean setIncluir(CadFichaTec e) throws SQLException {
-		String sql = "CALL IncluirFicha (?,?,?)";
+		String sql = "CALL IncluirFicha (?,?)";
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
 			prmt.setString(1, e.getNomeFicha());
-			prmt.setDouble(2, e.getTotalCusto());
-			prmt.setInt(3, 1); 						//Id Usuario falta alterar
+			prmt.setInt(2, Login.userId); 						//Id Usuario falta alterar
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {

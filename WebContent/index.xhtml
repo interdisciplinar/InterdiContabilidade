@@ -33,7 +33,7 @@
 			<f:selectItems value="#{temaBean.temas}"/>
 		</p:themeSwitcher>
 		<p:messages id="msg" autoUpdate="true" closable="true">
-			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 5000)" />
+			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 		</p:messages>
 		<h:form id="form">
 			<p:commandButton id="btnLogout" value="Sair" ajax="false" action="#{login.logout()}"/>
@@ -227,11 +227,13 @@
 						</tr>
 						<tr>
 							<td class="ce">
-								<p:selectOneMenu id="fichaTecnica" value="#{fichaTecnica.nomeFicha}" style="width:370px"	effect="fold" editable="false">
-								<p:messages autoUpdate="true" />
-<!-- 								<f:selectItem itemLabel="" /> -->
-
- 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
+								
+								<p:selectOneMenu id="fichaTecnica" value="#{precoFinal.nomeFicha}" style="width:370px" effect="fold" editable="false">
+									<p:messages autoUpdate="true" />
+									<p:ajax listener="#{precoFinal.getFichaInfo}" process="@this" update="custoFinal preco"/>
+	<!-- 								<f:selectItem itemLabel="" /> -->
+	
+	 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu>
 							</td>
 							<td class="cd" colspan="2" align="center"> 
@@ -250,15 +252,18 @@
 							<td class="cd"> <p:outputLabel value="Preço do Produto: " for="preco" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputNumber id="custoFinal" value="999999999.99" symbol="R$ " emptyValue="sign"  disabled="true" /> </td>
-							<td class="cm"> <p:inputNumber maxValue="9999.99" id="lucro"  symbol="%" emptyValue="0.00" symbolPosition="s"
-											>
+							<td class="ce"> 
+							<p:inputNumber id="custoFinal" value="#{precoFinal.custoProdutoFicha}" symbol="R$ " emptyValue="sign"  readonly="true"/>
+							</td>
+							<td class="cm"> 
+							<p:inputNumber maxValue="9999.99" id="lucro" value="#{precoFinal.percent}"  symbol="%" emptyValue="0.00" symbolPosition="s">
+								<p:ajax listener="#{precoFinal.calculaPrecoProduto}" process="@this" update="preco"/>
 <!-- 												validatorMessage="Custo deve ser maior que zero(0)" -->
 <!-- 												<f:validateDoubleRange minimum="0.01"/> -->
 <!-- 												<f:ajax event="blur"/> -->
 											</p:inputNumber>
 							</td>
-							<td class="cd"> <p:inputNumber id="preco" value="#{inputNumberView.input7}" symbol="R$ " emptyValue="sign" disabled="true" /></td>
+							<td class="cd"> <p:inputNumber id="preco" value="#{precoFinal.custoTotalFT}" symbol="R$ " emptyValue="sign" readonly="true" /></td>
 						</tr>
 					</table>
 					<br />
