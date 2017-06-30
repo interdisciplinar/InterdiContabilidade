@@ -44,7 +44,7 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
-<!-- ************************************INICIAL*********************************************** -->
+<!-- *************INICIAL**************** -->
 				
 				<p:tab title="Inicial" id="tableInicial">
 					
@@ -54,7 +54,7 @@
 									style="position: absolute; right: 10px; top:10px"  />
 				</p:tab>
 
-<!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
+<!-- *************PRODUTO / SERVIÇO**************** -->
 				
 				<p:tab title="Produto / Serviço" id="tableProduto">
 					<p:commandButton id="btnLogoutPS" value="Sair" action="#{login.logout}"
@@ -130,7 +130,7 @@
 					</center>
 				</p:tab>
 
-<!-- ************************************FICHA TÉCNICA************************************************** -->
+<!-- *************FICHA TÉCNICA***************** -->
 
 				<p:tab title="Ficha Técnica" id="ficha">
 					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" actionListener="#{login.logout}"
@@ -215,7 +215,7 @@
 				</p:tab>
 
 
-<!-- ************************************PREÇO FINAL************************************************** -->
+<!-- *************PREÇO FINAL***************** -->
 
 				<p:tab title="Preço Final">
 					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" actionListener="#{login.logout}"
@@ -293,7 +293,7 @@
 					</center>
 				</p:tab>
 
-<!-- ************************************USUÁRIO************************************************** -->
+<!-- *************USUÁRIO***************** -->
 
 				<p:tab title="Usuário" disabled="#{inicial.permissao ? false : true}">
 					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" actionListener="#{login.logout}"
