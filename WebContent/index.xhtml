@@ -18,11 +18,11 @@
 		<p:outputLabel value="Usuário: " />
 		<p:outputLabel value="#{login.userLogin}" />
 	</div>
-	
+
 	<div id="usercod">
 		<p:outputLabel value="#{login.userId}" />
 	</div>
-	
+
 	<div id="interface">
 		<header id="cabecalho">
 			<figure>
@@ -30,16 +30,16 @@
 			</figure>
 			<h1>SISTEMA DE CÁLCULO DE PREÇO</h1>
 		</header>
-		
+
 		<p:outputLabel value="Temas:" style="position: absolute; right: 265px; top:75px"/>
 		<p:themeSwitcher value="#{temaBean.tema}" style="position: absolute; right: 80px; top:70px">
 			<f:selectItems value="#{temaBean.temas}"/>
 		</p:themeSwitcher>
-		
+
 		<p:messages id="msg" autoUpdate="true" closable="true">
 			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 		</p:messages>
-		
+
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
@@ -47,7 +47,7 @@
 <!-- ************************************INICIAL*********************************************** -->
 				
 				<p:tab title="Inicial" id="tableInicial">
-					
+
 					Fazer um descritivo do funcionamento de cada aba
 
 					<p:commandButton id="btnLogoutIni" value="Sair" ajax="false" action="#{login.logout()}"
@@ -58,7 +58,7 @@
 				
 				<p:tab title="Produto / Serviço" id="tableProduto">
 					<p:commandButton id="btnLogoutPS" value="Sair" ajax="false" action="#{login.logout()}"
-									style="position: absolute; right: 10px; top:10px" />					
+									style="position: absolute; right: 10px; top:10px" />
 					<table id="tabprod">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Código do Produto: " for="codigo" /> </td>
@@ -67,7 +67,7 @@
 						<tr>
 							<td class="ce"> <p:inputText id="codigo" readonly="#{produto.bloqueiaCampo}" maxlength="10" value="#{produto.codProduto}">
 												<p:ajax listener="#{produto.validaCampoCodProdutos}" update="@this btnSalvar"/>
-											</p:inputText>	
+											</p:inputText>
 							</td>
 							<td class="cd"> <p:inputText id="nome" maxlength="70" value="#{produto.nomeProduto}" style="width:500px" readonly="#{produto.bloqueiaCampo}">
 												<p:ajax listener="#{produto.validaCampoNomeProdutos}" update="@this btnSalvar"/>
@@ -120,11 +120,11 @@
 									<h:outputText value="#{cadProduto.servico}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
-						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{produto.buttonActionAlterar(cadProduto)}"/>
-						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" actionListener="#{produto.buttonActionExcluir(cadProduto)}">
-						             	<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
-						             </p:commandButton>
-						        </p:column>
+									<p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{produto.buttonActionAlterar(cadProduto)}"/>
+									<p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" actionListener="#{produto.buttonActionExcluir(cadProduto)}">
+									<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
 							</p:dataTable>
 						</p:scrollPanel>
 					</center>
@@ -134,29 +134,29 @@
 
 				<p:tab title="Ficha Técnica" id="ficha">
 					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" action="#{login.logout()}"
-									style="position: absolute; right: 10px; top:10px" />				
+									style="position: absolute; right: 10px; top:10px" />
 					<table id="tabficha">
 						<tr>
 							<td class="ce1"> <p:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
 							<td class="cd1" colspan="2"> <p:outputLabel value="Nome do Produto: " for="nomeProduto" /> </td>
-							
+
 						</tr>
 						<tr>
 							<td class="ce1"> 
 								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
-								<p:messages autoUpdate="true" />
-								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha"/>
-<!-- 											<f:selectItem itemLabel="" /> -->
-								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
+									<p:messages autoUpdate="true" />
+									<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha"/>
+	<!-- 							<f:selectItem itemLabel="" /> -->
+									<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu> 
 
 							</td>
 							<td class="cd1" colspan="2"> 
 								<p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false">
 								<p:messages autoUpdate="true" />
-								<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
-<!-- 											<f:selectItem itemLabel="" /> -->
-								<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
+									<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
+	<!-- 							<f:selectItem itemLabel="" /> -->
+									<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
 								</p:selectOneMenu> 
 							</td>
 						</tr>
@@ -204,11 +204,11 @@
 									<h:outputText value="#{cadProdutoFicha.custoProdFicha}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
-<!-- 						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" /> -->
-						             <p:commandButton icon="ui-icon-closethick" title="Deleta" update="fichaTable" actionListener="#{fichaTecnica.buttonExcluir(cadProdutoFicha)}">
-						             	<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
-						             </p:commandButton>
-						        </p:column>
+<!-- 								<p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" /> -->
+									<p:commandButton icon="ui-icon-closethick" title="Deleta" update="fichaTable" actionListener="#{fichaTecnica.buttonExcluir(cadProdutoFicha)}">
+										<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
 							</p:dataTable>
 						</p:scrollPanel>
 					</center>
@@ -219,33 +219,32 @@
 
 				<p:tab title="Preço Final">
 					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" action="#{login.logout()}"
-									style="position: absolute; right: 10px; top:10px" />				
+									style="position: absolute; right: 10px; top:10px" />
 					<table id="tabprefinal">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Nome da Ficha Técnica: " for="fichaTecnica" /> </td>
 							<td class="cm"> <p:outputLabel value="Enquadramento Fiscal: " for="fiscal" /> </td>
 							<td class="cd"> <p:outputLabel value="Faixa: " for="faixa" /> </td>
-							
+
 						</tr>
 						<tr>
-							<td class="ce">								
+							<td class="ce">
 								<p:selectOneMenu id="fichaTecnica" value="#{precoFinal.nomeFicha}" style="width:370px" effect="fold" editable="false">
 									<p:messages autoUpdate="true" />
 									<p:ajax listener="#{precoFinal.getFichaInfo}" process="@this" update="custoFinal preco"/>
-	<!-- 								<f:selectItem itemLabel="" /> -->
-	
+	<!-- 							<f:selectItem itemLabel="" /> -->
 	 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu>
 							</td>
 
-							<td class="cm">						
+							<td class="cm">
 								<p:selectOneMenu id="fiscal" value="#{precoFinal.tipoFiscal}" style="width:165px" effect="fold" editable="false" >
 								<p:messages autoUpdate="true" />
 									<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
-									<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />								
+									<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />
 								</p:selectOneMenu>
-							</td>	
-							<td class="cd">							
+							</td>
+							<td class="cd">
 								<p:selectOneMenu id="faixa" style="width:250px" effect="fold" editable="false" >
 								<p:messages autoUpdate="true" />
 									<f:selectItem itemLabel="" itemValue="" />
@@ -254,28 +253,26 @@
 									<f:selectItem itemLabel="De 360.000,01 até 540.000,00" itemValue="10.26" />
 									<f:selectItem itemLabel="De 540.000,01 até 720.000,00" itemValue="11.31" />
 								</p:selectOneMenu>
-							</td>	
-				
+							</td>
 						</tr>
 						<tr> <td> <br /> </td> </tr>
-						<tr>						
+						<tr>
 							<td class="ce"> <p:outputLabel value="Valor: " for="valorImp" /> </td>
 							<td class="cd"> <p:outputLabel value="Custo: " for="custoFinal" /> </td>
 						</tr>
 						<tr>
 							<td class="ce"> <p:inputNumber id="valorImp" value="" symbol="%" emptyValue="sign" symbolPosition="s" readonly="true" style="width:10pt"/> </td>
-							<td class="ce"> 
-								<p:inputNumber id="custoFinal" value="#{precoFinal.custoProdutoFicha}" symbol="R$ " emptyValue="sign"  readonly="true"/>
+							<td class="cd"> <p:inputNumber id="custoFinal" value="#{precoFinal.custoProdutoFicha}" symbol="R$ " emptyValue="sign"  readonly="true"/>
 							</td>
 						</tr>
 						<tr> <td> <br /> </td> </tr>
-						<tr>							
-							<td class="cm"> <p:outputLabel value="Lucro (%): " for="lucro" /> </td>
+						<tr>
+							<td class="ce"> <p:outputLabel value="Lucro (%): " for="lucro" /> </td>
 							<td class="cd"> <p:outputLabel value="Preço do Produto: " for="preco" /> </td>
 						</tr>
 						<tr>
-							
-							<td class="cm"> 
+
+							<td class="ce"> 
 							<p:inputNumber maxValue="9999.99" id="lucro" value="#{precoFinal.percent}" symbol="%" emptyValue="0.00" symbolPosition="s">
 								<p:ajax listener="#{precoFinal.calculaPrecoProduto}" process="@this" update="preco"/>
 <!-- 												validatorMessage="Custo deve ser maior que zero(0)" -->
@@ -297,7 +294,7 @@
 
 				<p:tab title="Usuário" disabled="#{inicial.permissao ? false : true}">
 					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" action="#{login.logout()}"
-									style="position: absolute; right: 10px; top:10px" />				
+									style="position: absolute; right: 10px; top:10px" />
 					<table id="tabuser">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
@@ -357,20 +354,20 @@
 									<h:outputText value="#{cadUsuario.status}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
-						             <p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{usuario.buttonAlterar(cadUsuario)}"/>
-						             <p:commandButton icon="#{((cadUsuario.status.equals('Desativado')) ? 'ui-icon-plusthick': 'ui-icon-minusthick')}" title="Ação" update="@form" actionListener="#{usuario.buttonDesativar(cadUsuario)}">
-						             	<p:confirm header="Desativar Usuário" message="Você tem certeza que deseja alterar o status do usuário?" icon="ui-icon-alert" />
-						             </p:commandButton>
-						        </p:column>
+									<p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{usuario.buttonAlterar(cadUsuario)}"/>
+									<p:commandButton icon="#{((cadUsuario.status.equals('Desativado')) ? 'ui-icon-plusthick': 'ui-icon-minusthick')}" title="Ação" update="@form" actionListener="#{usuario.buttonDesativar(cadUsuario)}">
+									<p:confirm header="Desativar Usuário" message="Você tem certeza que deseja alterar o status do usuário?" icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
 							</p:dataTable>
 						</p:scrollPanel>
 					</center>
 				</p:tab>
 			</p:tabView>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-		        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-		    </p:confirmDialog>
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</h:form>
 		<h6>
 			Criado por: Jean Pierre dos Santos /
