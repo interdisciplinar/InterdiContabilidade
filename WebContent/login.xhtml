@@ -37,11 +37,13 @@
 				<br />
 				<center>
 					<p:commandButton value="LOGIN" ajax="false" action="#{login.buttonLogar}" />
+
+				</center>
+			</p:fieldset>
+			<br />
 					<p:messages id="msg" autoUpdate="true" closable="true">
 						<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 					</p:messages>
-				</center>
-			</p:fieldset>
 		</h:form>
 	</div>
 </h:body>

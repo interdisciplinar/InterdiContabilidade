@@ -4,24 +4,23 @@ body {
 	background-color: rgba(224, 224, 224, 0.7);
 	width:90%;
 	margin:auto;
-	min-width:920px;
+	min-width:990px;
 	max-width:1500px;
 }
 
 div#usernome {
 	color: red;
 	position: absolute;
-	top: 2px;
-	left: 10px;
-	font-size: 8pt;
+	top: 10px;
+	right: 80px;
 	font-style: italic;
-	font
+	font-size: 10pt;
 }
 
 div#usercod {
 	position: absolute;
-	top: 0px; /* posicionado fora da página */
-	left: 0px; /* posicionado fora da página */
+	top: -50px; /* posicionado fora da pagina */
+	left: -50px; /* posicionado fora da pagina */
 	color: rgba(224, 224, 224, 0.0);
 }
 
@@ -109,19 +108,19 @@ table#tabficha td.cd2 {
 }
 
 table#tabprefinal td.ce {
-	width: 400px;
+	width: 500px;
 	font-weight: bold;
 	padding: 3px;
 }
 
 table#tabprefinal td.cm {
-	width: 300px;
+	width: 100px;
 	font-weight: bold;
 	padding: 3px;
 }
 
 table#tabprefinal td.cd {
-	width: 300px;
+	width: 320px;
 	font-weight: bold;
 	padding: 3px;
 }
