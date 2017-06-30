@@ -40,7 +40,7 @@
 			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 		</p:messages>
 		
-		<h:form id="form">
+		<h:form id="form" onsubmit="return false;">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
@@ -50,14 +50,14 @@
 					
 					Fazer um descritivo do funcionamento de cada aba
 
-					<p:commandButton id="btnLogoutIni" value="Sair" ajax="false" action="#{login.logout()}"
-									style="position: absolute; right: 10px; top:10px" />
+					<p:commandButton id="btnLogoutIni" value="Sair" actionListener="#{login.logout}"
+									style="position: absolute; right: 10px; top:10px"  />
 				</p:tab>
 
 <!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
 				
 				<p:tab title="Produto / Serviço" id="tableProduto">
-					<p:commandButton id="btnLogoutPS" value="Sair" ajax="false" action="#{login.logout()}"
+					<p:commandButton id="btnLogoutPS" value="Sair" action="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />					
 					<table id="tabprod">
 						<tr>
@@ -133,7 +133,7 @@
 <!-- ************************************FICHA TÉCNICA************************************************** -->
 
 				<p:tab title="Ficha Técnica" id="ficha">
-					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" action="#{login.logout()}"
+					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" actionListener="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />				
 					<table id="tabficha">
 						<tr>
@@ -218,7 +218,7 @@
 <!-- ************************************PREÇO FINAL************************************************** -->
 
 				<p:tab title="Preço Final">
-					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" action="#{login.logout()}"
+					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" actionListener="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />				
 					<table id="tabprefinal">
 						<tr>
@@ -296,7 +296,7 @@
 <!-- ************************************USUÁRIO************************************************** -->
 
 				<p:tab title="Usuário" disabled="#{inicial.permissao ? false : true}">
-					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" action="#{login.logout()}"
+					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" actionListener="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />				
 					<table id="tabuser">
 						<tr>

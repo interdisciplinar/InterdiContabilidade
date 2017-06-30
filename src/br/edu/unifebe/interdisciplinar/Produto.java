@@ -138,12 +138,12 @@ public class Produto{
         	}
         	else{
 		        if(produtosDao.setIncluir(cadProdutos)){
-		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Produto Adicionado!"));
+		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Produto Adicionado!", "Produto Adicionado!"));
 		        	getListaProdutos();
 		        	refresh();
 		        }
 		        else{
-		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocorreu um Erro Fale com o Suporte!", "Ocorreu um Erro Fale com o Suporte!"));
 		        }
         	}
         	

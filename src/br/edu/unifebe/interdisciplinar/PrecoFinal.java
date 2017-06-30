@@ -93,10 +93,12 @@ public class PrecoFinal {
 			e.printStackTrace();
 		}
         if(tipoFiscal.equals("Simples Nacional")){
-        	fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 0);
+        	//fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 0);
+        	fichaTecDao.insereCustoFinal(900, nomeFicha, percent, 0);
         }
         else{
-        	fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 1);
+        	//fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 1);
+        	fichaTecDao.insereCustoFinal(900, nomeFicha, percent, 1);
         }
     }
 }
