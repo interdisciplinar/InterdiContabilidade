@@ -30,7 +30,7 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 		try {
 			prmt = conexao.prepareStatement(sql);
 			prmt.setString(1, e.getNomeFicha());
-			prmt.setInt(2, Login.userId); 						//Id Usuario falta alterar
+			prmt.setInt(2, Login.userId); 						
 			prmt.executeUpdate();
 			return true;
 		} catch (SQLException e1) {
@@ -95,6 +95,19 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 			prmt.setDouble(1, custoFinal);
 			prmt.setDouble(2, percent);
 			prmt.setInt(3, tipoFiscal);
+			prmt.executeUpdate();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void salvaUsuIdAlteracao(String nomeFicha){
+		String sql = "UPDATE `fichatecnica` SET `ft_usu_id_alteracao`= ? WHERE `ft_nome`= '"+ nomeFicha +"'";
+		PreparedStatement prmt;
+		try {
+			prmt = conexao.prepareStatement(sql);
+			prmt.setInt(1, Login.userId);
 			prmt.executeUpdate();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

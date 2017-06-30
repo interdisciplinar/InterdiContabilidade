@@ -177,6 +177,9 @@ public class FichaTecnica {
 	        	btnName = "Concluir";
 	        	qtdProdutoFicha = 1;
         	}
+        	else{
+        		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
+        	}
         }
     }
 	
@@ -193,6 +196,7 @@ public class FichaTecnica {
 		        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
 		        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
 		        	prodFichaDao.setIncluir(cadProdutoFicha);
+		        	fichaTecDao.salvaUsuIdAlteracao(nomeFicha);
 					listProdutosFicha();
 					qtdProdutoFicha = 1;
 				}

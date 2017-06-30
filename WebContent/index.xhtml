@@ -39,8 +39,13 @@
 		<p:messages id="msg" autoUpdate="true" closable="true">
 			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 		</p:messages>
+<<<<<<< HEAD
 
 		<h:form id="form">
+=======
+		
+		<h:form id="form" onsubmit="return false;">
+>>>>>>> 707dddf3f710ca36b5ae70c0bb41f8b3da9b594f
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
@@ -50,15 +55,20 @@
 
 					Fazer um descritivo do funcionamento de cada aba
 
-					<p:commandButton id="btnLogoutIni" value="Sair" ajax="false" action="#{login.logout()}"
-									style="position: absolute; right: 10px; top:10px" />
+					<p:commandButton id="btnLogoutIni" value="Sair" actionListener="#{login.logout}"
+									style="position: absolute; right: 10px; top:10px"  />
 				</p:tab>
 
 <!-- ************************************PRODUTO / SERVIÇO*********************************************** -->
 				
 				<p:tab title="Produto / Serviço" id="tableProduto">
+<<<<<<< HEAD
 					<p:commandButton id="btnLogoutPS" value="Sair" ajax="false" action="#{login.logout()}"
 									style="position: absolute; right: 10px; top:10px" />
+=======
+					<p:commandButton id="btnLogoutPS" value="Sair" action="#{login.logout}"
+									style="position: absolute; right: 10px; top:10px" />					
+>>>>>>> 707dddf3f710ca36b5ae70c0bb41f8b3da9b594f
 					<table id="tabprod">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Código do Produto: " for="codigo" /> </td>
@@ -133,8 +143,13 @@
 <!-- ************************************FICHA TÉCNICA************************************************** -->
 
 				<p:tab title="Ficha Técnica" id="ficha">
+<<<<<<< HEAD
 					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" action="#{login.logout()}"
 									style="position: absolute; right: 10px; top:10px" />
+=======
+					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" actionListener="#{login.logout}"
+									style="position: absolute; right: 10px; top:10px" />				
+>>>>>>> 707dddf3f710ca36b5ae70c0bb41f8b3da9b594f
 					<table id="tabficha">
 						<tr>
 							<td class="ce1"> <p:outputLabel value="Nome da Ficha: " for="nomeFicha" /> </td>
@@ -218,8 +233,13 @@
 <!-- ************************************PREÇO FINAL************************************************** -->
 
 				<p:tab title="Preço Final">
+<<<<<<< HEAD
 					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" action="#{login.logout()}"
 									style="position: absolute; right: 10px; top:10px" />
+=======
+					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" actionListener="#{login.logout}"
+									style="position: absolute; right: 10px; top:10px" />				
+>>>>>>> 707dddf3f710ca36b5ae70c0bb41f8b3da9b594f
 					<table id="tabprefinal">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Nome da Ficha Técnica: " for="fichaTecnica" /> </td>
@@ -293,8 +313,13 @@
 <!-- ************************************USUÁRIO************************************************** -->
 
 				<p:tab title="Usuário" disabled="#{inicial.permissao ? false : true}">
+<<<<<<< HEAD
 					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" action="#{login.logout()}"
 									style="position: absolute; right: 10px; top:10px" />
+=======
+					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" actionListener="#{login.logout}"
+									style="position: absolute; right: 10px; top:10px" />				
+>>>>>>> 707dddf3f710ca36b5ae70c0bb41f8b3da9b594f
 					<table id="tabuser">
 						<tr>
 							<td class="ce"> <p:outputLabel value="Nome do Usuário: " for="nomeUser" /> </td>
