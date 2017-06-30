@@ -105,8 +105,10 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 	}
 	
 	public boolean verificaProdutoFicha(String nomeFicha, String nomeProdutoFicha) throws SQLException{
-		String sql = "SELECT * FROM `produtosficha` WHERE `ft_nome` = '"+ nomeFicha +"'" + " AND `ft_prod_nome` = '"+ nomeProdutoFicha + "'";
+		String sql = "CALL verificaProdutoFicha (?,?)";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		prmt.setString(1, nomeFicha);
+		prmt.setString(2, nomeProdutoFicha);
 		ResultSet rs = prmt.executeQuery();
 		if(rs.next()){
 			return true;
@@ -116,8 +118,9 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 	
 	public double custoFichaProduto(String nomeFicha) throws SQLException{
 		System.out.println(nomeFicha);
-		String sql = "SELECT SUM(`ft_prod_custo`) FROM `produtosficha` WHERE `ft_nome` = '"+nomeFicha+"'";
+		String sql = "CALL custoFichaProduto (?)";
 		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		prmt.setString(1, nomeFicha);
 		ResultSet rs = prmt.executeQuery();
 		if(rs.next()){
 			System.out.println(rs.getDouble("SUM(`ft_prod_custo`)"));
