@@ -6,8 +6,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import br.edu.unifebe.interdisciplinar.dao.FichaTecDao;
 import br.edu.unifebe.interdisciplinar.dao.ProdFichaDao;
+import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
 @SessionScoped
@@ -17,6 +20,8 @@ public class PrecoFinal {
 	private double custoTotalFT = 0;
 	private String nomeFicha;
 	private ProdFichaDao prodFichaDao;
+	private FichaTecDao fichaTecDao;
+	private String tipoFiscal;
 	
 	
 	@PostConstruct
@@ -53,7 +58,12 @@ public class PrecoFinal {
 	public double getCustoProdutoFicha() {
 		return custoProdutoFicha;
 	}
-	
+	public String getTipoFiscal() {
+		return tipoFiscal;
+	}
+	public void setTipoFiscal(String tipoFiscal) {
+		this.tipoFiscal = tipoFiscal;
+	}
 	public void getFichaInfo(){
 		try {
 			prodFichaDao = new ProdFichaDao();
@@ -74,4 +84,19 @@ public class PrecoFinal {
 					"Lucro(%) deve ser maior ou igual a zero"));
 		}
 	}
+	
+	public void buttonSalvarCustoFicha(ActionEvent actionEvent) {
+        try {
+			fichaTecDao = new FichaTecDao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        if(tipoFiscal.equals("Simples Nacional")){
+        	fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 0);
+        }
+        else{
+        	fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 1);
+        }
+    }
 }

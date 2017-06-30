@@ -237,7 +237,7 @@
 								</p:selectOneMenu>
 							</td>
 							<td class="cd" colspan="2" align="center"> 
-								<p:selectOneMenu id="fiscal" style="width:165px" effect="fold" editable="false" >
+								<p:selectOneMenu id="fiscal" value="#{precoFinal.tipoFiscal}" style="width:165px" effect="fold" editable="false" >
 								<p:messages autoUpdate="true" />
 								<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />
 								<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
@@ -269,7 +269,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Calcular" action="#{fichaTecnica.buttonAction}" />
+						<p:commandButton value="Calcular" actionListener="#{precofinal.buttonSalvarCustoFicha}" />
 					</center>
 				</p:tab>
 
