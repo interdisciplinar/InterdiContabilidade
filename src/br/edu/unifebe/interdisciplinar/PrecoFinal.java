@@ -22,11 +22,13 @@ public class PrecoFinal {
 	private ProdFichaDao prodFichaDao;
 	private FichaTecDao fichaTecDao;
 	private String tipoFiscal;
+	private double valorImpo = 0;
 	
 	
 	@PostConstruct
 	public void init(){
 		percent = 0;
+		valorImpo = 0;
 	}
 	public double getPercent() {
 		return percent;
@@ -64,6 +66,14 @@ public class PrecoFinal {
 	public void setTipoFiscal(String tipoFiscal) {
 		this.tipoFiscal = tipoFiscal;
 	}
+	
+	public double getValorImpo() {
+		return valorImpo;
+	}
+	public void setValorImpo(double valorImp) {
+		this.valorImpo = valorImp;
+	}
+	
 	public void getFichaInfo(){
 		try {
 			prodFichaDao = new ProdFichaDao();
@@ -82,6 +92,15 @@ public class PrecoFinal {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 					"Lucro(%) deve ser maior ou igual a zero",
 					"Lucro(%) deve ser maior ou igual a zero"));
+		}
+	}
+	
+	public void getValor(){
+		if(tipoFiscal.equals("Lucro Presumido")){
+			valorImpo = 8;
+		}
+		else{
+			valorImpo = 0;
 		}
 	}
 	

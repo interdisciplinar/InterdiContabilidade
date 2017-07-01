@@ -50,7 +50,7 @@
 					
 					Fazer um descritivo do funcionamento de cada aba
 
-					<p:commandButton id="btnLogoutIni" value="Sair" actionListener="#{login.logout}"
+					<p:commandButton id="btnLogoutIni" value="Sair" action="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px"  />
 				</p:tab>
 
@@ -241,6 +241,7 @@
 							<td class="cm">						
 								<p:selectOneMenu id="fiscal" value="#{precoFinal.tipoFiscal}" style="width:165px" effect="fold" editable="false" >
 								<p:messages autoUpdate="true" />
+								<p:ajax listener="#{precoFinal.getValor}" process="@this" update="valorImp"/>
 									<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
 									<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />								
 								</p:selectOneMenu>
@@ -263,7 +264,7 @@
 							<td class="cd"> <p:outputLabel value="Custo: " for="custoFinal" /> </td>
 						</tr>
 						<tr>
-							<td class="ce"> <p:inputNumber id="valorImp" value="" symbol="%" emptyValue="sign" symbolPosition="s" readonly="true" style="width:10pt"/> </td>
+							<td class="ce"> <p:inputNumber id="valorImp" value="#{precoFinal.valorImpo}" symbol="%" emptyValue="sign" symbolPosition="s" readonly="true"/> </td>
 							<td class="ce"> 
 								<p:inputNumber id="custoFinal" value="#{precoFinal.custoProdutoFicha}" symbol="R$ " emptyValue="sign"  readonly="true"/>
 							</td>
