@@ -40,7 +40,9 @@
 			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 		</p:messages>
 		
-		<h:form id="form" onsubmit="return false;">
+		<h:form id="form">
+			<p:defaultCommand target="vazio"/>
+			<p:commandButton id="vazio" process="@none" global="false" style="display:none;"/> 
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
 
