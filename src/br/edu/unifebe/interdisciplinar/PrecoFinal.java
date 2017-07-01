@@ -27,6 +27,7 @@ public class PrecoFinal {
 	private String tipoFiscal;
 	private String faixa;
 	private List<String> faixas;
+
 	
 	@PostConstruct
 	public void init(){
