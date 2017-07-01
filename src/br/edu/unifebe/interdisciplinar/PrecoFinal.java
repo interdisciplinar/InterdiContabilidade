@@ -10,25 +10,29 @@ import javax.faces.event.ActionEvent;
 
 import br.edu.unifebe.interdisciplinar.dao.FichaTecDao;
 import br.edu.unifebe.interdisciplinar.dao.ProdFichaDao;
-import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
 @SessionScoped
 public class PrecoFinal {
-	private double percent = 0;
+	private double percent = 1;
 	private double custoProdutoFicha = 0;
 	private double custoTotalFT = 0;
+	private double valorImpo = 0;
+	private double valorImpostos = 0;
 	private String nomeFicha;
 	private ProdFichaDao prodFichaDao;
 	private FichaTecDao fichaTecDao;
 	private String tipoFiscal;
-	private double valorImpo = 0;
+	
+	
 	
 	
 	@PostConstruct
 	public void init(){
-		percent = 0;
+		System.out.println("ejfposjpfjopfsjepjsopefjopsejfopsejopfjosepjfopsejofpjsesopfoejspofjsepfjpseoj");
+		percent = 1;
 		valorImpo = 0;
+		valorImpostos = 0;
 	}
 	public double getPercent() {
 		return percent;
@@ -74,6 +78,12 @@ public class PrecoFinal {
 		this.valorImpo = valorImp;
 	}
 	
+	public double getValorImpostos() {
+		return valorImpostos;
+	}
+	public void setValorImpostos(double valorImpostos) {
+		this.valorImpostos = valorImpostos;
+	}
 	public void getFichaInfo(){
 		try {
 			prodFichaDao = new ProdFichaDao();
