@@ -25,12 +25,9 @@ public class PrecoFinal {
 	private ProdFichaDao prodFichaDao;
 	private FichaTecDao fichaTecDao;
 	private String tipoFiscal;
-<<<<<<< HEAD
-	private double valorImpo = 0;
-=======
 	private String faixa;
 	private List<String> faixas;
->>>>>>> 69676d5369c050f09b686c2ec968417cd8cd4c68
+
 	
 	@PostConstruct
 	public void init(){
