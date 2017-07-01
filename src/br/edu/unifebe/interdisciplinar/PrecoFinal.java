@@ -1,6 +1,9 @@
 package br.edu.unifebe.interdisciplinar;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,25 +17,21 @@ import br.edu.unifebe.interdisciplinar.dao.ProdFichaDao;
 @ManagedBean
 @SessionScoped
 public class PrecoFinal {
-	private double percent = 1;
+	private double percent = 0;
 	private double custoProdutoFicha = 0;
 	private double custoTotalFT = 0;
-	private double valorImpo = 0;
-	private double valorImpostos = 0;
+	private double valorImpo = 8;
 	private String nomeFicha;
 	private ProdFichaDao prodFichaDao;
 	private FichaTecDao fichaTecDao;
 	private String tipoFiscal;
-	
-	
-	
+	private String faixa;
+	private List<String> faixas;
 	
 	@PostConstruct
 	public void init(){
-		System.out.println("ejfposjpfjopfsjepjsopefjopsejfopsejopfjosepjfopsejofpjsesopfoejspofjsepfjpseoj");
-		percent = 1;
-		valorImpo = 0;
-		valorImpostos = 0;
+		percent = 0;
+		valorImpo = 8;
 	}
 	public double getPercent() {
 		return percent;
@@ -77,13 +76,34 @@ public class PrecoFinal {
 	public void setValorImpo(double valorImp) {
 		this.valorImpo = valorImp;
 	}
+
+	public String getFaixa() {
+		return faixa;
+	}
+	public void setFaixa(String faixa) {
+		this.faixa = faixa;
+	}
+	public List<String> getFaixas() {
+		return faixas;
+	}
+	public void setFaixas(List<String> faixas) {
+		this.faixas = faixas;
+	}
 	
-	public double getValorImpostos() {
-		return valorImpostos;
+	public void getListFaixas(){
+		if(tipoFiscal.equals("Simples")){
+			faixas = new ArrayList<String>();
+			faixas.add("Até 180.000,00");
+			faixas.add("De 180.000,01 até 360.000,00");
+			faixas.add("De 360.000,01 até 540.000,00");
+			faixas.add("De 540.000,01 até 720.000,00");
+		}
+		else{
+			faixas = new ArrayList<String>();
+			faixas.add("");
+		}
 	}
-	public void setValorImpostos(double valorImpostos) {
-		this.valorImpostos = valorImpostos;
-	}
+	
 	public void getFichaInfo(){
 		try {
 			prodFichaDao = new ProdFichaDao();
@@ -96,7 +116,7 @@ public class PrecoFinal {
 	
 	public void calculaPrecoProduto(){
 		if(percent >= 0){
-			custoTotalFT = ((custoProdutoFicha * (percent/100)) + custoProdutoFicha);
+			custoTotalFT = ((custoProdutoFicha * (percent/100)) + custoProdutoFicha + (custoProdutoFicha * (valorImpo/100)));
 		}
 		else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
@@ -106,22 +126,38 @@ public class PrecoFinal {
 	}
 	
 	public void getValor(){
-		if(tipoFiscal.equals("Lucro Presumido")){
+		if(tipoFiscal.equals("Presumido")){
 			valorImpo = 8;
+			getListFaixas();
 		}
 		else{
-			valorImpo = 0;
+			getListFaixas();
+			valorImpo = 6;
+			switch(faixas.indexOf(faixa)){
+				case 0:
+					valorImpo = 6;
+					break;
+				case 1:
+					valorImpo = 8.21;
+					break;
+				case 2:
+					valorImpo = 10.26;
+					break;
+				case 3:
+					valorImpo = 11.31;
+					break;
+			}
 		}
+		calculaPrecoProduto();
 	}
 	
 	public void buttonSalvarCustoFicha(ActionEvent actionEvent) {
         try {
 			fichaTecDao = new FichaTecDao();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        if(tipoFiscal.equals("Simples Nacional")){
+        if(tipoFiscal.equals("Presumido")){
         	fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 0);
         }
         else{
