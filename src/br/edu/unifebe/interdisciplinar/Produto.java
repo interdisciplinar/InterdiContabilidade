@@ -178,7 +178,7 @@ public class Produto{
 			getListaProdutos();
 		}
 		else{
-			System.out.println("falhou");
+			System.out.println("falhouu");
 		}
     }
 
@@ -188,7 +188,6 @@ public class Produto{
 			produtosDao = new ProdutosDao();
 			listProdutos = produtosDao.getListar("");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}

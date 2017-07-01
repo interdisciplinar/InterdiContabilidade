@@ -53,7 +53,7 @@ public class ConnectionDB implements ConnectionDBInterface{
 				/*Conectando ao Servidor de Banco de Dados*/
 				Class.forName(JDBC_DRIVER);
 				if(s == null){
-					System.out.print("Connecting to a selected database... ");
+					//System.out.print("Connecting to a selected database... ");
 		            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		            System.out.println("Success!");
 					/*conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/","postgres","postgres");//cria conexao com o servidor

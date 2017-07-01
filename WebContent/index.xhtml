@@ -41,7 +41,6 @@
 		</p:messages>
 
 		<h:form id="form" onkeypress="$(document).on('keypress', 'form', function(event) { return event.keyCode != 13;});">
-			<p:defaultCommand target="vazio"/>
 			<p:commandButton id="vazio" process="@none" global="false" style="display:none;"/> 
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
@@ -250,10 +249,11 @@
 							<td class="cm">
 								<p:selectOneMenu id="fiscal" value="#{precoFinal.tipoFiscal}" style="width:165px" effect="fold" editable="false" >
 								<p:messages autoUpdate="true" />
-								<p:ajax listener="#{precoFinal.getValor}" process="@this" update="valorImp"/>
+								<p:ajax listener="#{precoFinal.getValor}" process="@this" update="valorImp faixa preco"/>
 									<f:selectItem itemLabel="Lucro Presumido" itemValue="Presumido" />
 									<f:selectItem itemLabel="Simples Nacional" itemValue="Simples" />
 								</p:selectOneMenu>
+<<<<<<< HEAD
 							</td>
 							<td class="cd">
 								<p:selectOneMenu id="faixa" style="width:250px" effect="fold" editable="false" >
@@ -263,6 +263,19 @@
 									<f:selectItem itemLabel="De 180.000,01 até 360.000,00" itemValue="8.21" />
 									<f:selectItem itemLabel="De 360.000,01 até 540.000,00" itemValue="10.26" />
 									<f:selectItem itemLabel="De 540.000,01 até 720.000,00" itemValue="11.31" />
+=======
+							</td>	
+							<td class="cd">							
+								<p:selectOneMenu id="faixa" style="width:250px" value="#{precoFinal.faixa}" effect="fold" editable="false" >
+									<p:messages autoUpdate="true" />
+									<p:ajax listener="#{precoFinal.getValor}" process="@this" update="valorImp preco"/>
+									<f:selectItems value="#{precoFinal.faixas}" />
+<!-- 									<f:selectItem itemLabel="" itemValue="" /> -->
+<!-- 									<f:selectItem itemLabel="Até 180.000,00" itemValue="6" /> -->
+<!-- 									<f:selectItem itemLabel="De 180.000,01 até 360.000,00" itemValue="8.21" /> -->
+<!-- 									<f:selectItem itemLabel="De 360.000,01 até 540.000,00" itemValue="10.26" /> -->
+<!-- 									<f:selectItem itemLabel="De 540.000,01 até 720.000,00" itemValue="11.31" /> -->
+>>>>>>> 69676d5369c050f09b686c2ec968417cd8cd4c68
 								</p:selectOneMenu>
 							</td>
 
