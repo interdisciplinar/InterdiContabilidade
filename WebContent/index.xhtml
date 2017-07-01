@@ -95,7 +95,7 @@
 					<center>
 						<p:commandButton id="btnSalvar" disabled="#{produto.blockBtn}" value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonSalvar}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
+						<p:commandButton value="#{produto.btnName}" update="@all" actionListener="#{produto.buttonActionCancelar}" />
 						<br />
 						<br />
 						<br />
@@ -144,7 +144,7 @@
 						</tr>
 						<tr>
 							<td class="ce1"> 
-								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
+								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true" onchange="submit()">
 								<p:messages autoUpdate="true" />
 								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha"/>
 <!-- 											<f:selectItem itemLabel="" /> -->

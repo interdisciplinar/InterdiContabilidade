@@ -10,6 +10,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
+
 import br.edu.unifebe.interdisciplinar.dao.FichaTecDao;
 import br.edu.unifebe.interdisciplinar.dao.ProdFichaDao;
 import br.edu.unifebe.interdisciplinar.dao.ProdutosDao;
@@ -38,7 +41,6 @@ public class FichaTecnica {
 	private boolean bloqueiaCampo = false;
 	private boolean bloqueiaCombobox = false;
 	private String btnName = "Salvar";
-	
 	
 	public FichaTecnica() throws SQLException {
 		
