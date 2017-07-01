@@ -9,19 +9,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/faces-config.xml"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/web.xml"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/all-themes-1.0.10.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-digester-2.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/groovy-all-2.0.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/iText-2.1.7.js2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jasperreports-5.6.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jasperreports-fonts-5.6.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.faces-2.2.9.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-6.0.5-bin.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-6.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

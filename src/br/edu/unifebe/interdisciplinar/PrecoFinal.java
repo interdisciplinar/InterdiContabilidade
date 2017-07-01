@@ -24,7 +24,6 @@ public class PrecoFinal {
 	private String tipoFiscal;
 	private double valorImpo = 0;
 	
-	
 	@PostConstruct
 	public void init(){
 		percent = 0;
