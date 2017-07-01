@@ -45,6 +45,10 @@ h6 {
 	left: 5%;
 }
 
+ul#funcoes {
+	font-size: 10pt;
+}
+
 form#form {
 /*	
 	text-transform: uppercase;

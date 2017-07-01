@@ -49,13 +49,33 @@
 
 				<p:tab title="Inicial" id="tableInicial">
 <ul>
-	<li>Aba Produto / Serviço: Preencher os seguintes campos para cadastramento de um produto ou serviço:</li>
-	<ul type="square" id="funcoes">
-		<li>Código do Produto: Inserir um código para o produto ou serviço;</li>
-		<li>Nome do Produto: Inserir um nome para o produto ou serviço;</li>
-		<li>Custo: Inserir um custo para o produto ou serviço;</li>
-		<li>Tipo: Selecionar se vai ser cadastrado um produto ou serviço.</li>
-	</ul>
+	<li>Produto / Serviço: Preencher os seguintes campos para cadastramento de um produto ou serviço:
+		<ul type="square" id="funcoes">
+			<li>Código do Produto: Inserir um código para o produto ou serviço;</li>
+			<li>Nome do Produto: Inserir um nome para o produto ou serviço;</li>
+			<li>Custo: Inserir um custo para o produto ou serviço;</li>
+			<li>Tipo: Selecionar se vai ser cadastrado um produto ou serviço;</li>
+			<li>Botão Salvar: Salva o produto no banco de dados;</li>
+			<li>Botão Limpar: Limpa a tela;</li>
+			<li>Tabela Produtos e Serviços Cadastrados: Exibe a listagem de todos os produtos e serviços já cadastrados.</li>
+		</ul>
+		<br />
+	</li>
+
+	<li>Ficha Técnica: Preencher ou selecionar campos para cadastramento ou alteração de uma ficha técnica: 
+		<ul type="square" id="funcoes">
+		<li>Nome da Ficha: Inserir um nome para uma Ficha Técnica nova, ou selecionar uma já existente através da seta para fazer uma alteração;</li>
+		<li>Nome do Produto: Selecionar através da seta um produto ou serviço já existente (Cadastrado na aba Produto / Serviço);</li>
+		<li>Quantidade: Especificar a quantidade do produto selecionado anteriormente;</li>
+		<li>Custo do Produto: Campo preenchido automáticamente com o custo do produto que foi selecionado em Nome do Produto;</li>
+		<li>Código do Produto: Campo preenchido automáticamente com o código do produto que foi selecionado em Nome do Produto;</li>
+		<li>Botão Salvar: Salva o início de uma nova ficha técnica (é necessário salvar a ficha antes de inserir um novo produto);</li>
+		<li>Botão Inserir: Insere um novo produto na ficha técnica já salva;</li>
+		<li>Botão Concluir: Salva a ficha técnica cadastrada no banco de dados;</li>
+		<li>Tabela de Produtos Cadastrados na Ficha: Exibe a listagem de todos os produtos e serviços cadastrados em uma ficha técnica.</li>
+		</ul>
+		<br />
+	</li>
 </ul>
 
 					<p:commandButton id="btnLogoutIni" value="Sair" action="#{login.logout}"
@@ -193,7 +213,7 @@
 						<br />
 						<br />
 
-						<h4>Produtos Cadastrados na Ficha (DataTable)</h4>
+						<h4>Produtos Cadastrados na Ficha</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
 							<p:dataTable id="fichaTable" var="cadProdutoFicha" value="#{fichaTecnica.listProdutos}">
 
