@@ -40,7 +40,7 @@
 			<p:ajaxStatus oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 7500)" />
 		</p:messages>
 		
-		<h:form id="form">
+		<h:form id="form" onkeypress="$(document).on('keypress', 'form', function(event) { return event.keyCode != 13;});">
 			<p:defaultCommand target="vazio"/>
 			<p:commandButton id="vazio" process="@none" global="false" style="display:none;"/> 
 			<p:growl id="msgs" showDetail="true" />
@@ -135,7 +135,7 @@
 <!-- *************FICHA TÉCNICA***************** -->
 
 				<p:tab title="Ficha Técnica" id="ficha">
-					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" actionListener="#{login.logout}"
+					<p:commandButton id="btnLogoutFT" value="Sair" ajax="false" action="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />				
 					<table id="tabficha">
 						<tr>
@@ -220,7 +220,7 @@
 <!-- *************PREÇO FINAL***************** -->
 
 				<p:tab title="Preço Final">
-					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" actionListener="#{login.logout}"
+					<p:commandButton id="btnLogoutPF" value="Sair" ajax="false" action="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />				
 					<table id="tabprefinal">
 						<tr>
@@ -299,7 +299,7 @@
 <!-- *************USUÁRIO***************** -->
 
 				<p:tab title="Usuário" disabled="#{inicial.permissao ? false : true}">
-					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" actionListener="#{login.logout}"
+					<p:commandButton id="btnLogoutUsu" value="Sair" ajax="false" action="#{login.logout}"
 									style="position: absolute; right: 10px; top:10px" />				
 					<table id="tabuser">
 						<tr>
