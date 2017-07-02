@@ -49,7 +49,14 @@ public class FichaTecnica {
 
 	@PostConstruct
 	public void init() {
+		listNomeFichas();
+		listNomeProdutos();
 		
+		try {
+			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getNomeFicha() {
@@ -158,7 +165,6 @@ public class FichaTecnica {
 	}
 	
 	public void onTabChange(TabChangeEvent event) {
-		System.out.println(tabview.getActiveIndex() + "FICHAAAAAAAAAAAAAAA");
 		if(tabview.getActiveIndex() == 2){
 			listNomeFichas();
 			listNomeProdutos();

@@ -41,10 +41,8 @@
 		</p:messages>
 
 		<h:form id="form" onkeypress="$(document).on('keypress', 'form', function(event) { return event.keyCode != 13;});">
-			<p:commandButton id="vazio" process="@none" global="false" style="display:none;"/> 
 			<p:growl id="msgs" showDetail="true" />
-			<p:tabView dynamic="true" binding="#{fichaTecnica.tabview}">
-				<p:ajax event="tabChange" listener="#{fichaTecnica.onTabChange}"/>
+			<p:tabView dynamic="true">
 <!-- *************INICIAL**************** -->
 
 				<p:tab title="Inicial" id="tableInicial">
@@ -120,7 +118,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton id="btnSalvar" disabled="#{produto.blockBtn}" value="#{produto.btnName2}" update="@form nomeProduto" actionListener="#{produto.buttonSalvar}" />
+						<p:commandButton id="btnSalvar" disabled="#{produto.blockBtn}" value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonSalvar}" />
 						&nbsp;&nbsp;
 						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
 						<br />
@@ -129,7 +127,7 @@
 
 						<h4>Produtos e Serviços Cadastrados</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
-							<p:dataTable var="cadProduto" value="#{produto.listProdutos}">
+							<p:dataTable id="tabProduto" var="cadProduto" value="#{produto.listProdutos}">
 <!-- 							<p:ajax event="rowSelect" listener="#{produto.onRowSelect}" update=":form:msgs"/> -->
 <!-- selectionMode="single" selection="#{produto.selectedProduto}" rowKey="#{cadProduto.codProduto}" update=":form:msgs" -->
 								<p:column headerText="Código" style="width:20%">
@@ -149,7 +147,7 @@
 								</p:column>
 								<p:column style="width:95px;text-align: center">
 									<p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" actionListener="#{produto.buttonActionAlterar(cadProduto)}"/>
-									<p:commandButton icon="ui-icon-closethick" title="Deleta" update="@form" actionListener="#{produto.buttonActionExcluir(cadProduto)}">
+									<p:commandButton icon="ui-icon-closethick" title="Deleta" update="tabProduto" actionListener="#{produto.buttonActionExcluir(cadProduto)}">
 										<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
 									</p:commandButton>
 								</p:column>
