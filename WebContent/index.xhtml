@@ -43,8 +43,8 @@
 		<h:form id="form" onkeypress="$(document).on('keypress', 'form', function(event) { return event.keyCode != 13;});">
 			<p:commandButton id="vazio" process="@none" global="false" style="display:none;"/> 
 			<p:growl id="msgs" showDetail="true" />
-			<p:tabView dynamic="true">
-
+			<p:tabView dynamic="true" binding="#{precoFinal.tabview}">
+				<p:ajax event="tabChange" listener="#{precoFinal.onTabChange}"/>
 <!-- *************INICIAL**************** -->
 
 				<p:tab title="Inicial" id="tableInicial">
@@ -120,9 +120,9 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton id="btnSalvar" disabled="#{produto.blockBtn}" value="#{produto.btnName2}" update="@form" actionListener="#{produto.buttonSalvar}" />
+						<p:commandButton id="btnSalvar" disabled="#{produto.blockBtn}" value="#{produto.btnName2}" update="@form nomeProduto" actionListener="#{produto.buttonSalvar}" />
 						&nbsp;&nbsp;
-						<p:commandButton value="#{produto.btnName}" update="@all" actionListener="#{produto.buttonActionCancelar}" />
+						<p:commandButton value="#{produto.btnName}" update="@form" actionListener="#{produto.buttonActionCancelar}" />
 						<br />
 						<br />
 						<br />
@@ -171,16 +171,16 @@
 						</tr>
 						<tr>
 							<td class="ce1"> 
-								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true" onchange="submit()">
+								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
 								<p:messages autoUpdate="true" />
-								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha"/>
+								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha nomeProduto"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu> 
 
 							</td>
 							<td class="cd1" colspan="2"> 
-								<p:selectOneMenu id="nomeProduto" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false">
+								<p:selectOneMenu id="nomeProduto" tabindex="" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false" cache="false">
 								<p:messages autoUpdate="true" />
 								<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
 <!-- 											<f:selectItem itemLabel="" /> -->

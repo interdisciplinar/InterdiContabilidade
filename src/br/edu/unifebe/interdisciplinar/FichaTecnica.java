@@ -48,13 +48,14 @@ public class FichaTecnica {
 
 	@PostConstruct
 	public void init() {
-		listNomeProdutos();
 		listNomeFichas();
-		try {
-			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		listNomeProdutos();
+//		
+//		try {
+//			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public String getNomeFicha() {
@@ -271,9 +272,11 @@ public class FichaTecnica {
 			if(fichaTecDao.verificaNomeFicha(nomeFicha)){
 				btnName = "Concluir";
 				listProdutosFicha();
+				listNomeProdutos();
 			}
 			else{
 				finish();
+				listNomeProdutos();
 				listProdutosFicha();
 			}
 		} catch (SQLException e) {
