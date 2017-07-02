@@ -41,6 +41,7 @@ public class FichaTecnica {
 	private boolean bloqueiaCampo = false;
 	private boolean bloqueiaCombobox = false;
 	private String btnName = "Salvar";
+	private TabView tabview=null;
 	
 	public FichaTecnica() throws SQLException {
 		
@@ -48,14 +49,7 @@ public class FichaTecnica {
 
 	@PostConstruct
 	public void init() {
-		listNomeFichas();
-//		listNomeProdutos();
-//		
-//		try {
-//			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		
 	}
 	
 	public String getNomeFicha() {
@@ -153,6 +147,28 @@ public class FichaTecnica {
 
 	public void setBtnName(String btnName) {
 		this.btnName = btnName;
+	}
+
+	public TabView getTabview() {
+		return tabview;
+	}
+
+	public void setTabview(TabView tabview) {
+		this.tabview = tabview;
+	}
+	
+	public void onTabChange(TabChangeEvent event) {
+		System.out.println(tabview.getActiveIndex() + "FICHAAAAAAAAAAAAAAA");
+		if(tabview.getActiveIndex() == 2){
+			listNomeFichas();
+			listNomeProdutos();
+			
+			try {
+				getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {

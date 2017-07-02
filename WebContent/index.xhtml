@@ -43,8 +43,8 @@
 		<h:form id="form" onkeypress="$(document).on('keypress', 'form', function(event) { return event.keyCode != 13;});">
 			<p:commandButton id="vazio" process="@none" global="false" style="display:none;"/> 
 			<p:growl id="msgs" showDetail="true" />
-			<p:tabView dynamic="true" binding="#{precoFinal.tabview}">
-				<p:ajax event="tabChange" listener="#{precoFinal.onTabChange}"/>
+			<p:tabView dynamic="true" binding="#{fichaTecnica.tabview}">
+				<p:ajax event="tabChange" listener="#{fichaTecnica.onTabChange}"/>
 <!-- *************INICIAL**************** -->
 
 				<p:tab title="Inicial" id="tableInicial">

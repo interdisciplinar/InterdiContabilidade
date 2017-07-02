@@ -16,6 +16,7 @@ import org.primefaces.event.TabChangeEvent;
 
 import br.edu.unifebe.interdisciplinar.dao.FichaTecDao;
 import br.edu.unifebe.interdisciplinar.dao.ProdFichaDao;
+import br.edu.unifebe.interdisciplinar.model.CadFichaTec;
 
 @ManagedBean
 @SessionScoped
@@ -30,7 +31,6 @@ public class PrecoFinal {
 	private String tipoFiscal;
 	private String faixa;
 	private List<String> faixas;
-	private TabView tabview=null;
 
 	
 	@PostConstruct
@@ -92,21 +92,6 @@ public class PrecoFinal {
 	}
 	public void setFaixas(List<String> faixas) {
 		this.faixas = faixas;
-	}
-	
-	
-	
-	public org.primefaces.component.tabview.TabView getTabview() {
-		return tabview;
-	}
-	public void setTabview(org.primefaces.component.tabview.TabView tabview) {
-		this.tabview = tabview;
-	}
-	
-	public void onTabChange(TabChangeEvent event) {
-		if(tabview.getActiveIndex() == 3){
-			
-		}
 	}
 	
 	public void getListFaixas(){
