@@ -50,13 +50,13 @@ public class FichaTecnica {
 	@PostConstruct
 	public void init() {
 		listNomeFichas();
-		listNomeProdutos();
-		
-		try {
-			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		listNomeProdutos();
+//		
+//		try {
+//			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public String getNomeFicha() {
