@@ -15,7 +15,7 @@ import br.edu.unifebe.interdisciplinar.model.ValidaErros;
 
 @ManagedBean
 @SessionScoped
-public class Produto{
+public class Produto {
 	private String codProduto = "";
 	private String nomeProduto;
 	private double custoProduto;
@@ -34,16 +34,16 @@ public class Produto{
 	public Produto() {
 
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		getListaProdutos();
 		tipoProdutos = new ArrayList<String>();
 		tipoProdutos.add("Produto");
-		tipoProdutos.add("Servi√ßo");
+		tipoProdutos.add("ServiÁo");
 		cadProdutos = new CadProdutos();
 	}
-	
+
 	public List<String> getTipoProdutos() {
 		return tipoProdutos;
 	}
@@ -83,7 +83,7 @@ public class Produto{
 	public void setCustoProduto(double custoProduto) {
 		this.custoProduto = custoProduto;
 	}
-	
+
 	public String getTipoProduto() {
 		return tipoProduto;
 	}
@@ -107,7 +107,7 @@ public class Produto{
 	public void setSelectedProduto(CadProdutos selectedProduto) {
 		this.selectedProduto = selectedProduto;
 	}
-	
+
 	public String getbtnName() {
 		return btnName;
 	}
@@ -125,36 +125,36 @@ public class Produto{
 	}
 
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
-        cadProdutos.setCodProduto(codProduto);
-        cadProdutos.setNomeProduto(nomeProduto);
-        cadProdutos.setCusto(custoProduto);
-        cadProdutos.setServico(tipoProduto);
-        validaErros = new ValidaErros(codProduto, nomeProduto, custoProduto);
-        if(validaErros.validaProduto()){
-        	if(produtosDao.verificaProduto(codProduto)){
-        		produtosDao.setEditar(cadProdutos);
-        		getListaProdutos();
-	        	refresh();
-        	}
-        	else{
-		        if(produtosDao.setIncluir(cadProdutos)){
-		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Produto Adicionado!", "Produto Adicionado!"));
-		        	getListaProdutos();
-		        	refresh();
-		        }
-		        else{
-		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocorreu um Erro Fale com o Suporte!", "Ocorreu um Erro Fale com o Suporte!"));
-		        }
-        	}
-        	
-        }
-        else{
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
-        }
-    }
-	
+		cadProdutos.setCodProduto(codProduto);
+		cadProdutos.setNomeProduto(nomeProduto);
+		cadProdutos.setCusto(custoProduto);
+		cadProdutos.setServico(tipoProduto);
+		validaErros = new ValidaErros(codProduto, nomeProduto, custoProduto);
+		if (validaErros.validaProduto()) {
+			if (produtosDao.verificaProduto(codProduto)) {
+				produtosDao.setEditar(cadProdutos);
+				getListaProdutos();
+				refresh();
+			} else {
+				if (produtosDao.setIncluir(cadProdutos)) {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO, "Produto Adicionado!", "Produto Adicionado!"));
+					getListaProdutos();
+					refresh();
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Ocorreu um Erro Fale com o Suporte!", "Ocorreu um Erro Fale com o Suporte!"));
+				}
+			}
+
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
+		}
+	}
+
 	public void buttonActionAlterar(CadProdutos cadProdutos) throws SQLException {
-		if(cadProdutos != null){
+		if (cadProdutos != null) {
 			codProduto = cadProdutos.getCodProduto();
 			nomeProduto = cadProdutos.getNomeProduto();
 			custoProduto = cadProdutos.getCusto();
@@ -162,69 +162,68 @@ public class Produto{
 			bloqueiaCampo = true;
 			btnName = "Cancelar";
 			btnName2 = "Alterar";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
 		}
-		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
-		}
-    }
-	
+	}
+
 	public void buttonActionCancelar() throws SQLException {
 		refresh();
-    }
-	
+	}
+
 	public void buttonActionExcluir(CadProdutos cadProdutos) throws SQLException {
-		if(cadProdutos != null){
+		if (cadProdutos != null) {
 			produtosDao.setExcluir(cadProdutos);
 			getListaProdutos();
+		} else {
+			System.out.println("falhou");
 		}
-		else{
-			System.out.println("falhouu");
-		}
-    }
+	}
 
-	public void getListaProdutos(){
+	public void getListaProdutos() {
 		listProdutos.clear();
 		try {
 			produtosDao = new ProdutosDao();
 			listProdutos = produtosDao.getListar("");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
-	
-	public static String getStringProdutoTipo(int tipo){
-		if(tipo == 0){
+
+	public static String getStringProdutoTipo(int tipo) {
+		if (tipo == 0) {
 			return "Produto";
 		}
-		return "Servi√ßo";
+		return "ServiÁo";
 	}
-	
-	public static int getIntProdutoTipo(String tipo){
-		if(tipo.equals("Produto")){
+
+	public static int getIntProdutoTipo(String tipo) {
+		if (tipo.equals("Produto")) {
 			return 0;
 		}
 		return 1;
 	}
-	
-	public void refresh(){
-        codProduto = "";
-        nomeProduto = "";
-        custoProduto = 0;
-        tipoProduto = "Produto";
-    	bloqueiaCampo = false;
-    	blockBtn = false;
-    	btnName2="Salvar";
+
+	public void refresh() {
+		codProduto = "";
+		nomeProduto = "";
+		custoProduto = 0;
+		tipoProduto = "Produto";
+		bloqueiaCampo = false;
+		blockBtn = false;
+		btnName2 = "Salvar";
 	}
-	
+
 	public boolean validaCampoCodProdutos() {
 		try {
 			produtosDao = new ProdutosDao();
-			if(produtosDao.validaCodProduto(codProduto)){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Codigo do Produto j√° est√° cadastrado!", null));
+			if (produtosDao.validaCodProduto(codProduto)) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Codigo do Produto j· est· cadastrado!", null));
 				blockBtn = true;
 				return false;
-			}
-			else{
+			} else {
 				blockBtn = false;
 				return true;
 			}
@@ -233,17 +232,17 @@ public class Produto{
 			e.printStackTrace();
 			return false;
 		}
-    }
-	
+	}
+
 	public boolean validaCampoNomeProdutos() {
 		try {
 			produtosDao = new ProdutosDao();
-			if(produtosDao.validaNomeProduto(nomeProduto)){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome do Produto j√° est√° cadastrado!", null));
+			if (produtosDao.validaNomeProduto(nomeProduto)) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome do Produto j· est· cadastrado!", null));
 				blockBtn = true;
 				return false;
-			}
-			else{
+			} else {
 				blockBtn = false;
 				return true;
 			}
@@ -252,7 +251,7 @@ public class Produto{
 			e.printStackTrace();
 			return false;
 		}
-    }
+	}
 
 	public boolean isBlockBtn() {
 		return blockBtn;

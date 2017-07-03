@@ -1,4 +1,5 @@
 package br.edu.unifebe.interdisciplinar;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,73 +42,64 @@ public class FichaTecnica {
 	private boolean bloqueiaCampo = false;
 	private boolean bloqueiaCombobox = false;
 	private String btnName = "Salvar";
-	private TabView tabview=null;
-	
+	private TabView tabview = null;
+
 	public FichaTecnica() throws SQLException {
-		
+
 	}
 
 	@PostConstruct
 	public void init() {
 		listNomeFichas();
-//		listNomeProdutos();
-//		
-//		try {
-//			getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		// listNomeProdutos();
+		//
+		// try {
+		// getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// }
 	}
-	
+
 	public String getNomeFicha() {
 		return nomeFicha;
 	}
-
 
 	public void setNomeFicha(String nomeFicha) {
 		this.nomeFicha = nomeFicha;
 	}
 
-
 	public String getCodProdutoFicha() {
 		return codProdutoFicha;
 	}
-
 
 	public void setCodProdutoFicha(String codProdutoFicha) {
 		this.codProdutoFicha = codProdutoFicha;
 	}
 
-
 	public List<String> getNomeProdutoFicha() {
 		return nomeProdutoFicha;
 	}
-
 
 	public void setNomeProdutoFicha(List<String> nomeProdutoFicha) {
 		this.nomeProdutoFicha = nomeProdutoFicha;
 	}
 
-
 	public double getCustoProdutoFicha() {
 		return custoProdutoFicha;
 	}
-
 
 	public void setCustoProdutoFicha(double custoProdutoFicha) {
 		this.custoProdutoFicha = custoProdutoFicha;
 	}
 
-
 	public int getQtdProdutoFicha() {
 		return qtdProdutoFicha;
 	}
 
-
 	public void setQtdProdutoFicha(int qtdProdutoFicha) {
 		this.qtdProdutoFicha = qtdProdutoFicha;
 	}
-	
+
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
@@ -115,7 +107,7 @@ public class FichaTecnica {
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = nomeProduto;
 	}
-	
+
 	public boolean isBloqueiaCampo() {
 		return bloqueiaCampo;
 	}
@@ -139,7 +131,7 @@ public class FichaTecnica {
 	public void setListProdutos(List<CadProdutoFicha> listProdutos) {
 		this.listProdutos = listProdutos;
 	}
-	
+
 	public List<String> getNomeFichas() {
 		return nomeFichas;
 	}
@@ -163,12 +155,12 @@ public class FichaTecnica {
 	public void setTabview(TabView tabview) {
 		this.tabview = tabview;
 	}
-	
+
 	public void onTabChange(TabChangeEvent event) {
-		if(tabview.getActiveIndex() == 2){
+		if (tabview.getActiveIndex() == 2) {
 			listNomeFichas();
 			listNomeProdutos();
-			
+
 			try {
 				getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
 			} catch (SQLException e) {
@@ -178,81 +170,77 @@ public class FichaTecnica {
 	}
 
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
-        cadFichaTec = new CadFichaTec();
-        cadFichaTec.setNomeFicha(nomeFicha);
-        cadFichaTec.setTotalCusto(custoProdutoFicha);
-        if(listProdutos.size() > 0){
-        	finish();
-        	btnName = "Salvar";
-        }
-        else{
-        	ValidaErros validaErros = new ValidaErros(nomeFicha, qtdProdutoFicha);
-        	if(validaErros.validaFicha()){
-	        	cadProdutoFicha = new CadProdutoFicha();
-	        	prodFichaDao = new ProdFichaDao();
-	        	cadProdutoFicha.setNomeFicha(nomeFicha);
-	        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
-	        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
-	        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
-	        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
-	        	fichaTecDao.setIncluir(cadFichaTec);
-	        	prodFichaDao.setIncluir(cadProdutoFicha);
-	        	listProdutosFicha();
-	        	listNomeFichas();
-	        	btnName = "Concluir";
-	        	qtdProdutoFicha = 1;
-        	}
-        	else{
-        		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
-        	}
-        }
-    }
-	
+		cadFichaTec = new CadFichaTec();
+		cadFichaTec.setNomeFicha(nomeFicha);
+		cadFichaTec.setTotalCusto(custoProdutoFicha);
+		if (listProdutos.size() > 0) {
+			finish();
+			btnName = "Salvar";
+		} else {
+			ValidaErros validaErros = new ValidaErros(nomeFicha, qtdProdutoFicha);
+			if (validaErros.validaFicha()) {
+				cadProdutoFicha = new CadProdutoFicha();
+				prodFichaDao = new ProdFichaDao();
+				cadProdutoFicha.setNomeFicha(nomeFicha);
+				cadProdutoFicha.setCodProdFicha(codProdutoFicha);
+				cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
+				cadProdutoFicha.setNomeProdFicha(nomeProduto);
+				cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+				fichaTecDao.setIncluir(cadFichaTec);
+				prodFichaDao.setIncluir(cadProdutoFicha);
+				listProdutosFicha();
+				listNomeFichas();
+				btnName = "Concluir";
+				qtdProdutoFicha = 1;
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
+			}
+		}
+	}
+
 	public void buttonIncluir(ActionEvent actionEvent) throws SQLException {
 		fichaTecDao = new FichaTecDao();
-		if(fichaTecDao.verificaNomeFicha(nomeFicha)){
+		if (fichaTecDao.verificaNomeFicha(nomeFicha)) {
 			prodFichaDao = new ProdFichaDao();
-			if(!prodFichaDao.verificaProdutoFicha(nomeFicha, nomeProduto)){
-				if(qtdProdutoFicha > 0){
+			if (!prodFichaDao.verificaProdutoFicha(nomeFicha, nomeProduto)) {
+				if (qtdProdutoFicha > 0) {
 					cadProdutoFicha = new CadProdutoFicha();
-		        	cadProdutoFicha.setNomeFicha(nomeFicha);
-		        	cadProdutoFicha.setCodProdFicha(codProdutoFicha);
-		        	cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
-		        	cadProdutoFicha.setNomeProdFicha(nomeProduto);
-		        	cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
-		        	prodFichaDao.setIncluir(cadProdutoFicha);
-		        	fichaTecDao.salvaUsuIdAlteracao(nomeFicha);
+					cadProdutoFicha.setNomeFicha(nomeFicha);
+					cadProdutoFicha.setCodProdFicha(codProdutoFicha);
+					cadProdutoFicha.setCustoProdFicha(custoProdutoFicha);
+					cadProdutoFicha.setNomeProdFicha(nomeProduto);
+					cadProdutoFicha.setQtdProdFicha(qtdProdutoFicha);
+					prodFichaDao.setIncluir(cadProdutoFicha);
+					fichaTecDao.salvaUsuIdAlteracao(nomeFicha);
 					listProdutosFicha();
 					qtdProdutoFicha = 1;
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Quantidade inválida! Quantidade deve ser maior que zero", "Quantidade inválida! Quantidade deve ser maior que zero"));
 				}
-				else{
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-							"Quantidade invï¿½lida! Quantidade deve ser maior que zero",
-							"Quantidade invï¿½lida! Quantidade deve ser maior que zero"));
-				}
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Produto já cadastrado nesta ficha técnica", "Produto já cadastrado nesta ficha técnica"));
 			}
-			else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						"Produto jï¿½ cadastrado nesta ficha tecnica",
-						"Produto jï¿½ cadastrado nesta ficha tecnica"));
-			}
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário salvar a ficha antes de incluir produtos nela",
+							"É necessário salvar a ficha antes de incluir produtos nela"));
 		}
-		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ï¿½ necessï¿½rio salvar a ficha antes de incluir produtos nela", "ï¿½ necessï¿½rio salvar a ficha antes de incluir produtos nela"));
-		}
-    }
-	
+	}
+
 	public void buttonExcluir(CadProdutoFicha cadProdutoFicha) throws SQLException {
 		prodFichaDao = new ProdFichaDao();
 		prodFichaDao.setExcluir(cadProdutoFicha);
-    	listProdutosFicha();
-    }
+		listProdutosFicha();
+	}
 
-	public void produtoInfo(){
+	public void produtoInfo() {
 		getProdutoInfo(nomeProduto);
 	}
-	
-	public void listNomeProdutos(){
+
+	public void listNomeProdutos() {
 		try {
 			produtosDao = new ProdutosDao();
 			nomeProdutoFicha = produtosDao.getNomeProduto();
@@ -260,43 +248,41 @@ public class FichaTecnica {
 			e.printStackTrace();
 		}
 	}
-	
-	public void listProdutosFicha(){
+
+	public void listProdutosFicha() {
 		try {
 			prodFichaDao = new ProdFichaDao();
 			List<CadProdutoFicha> listPf = prodFichaDao.getListar(nomeFicha);
-			if(listPf.size() > 0){
+			if (listPf.size() > 0) {
 				listProdutos = listPf;
-			}
-			else{
+			} else {
 				listProdutos = new ArrayList<CadProdutoFicha>();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void listNomeFichas(){
+
+	public void listNomeFichas() {
 		try {
 			fichaTecDao = new FichaTecDao();
 			nomeFichas = new ArrayList<String>();
-			for(CadFichaTec ft : fichaTecDao.getListar("")){
+			for (CadFichaTec ft : fichaTecDao.getListar("")) {
 				nomeFichas.add(ft.getNomeFicha());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void validaFicha(){
+
+	public void validaFicha() {
 		try {
 			System.out.println(nomeFicha);
-			if(fichaTecDao.verificaNomeFicha(nomeFicha)){
+			if (fichaTecDao.verificaNomeFicha(nomeFicha)) {
 				btnName = "Concluir";
 				listProdutosFicha();
 				listNomeProdutos();
-			}
-			else{
+			} else {
 				finish();
 				listNomeProdutos();
 				listProdutosFicha();
@@ -306,12 +292,12 @@ public class FichaTecnica {
 			e.printStackTrace();
 		}
 	}
-	
-	public void getProdutoInfo(String nomeProduto){
+
+	public void getProdutoInfo(String nomeProduto) {
 		try {
 			cadProdutos = new CadProdutos();
 			cadProdutos = produtosDao.getProdutoInfo(nomeProduto);
-			if(cadProdutos != null){
+			if (cadProdutos != null) {
 				codProdutoFicha = cadProdutos.getCodProduto();
 				custoProdutoFicha = cadProdutos.getCusto();
 			}
@@ -319,12 +305,12 @@ public class FichaTecnica {
 			e.printStackTrace();
 		}
 	}
-	
-	public void removeDecimal(){
+
+	public void removeDecimal() {
 		qtdProdutoFicha = (int) Math.floor(qtdProdutoFicha);
 	}
-	
-	public void finish(){
+
+	public void finish() {
 		btnName = "Salvar";
 		listProdutos.clear();
 		nomeFicha = "";

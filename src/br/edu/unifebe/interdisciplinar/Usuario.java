@@ -29,9 +29,9 @@ public class Usuario {
 	private boolean bloqueiacampo = false;
 	private String btnName = "Salvar";
 	private String btnName2 = "Limpar";
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		getUsuarios();
 		cadUsuario = new CadUsuario();
 	}
@@ -67,7 +67,7 @@ public class Usuario {
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	
+
 	public List<CadUsuario> getListUsuarios() {
 		return listUsuarios;
 	}
@@ -100,72 +100,72 @@ public class Usuario {
 		this.btnName2 = btnName2;
 	}
 
-	public static String getStringUsuarioTipo(int tipoUsuario){
-		if(tipoUsuario == 0){
+	public static String getStringUsuarioTipo(int tipoUsuario) {
+		if (tipoUsuario == 0) {
 			return "Usuario";
 		}
 		return "Administrador";
 	}
-	
-	public static int getIntUsuarioTipo(String tipoUsuario){
-		if(tipoUsuario.equals("Usuario")){
+
+	public static int getIntUsuarioTipo(String tipoUsuario) {
+		if (tipoUsuario.equals("Usuario")) {
 			return 0;
 		}
 		return 1;
 	}
-	public static String getStringUsuarioStatus(int tipoUsuario){
-		if(tipoUsuario == 0){
+
+	public static String getStringUsuarioStatus(int tipoUsuario) {
+		if (tipoUsuario == 0) {
 			return "Desativado";
 		}
 		return "Ativado";
 	}
-	
-	public static int getIntUsuarioStatus(String tipoUsuario){
-		if(tipoUsuario.equals("Desativado")){
+
+	public static int getIntUsuarioStatus(String tipoUsuario) {
+		if (tipoUsuario.equals("Desativado")) {
 			return 0;
 		}
 		return 1;
 	}
-	
+
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
 		cadUsuario.setNomeUser(nomeUsuario);
 		cadUsuario.setLogin(loginUsuario.toLowerCase());
 		cadUsuario.setSenha(senhaUsuario);
 		cadUsuario.setPermissao(tipoUsuario);
-        validaErros = new ValidaErros(nomeUsuario, loginUsuario, senhaUsuario);
-        if(validaErros.validaUsuario()){
-        	if(usuarioDao.verificaUsuario(loginUsuario)){
-        		if(bloqueiacampo){
-	        		usuarioDao.setEditar(cadUsuario);
-	        		getUsuarios();
-	        		refresh();
-        		}
-        		else{
-        			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario j√° foi cadastrado", "Usuario j√° foi cadastrado"));
-        		}
-        	}
-        	else{
-		        if(usuarioDao.setIncluir(cadUsuario)){
-		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Adicionado!"));
-		        	getUsuarios();
-		        	refresh();
-		        }
-		        else{
-		        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
-		        }
-        	}
-        }
-        else{
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
-        }
-    }
-	
+		validaErros = new ValidaErros(nomeUsuario, loginUsuario, senhaUsuario);
+		if (validaErros.validaUsuario()) {
+			if (usuarioDao.verificaUsuario(loginUsuario)) {
+				if (bloqueiacampo) {
+					usuarioDao.setEditar(cadUsuario);
+					getUsuarios();
+					refresh();
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario j· foi cadastrado", "Usu·rio j· foi cadastrado"));
+				}
+			} else {
+				if (usuarioDao.setIncluir(cadUsuario)) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usu·rio Adicionado!"));
+					getUsuarios();
+					refresh();
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+				}
+			}
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro: Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
+		}
+	}
+
 	public void buttonZerar(ActionEvent actionEvent) throws SQLException {
 		refresh();
-    }
-	
-	public void buttonAlterar(CadUsuario cadUsuario){
-		if(cadUsuario != null){
+	}
+
+	public void buttonAlterar(CadUsuario cadUsuario) {
+		if (cadUsuario != null) {
 			btnName = "Alterar";
 			bloqueiacampo = true;
 			btnName2 = "Cancelar";
@@ -174,14 +174,14 @@ public class Usuario {
 			System.out.println(cadUsuario.getSenha());
 			senhaUsuario = cadUsuario.getSenha();
 			tipoUsuario = cadUsuario.getPermissao();
-		}
-		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
 		}
 	}
-	
-	public void buttonDesativar(CadUsuario cadUsuario){
-		if(cadUsuario != null){
+
+	public void buttonDesativar(CadUsuario cadUsuario) {
+		if (cadUsuario != null) {
 			try {
 				usuarioDao.setExcluir(cadUsuario);
 				getUsuarios();
@@ -189,13 +189,13 @@ public class Usuario {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ocorreu um Erro Fale com o Suporte!"));
 		}
 	}
-	
-	public void getUsuarios(){
+
+	public void getUsuarios() {
 		try {
 			usuarioDao = new UsuarioDao();
 			listUsuarios = usuarioDao.getListar("");
@@ -204,8 +204,8 @@ public class Usuario {
 			e.printStackTrace();
 		}
 	}
-	
-	public void refresh(){
+
+	public void refresh() {
 		nomeUsuario = "";
 		loginUsuario = "";
 		senhaUsuario = "";
