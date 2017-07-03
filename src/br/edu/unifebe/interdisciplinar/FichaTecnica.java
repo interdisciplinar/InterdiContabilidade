@@ -51,13 +51,6 @@ public class FichaTecnica {
 	@PostConstruct
 	public void init() {
 		listNomeFichas();
-		// listNomeProdutos();
-		//
-		// try {
-		// getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-		// } catch (SQLException e) {
-		// e.printStackTrace();
-		// }
 	}
 
 	public String getNomeFicha() {
@@ -148,26 +141,26 @@ public class FichaTecnica {
 		this.btnName = btnName;
 	}
 
-	public TabView getTabview() {
-		return tabview;
-	}
-
-	public void setTabview(TabView tabview) {
-		this.tabview = tabview;
-	}
-
-	public void onTabChange(TabChangeEvent event) {
-		if (tabview.getActiveIndex() == 2) {
-			listNomeFichas();
-			listNomeProdutos();
-
-			try {
-				getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+//	public TabView getTabview() {
+//		return tabview;
+//	}
+//
+//	public void setTabview(TabView tabview) {
+//		this.tabview = tabview;
+//	}
+//
+//	public void onTabChange(TabChangeEvent event) {
+//		if (tabview.getActiveIndex() == 2) {
+//			listNomeFichas();
+//			listNomeProdutos();
+//
+//			try {
+//				getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
 	public void buttonSalvar(ActionEvent actionEvent) throws SQLException {
 		cadFichaTec = new CadFichaTec();
@@ -277,15 +270,21 @@ public class FichaTecnica {
 
 	public void validaFicha() {
 		try {
-			System.out.println(nomeFicha);
 			if (fichaTecDao.verificaNomeFicha(nomeFicha)) {
 				btnName = "Concluir";
 				listProdutosFicha();
-				listNomeProdutos();
 			} else {
 				finish();
-				listNomeProdutos();
 				listProdutosFicha();
+			}
+			if(!nomeFicha.equals("")){
+				listNomeProdutos();
+				try {
+					getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+			 	}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

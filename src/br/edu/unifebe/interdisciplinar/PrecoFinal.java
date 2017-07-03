@@ -34,7 +34,7 @@ public class PrecoFinal {
 
 	@PostConstruct
 	public void init() {
-
+		getFichaInfo();
 	}
 
 	public double getPercent() {
@@ -121,7 +121,13 @@ public class PrecoFinal {
 	public void getFichaInfo() {
 		try {
 			prodFichaDao = new ProdFichaDao();
-			custoProdutoFicha = prodFichaDao.custoFichaProduto(nomeFicha);
+			fichaTecDao = new FichaTecDao();
+			if(nomeFicha == null){
+				custoProdutoFicha = prodFichaDao.custoFichaProduto(fichaTecDao.getPrimeiraFicha());	
+			}
+			else{
+				custoProdutoFicha = prodFichaDao.custoFichaProduto(nomeFicha);
+			}
 			calculaPrecoProduto();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,5 +179,13 @@ public class PrecoFinal {
 		} else {
 			fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 1);
 		}
+		refresh();
+	}
+	
+	public void refresh(){
+		valorImpo = 8;
+		percent = 0;
+		tipoFiscal = "Presumido";
+		getListFaixas();
 	}
 }

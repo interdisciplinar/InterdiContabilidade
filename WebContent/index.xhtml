@@ -199,7 +199,8 @@
 							<td class="ce1"> 
 								<p:selectOneMenu id="nomeFicha" value="#{fichaTecnica.nomeFicha}" style="width:380px" effect="fold" editable="true">
 								<p:messages autoUpdate="true" />
-								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" update="fichaTable qtdProduto btnSalvarFicha nomeProduto"/>
+								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" 
+								update="fichaTable qtdProduto btnSalvarFicha nomeProduto cusProduto codProduto"/>
 <!-- 											<f:selectItem itemLabel="" /> -->
 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu> 
@@ -348,7 +349,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Gerar Relatório"  actionListener="#{precoFinal.buttonSalvarCustoFicha}" />
+						<p:commandButton value="Gerar Relatório"  actionListener="#{precoFinal.buttonSalvarCustoFicha}" update="@form"/>
 					</center>
 				</p:tab>
 

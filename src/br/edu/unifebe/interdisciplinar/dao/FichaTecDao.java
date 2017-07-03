@@ -89,7 +89,6 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 	public void insereCustoFinal(double custoFinal, String nomeFicha, double percent, int tipoFiscal){
 		String sql = "UPDATE `fichatecnica` SET `ft_total_custo`= ?, `ft_percent`= ?, `ft_enquad_fiscal`= ?"
 				+ " WHERE `ft_nome` = '"+nomeFicha+"'";
-		System.out.println(nomeFicha);
 		PreparedStatement prmt;
 		try {
 			prmt = conexao.prepareStatement(sql);
@@ -115,5 +114,18 @@ public class FichaTecDao implements IDao<CadFichaTec>{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public String getPrimeiraFicha() throws SQLException{
+		String sql = "SELECT * FROM `fichatecnica` LIMIT 1";
+		PreparedStatement  prmt = conexao.prepareStatement(sql);
+		ResultSet rs;
+		rs = prmt.executeQuery();
+			
+		if(rs.next()){
+			return rs.getString("ft_nome");
+		}
+		
+		return "";
 	}
 }

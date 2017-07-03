@@ -46,22 +46,21 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 
 	@Override
 	public void setEditar(CadProdutoFicha e) throws SQLException {
-		String sql="UPDATE `produtosficha` SET `ft_prod_qtd`=? WHERE ft_nome = '"+e.getNomeFicha()+"' "
-				+ " AND ft_prod_cod = '"+ e.getCodProdFicha() +"'"; //vai ser removido
-
-		PreparedStatement prmt;
-		try {
-			prmt = conexao.prepareStatement(sql);
-			prmt.setInt(1, e.getQtdProdFicha());
-			prmt.executeUpdate();
-			//return true;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			System.out.println(" not beleza");
-			//return false;
-		}
-		
+//		String sql="UPDATE `produtosficha` SET `ft_prod_qtd`=? WHERE ft_nome = '"+e.getNomeFicha()+"' "
+//				+ " AND ft_prod_cod = '"+ e.getCodProdFicha() +"'"; //vai ser removido
+//
+//		PreparedStatement prmt;
+//		try {
+//			prmt = conexao.prepareStatement(sql);
+//			prmt.setInt(1, e.getQtdProdFicha());
+//			prmt.executeUpdate();
+//			//return true;
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//			System.out.println(" not beleza");
+//			//return false;
+//		}
 	}
 
 	@Override
