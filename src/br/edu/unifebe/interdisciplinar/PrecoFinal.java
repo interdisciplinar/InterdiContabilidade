@@ -179,6 +179,8 @@ public class PrecoFinal {
 		} else {
 			fichaTecDao.insereCustoFinal(custoTotalFT, nomeFicha, percent, 1);
 		}
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Preço Salvo na Ficha!", "Preço Salvo na Ficha!"));
 		refresh();
 	}
 	

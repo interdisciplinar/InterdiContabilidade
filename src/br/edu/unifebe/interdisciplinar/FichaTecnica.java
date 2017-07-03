@@ -167,6 +167,8 @@ public class FichaTecnica {
 		cadFichaTec.setNomeFicha(nomeFicha);
 		cadFichaTec.setTotalCusto(custoProdutoFicha);
 		if (listProdutos.size() > 0) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Ficha Finalizada!", "Ficha Finalizada!"));
 			finish();
 			btnName = "Salvar";
 		} else {
@@ -185,6 +187,9 @@ public class FichaTecnica {
 				listNomeFichas();
 				btnName = "Concluir";
 				qtdProdutoFicha = 1;
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Ficha Adicionada!", "Ficha Adicionada!"));
+				
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Verifique se todos os campos foram preenchidos!", "Verifique se todos os campos foram preenchidos!"));
@@ -277,15 +282,14 @@ public class FichaTecnica {
 				finish();
 				listProdutosFicha();
 			}
-			if(!nomeFicha.equals("")){
-				listNomeProdutos();
-				try {
-					getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-			 	}
+			
+			listNomeProdutos();
+			try {
+				getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
 			}
+			catch (SQLException e) {
+				e.printStackTrace();
+		 	}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
