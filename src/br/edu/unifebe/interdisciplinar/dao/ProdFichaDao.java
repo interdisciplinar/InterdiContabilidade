@@ -123,8 +123,8 @@ public class ProdFichaDao implements IDao<CadProdutoFicha> {
 		prmt.setString(1, nomeFicha);
 		ResultSet rs = prmt.executeQuery();
 		if(rs.next()){
-			System.out.println(rs.getDouble("SUM(`ft_prod_custo`)"));
-			return rs.getDouble("SUM(`ft_prod_custo`)");
+			System.out.println(rs.getDouble("totalft"));
+			return rs.getDouble("totalft");
 		}
 		return 0;
 	}

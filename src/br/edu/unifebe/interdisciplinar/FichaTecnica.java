@@ -227,18 +227,18 @@ public class FichaTecnica {
 				}
 				else{
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-							"Quantidade inválida! Quantidade deve ser maior que zero",
-							"Quantidade inválida! Quantidade deve ser maior que zero"));
+							"Quantidade invï¿½lida! Quantidade deve ser maior que zero",
+							"Quantidade invï¿½lida! Quantidade deve ser maior que zero"));
 				}
 			}
 			else{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						"Produto já cadastrado nesta ficha tecnica",
-						"Produto já cadastrado nesta ficha tecnica"));
+						"Produto jï¿½ cadastrado nesta ficha tecnica",
+						"Produto jï¿½ cadastrado nesta ficha tecnica"));
 			}
 		}
 		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário salvar a ficha antes de incluir produtos nela", "É necessário salvar a ficha antes de incluir produtos nela"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ï¿½ necessï¿½rio salvar a ficha antes de incluir produtos nela", "ï¿½ necessï¿½rio salvar a ficha antes de incluir produtos nela"));
 		}
     }
 	

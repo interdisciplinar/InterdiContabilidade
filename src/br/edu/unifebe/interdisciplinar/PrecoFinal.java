@@ -97,10 +97,10 @@ public class PrecoFinal {
 	public void getListFaixas(){
 		if(tipoFiscal.equals("Simples")){
 			faixas = new ArrayList<String>();
-			faixas.add("Até 180.000,00");
-			faixas.add("De 180.000,01 até 360.000,00");
-			faixas.add("De 360.000,01 até 540.000,00");
-			faixas.add("De 540.000,01 até 720.000,00");
+			faixas.add("Atï¿½ 180.000,00");
+			faixas.add("De 180.000,01 atï¿½ 360.000,00");
+			faixas.add("De 360.000,01 atï¿½ 540.000,00");
+			faixas.add("De 540.000,01 atï¿½ 720.000,00");
 		}
 		else{
 			faixas = new ArrayList<String>();
