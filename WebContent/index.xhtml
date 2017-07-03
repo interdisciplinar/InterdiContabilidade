@@ -62,18 +62,46 @@
 
 	<li>Ficha Técnica: Preencher ou selecionar campos para cadastramento ou alteração de uma ficha técnica: 
 		<ul type="square" id="funcoes">
-		<li>Nome da Ficha: Inserir um nome para uma Ficha Técnica nova, ou selecionar uma já existente através da seta para fazer uma alteração;</li>
-		<li>Nome do Produto: Selecionar através da seta um produto ou serviço já existente (Cadastrado na aba Produto / Serviço);</li>
-		<li>Quantidade: Especificar a quantidade do produto selecionado anteriormente;</li>
-		<li>Custo do Produto: Campo preenchido automáticamente com o custo do produto que foi selecionado em Nome do Produto;</li>
-		<li>Código do Produto: Campo preenchido automáticamente com o código do produto que foi selecionado em Nome do Produto;</li>
-		<li>Botão Salvar: Salva o início de uma nova ficha técnica (é necessário salvar a ficha antes de inserir um novo produto);</li>
-		<li>Botão Inserir: Insere um novo produto na ficha técnica já salva;</li>
-		<li>Botão Concluir: Salva a ficha técnica cadastrada no banco de dados;</li>
-		<li>Tabela de Produtos Cadastrados na Ficha: Exibe a listagem de todos os produtos e serviços cadastrados em uma ficha técnica.</li>
+			<li>Nome da Ficha: Inserir um nome para uma Ficha Técnica nova, ou selecionar uma já existente através da seta para fazer uma alteração;</li>
+			<li>Nome do Produto: Selecionar através da seta um produto ou serviço já existente (Cadastrado na aba Produto / Serviço);</li>
+			<li>Quantidade: Especificar a quantidade do produto selecionado anteriormente;</li>
+			<li>Custo do Produto: Campo preenchido automáticamente com o custo do produto que foi selecionado em Nome do Produto;</li>
+			<li>Código do Produto: Campo preenchido automáticamente com o código do produto que foi selecionado em Nome do Produto;</li>
+			<li>Botão Salvar: Salva o início de uma nova ficha técnica (é necessário salvar a ficha antes de inserir um novo produto);</li>
+			<li>Botão Inserir: Insere um novo produto na ficha técnica já salva;</li>
+			<li>Botão Concluir: Salva a ficha técnica cadastrada no banco de dados;</li>
+			<li>Tabela de Produtos Cadastrados na Ficha: Exibe a listagem de todos os produtos e serviços cadastrados em uma ficha técnica.</li>
 		</ul>
 		<br />
 	</li>
+	
+	<li>Preço Final: Preencher ou selecionar campos para gerar o preço final do produto:
+		<ul type="square" id="funcoes">
+			<li>Nome da Ficha Técnica: Selecionar através da seta uma ficha técnica já existente (Cadastrado na aba Ficha Técnica);</li>
+			<li>Enquadramento Fiscal: Selecionar através da seta um tipo de enquadramento fiscal para o produto;</li>
+			<li>Faixa: Caso seja selecionado o enquadramento fiscal como Simples Nacional, será habilitado para escolher através da seta a faixa de faturamento;</li>
+			<li>Valor: Campo preenchido automáticamente com o percentual de imposto a ser aplicado, conforme o enquadramento fiscal selecionado;</li>
+			<li>Custo: Campo preenchido automáticamente com o custo da ficha técnica que foi selecionada em Nome da Ficha Técnica;</li>
+			<li>Lucro (%): Inserir o percentual de lucro que se desaja obter sobre o produto da ficha técnica;</li>
+			<li>Preço do Produto: Resultado com o preço que se deve aplicar ao produto, levando em conta os custos, impostos e margem de lucro que foram estipulados nos campos anteriormente;</li>
+			<li>Botão Gerar Relatório: Gera um relatório com os dados do produto.</li>
+		</ul>
+		<br />	
+	</li>
+	
+	<li>Usuário: Preencher ou selecionar campos para a criação de um novo usuário do sistema (Só pode ser acessado por um usuário com perfil de Administrador):
+		<ul type="square" id="funcoes">
+			<li>Nome do Usuário: Inserir o nome do usuário que será cadastrado para utilizar o sistema;</li>
+			<li>Login do Usuário: Inserir o login para o usuário que será cadastrado;</li>
+			<li>Senha: Inserir a senha para o usuário que será cadastrado;</li>
+			<li>Perfil do Usuário: Selecionar através da seta um perfil para o usuário que será cadastrado;</li>
+			<li>Botão Salvar: Salva o usuário no banco de dados;</li>
+			<li>Botão Limpar: Limpa a tela;</li>
+			<li>Tabela Usuários Cadastrados: Exibe a listagem de todos os usuários já cadastrados com o seu status.</li>
+		</ul>
+		<br />
+	</li>
+	<li>Botão Sair: Botão presente na parte superior direita das abas para sair do sistema.</li>
 </ul>
 
 					<p:commandButton id="btnLogoutIni" value="Sair" action="#{login.logout}"
@@ -219,14 +247,14 @@
 									<h:outputText value="#{cadProdutoFicha.nomeProdFicha}" />
 								</p:column>
 
-								<p:column headerText="Código Produto" style="width:25%">
+								<p:column headerText="Código Produto" style="width:20%">
 									<h:outputText value="#{cadProdutoFicha.codProdFicha}" />
 								</p:column>
-								<p:column headerText="Qtd" >
+								<p:column headerText="Qtd" style="width:10%">
 									<h:outputText value="#{cadProdutoFicha.qtdProdFicha}" />
 								</p:column>
 
-								<p:column headerText="Custo Produto">
+								<p:column headerText="Custo Produto" style="width:20%">
 									<h:outputText value="#{cadProdutoFicha.custoProdFicha}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
@@ -320,7 +348,7 @@
 					<br />
 					<br />
 					<center>
-						<p:commandButton value="Calcular"  actionListener="#{precoFinal.buttonSalvarCustoFicha}" />
+						<p:commandButton value="Gerar Relatório"  actionListener="#{precoFinal.buttonSalvarCustoFicha}" />
 					</center>
 				</p:tab>
 
@@ -366,7 +394,7 @@
 						<br />
 						<br />
 
-						<h4>Usuario Cadastrados</h4>
+						<h4>Usuários Cadastrados</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
 							<p:dataTable var="cadUsuario" value="#{usuario.listUsuarios}">
 								<p:column headerText="Nome" style="width:50%">
