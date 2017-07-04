@@ -28,7 +28,7 @@ public class FichaTecnica {
 	private String nomeFicha;
 	private String codProdutoFicha;
 	private String nomeProduto;
-	private List<String> nomeProdutoFicha;
+	private List<String> nomeProdutoFicha = new ArrayList<String>();
 	private List<String> nomeFichas;
 	private List<CadProdutoFicha> listProdutos = new ArrayList<CadProdutoFicha>();
 	private double custoProdutoFicha;
@@ -283,13 +283,15 @@ public class FichaTecnica {
 				listProdutosFicha();
 			}
 			
-			listNomeProdutos();
-			try {
-				getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+			if(!(nomeProdutoFicha.size() > 0)){
+				listNomeProdutos();
+				try {
+					getProdutoInfo(produtosDao.getPrimeiroNomeProduto());
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+			 	}
 			}
-			catch (SQLException e) {
-				e.printStackTrace();
-		 	}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -316,7 +318,10 @@ public class FichaTecnica {
 	public void finish() {
 		btnName = "Salvar";
 		listProdutos.clear();
+		nomeProdutoFicha.clear();
 		nomeFicha = "";
+		custoProdutoFicha = 0;
+		codProdutoFicha = "";
 		qtdProdutoFicha = 1;
 	}
 }
