@@ -43,6 +43,7 @@
 		<h:form id="form" onkeypress="$(document).on('keypress', 'form', function(event) { return event.keyCode != 13;});">
 			<p:growl id="msgs" showDetail="true" />
 			<p:tabView dynamic="true">
+			
 <!-- *************INICIAL**************** -->
 
 				<p:tab title="Inicial" id="tableInicial">
@@ -84,6 +85,7 @@
 			<li>Custo: Campo preenchido automáticamente com o custo da ficha técnica que foi selecionada em Nome da Ficha Técnica;</li>
 			<li>Lucro (%): Inserir o percentual de lucro que se desaja obter sobre o produto da ficha técnica;</li>
 			<li>Preço do Produto: Resultado com o preço que se deve aplicar ao produto, levando em conta os custos, impostos e margem de lucro que foram estipulados nos campos anteriormente;</li>
+			<li>Botão Salvar: Salva os dados do preço do produto no banco de dados;</li>
 			<li>Botão Gerar Relatório: Gera um relatório com os dados do produto.</li>
 		</ul>
 		<br />	
@@ -137,8 +139,6 @@
 							<td class="cd"> <p:selectOneMenu id="tipo" value="#{produto.tipoProduto}" style="width:125px" effect="fold">
 											<p:messages autoUpdate="true" />
 											<f:selectItems value="#{produto.tipoProdutos}" />
-											<!-- <f:selectItem itemLabel="Produto" itemValue="Produto" />
-											<f:selectItem itemLabel="Serviço" itemValue="Serviço" /> -->
 											</p:selectOneMenu> </td>
 						</tr>
 					</table>
@@ -156,8 +156,6 @@
 						<h4>Produtos e Serviços Cadastrados</h4>
 						<p:scrollPanel mode="native" style="width:100%; height:200px">
 							<p:dataTable id="tabProduto" var="cadProduto" value="#{produto.listProdutos}">
-<!-- 							<p:ajax event="rowSelect" listener="#{produto.onRowSelect}" update=":form:msgs"/> -->
-<!-- selectionMode="single" selection="#{produto.selectedProduto}" rowKey="#{cadProduto.codProduto}" update=":form:msgs" -->
 								<p:column headerText="Código" style="width:20%">
 									<h:outputText value="#{cadProduto.codProduto}" />
 								</p:column>
@@ -201,7 +199,6 @@
 								<p:messages autoUpdate="true" />
 								<p:ajax listener="#{fichaTecnica.validaFicha}" process="@this" 
 								update="fichaTable qtdProduto btnSalvarFicha nomeProduto cusProduto codProduto"/>
-<!-- 											<f:selectItem itemLabel="" /> -->
 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu> 
 
@@ -210,7 +207,6 @@
 								<p:selectOneMenu id="nomeProduto" tabindex="" value="#{fichaTecnica.nomeProduto}" style="width:380px" effect="fold" editable="false" cache="false">
 								<p:messages autoUpdate="true" />
 								<p:ajax listener="#{fichaTecnica.produtoInfo}" process="@this" update="cusProduto codProduto"/>
-<!-- 											<f:selectItem itemLabel="" /> -->
 								<f:selectItems value="#{fichaTecnica.nomeProdutoFicha}" />
 								</p:selectOneMenu> 
 							</td>
@@ -259,7 +255,6 @@
 									<h:outputText value="#{cadProdutoFicha.custoProdFicha}" />
 								</p:column>
 								<p:column style="width:95px;text-align: center">
-<!-- 								<p:commandButton icon="ui-icon-pencil" title="Altera" update="@form" /> -->
 									<p:commandButton icon="ui-icon-closethick" title="Deleta" update="fichaTable" actionListener="#{fichaTecnica.buttonExcluir(cadProdutoFicha)}">
 										<p:confirm header="Exclusão do Produto" message="Você tem certeza que deseja excluir este item?" icon="ui-icon-alert" />
 									</p:commandButton>
@@ -287,7 +282,6 @@
 								<p:selectOneMenu id="fichaTecnica" value="#{precoFinal.nomeFicha}" style="width:370px" effect="fold" editable="false">
 									<p:messages autoUpdate="true" />
 									<p:ajax listener="#{precoFinal.getFichaInfo}" process="@this" update="custoFinal preco"/>
-	<!-- 								<f:selectItem itemLabel="" /> -->
 
 	 								<f:selectItems value="#{fichaTecnica.nomeFichas}" />
 								</p:selectOneMenu>
@@ -308,11 +302,6 @@
 									<p:messages autoUpdate="true" />
 									<p:ajax listener="#{precoFinal.getValor}" process="@this" update="valorImp preco"/>
 									<f:selectItems value="#{precoFinal.faixas}" />
-<!-- 									<f:selectItem itemLabel="" itemValue="" /> -->
-<!-- 									<f:selectItem itemLabel="Até 180.000,00" itemValue="6" /> -->
-<!-- 									<f:selectItem itemLabel="De 180.000,01 até 360.000,00" itemValue="8.21" /> -->
-<!-- 									<f:selectItem itemLabel="De 360.000,01 até 540.000,00" itemValue="10.26" /> -->
-<!-- 									<f:selectItem itemLabel="De 540.000,01 até 720.000,00" itemValue="11.31" /> -->
 								</p:selectOneMenu>
 							</td>
 
@@ -338,10 +327,7 @@
 							<td class="cm"> 
 							<p:inputNumber maxValue="9999.99" id="lucro" value="#{precoFinal.percent}" symbol="%" emptyValue="0.00" symbolPosition="s">
 								<p:ajax listener="#{precoFinal.calculaPrecoProduto}" process="@this" update="preco"/>
-<!-- 												validatorMessage="Custo deve ser maior que zero(0)" -->
-<!-- 												<f:validateDoubleRange minimum="0.01"/> -->
-<!-- 												<f:ajax event="blur"/> -->
-											</p:inputNumber>
+							</p:inputNumber>
 							</td>
 							<td class="cd"> <p:inputNumber id="preco" value="#{precoFinal.custoTotalFT}" symbol="R$ " emptyValue="sign" readonly="true" /></td>
 						</tr>
@@ -350,6 +336,8 @@
 					<br />
 					<center>
 						<p:commandButton value="Salvar"  actionListener="#{precoFinal.buttonSalvarCustoFicha}" update="@form"/>
+						&nbsp;&nbsp;
+						<p:commandButton value="Gerar Relatório"  />
 					</center>
 				</p:tab>
 
